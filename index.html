@@ -153,7 +153,6 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
     <div class="menu" id="langMenu">
       <button data-l="en">English</button>
       <button data-l="id">Bahasa Indonesia</button>
-      <button data-l="mix">Benglish</button>
     </div>
   </div>
 </header>
@@ -270,18 +269,6 @@ id:{tabNames:'Nama',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'Daftar nama',
  secL:'Kiri',secM:'Tengah',secR:'Kanan',row:'baris',
  finLabel:'Rolling #{n} selesai',finTitle:'Semua sudah dapat meja!',finDesc:'Lanjut ke rolling berikutnya? Denah baru dibuat (baris depan dibalik) dan denah ini tersimpan di riwayat.',finLater:'Nanti',
  wheelDone:'Selesai 🎉',wheelNone:'Nama habis',histNow:'sekarang',histView:'Melihat Rolling {n} (hanya lihat)'},
-mix:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'List names',
- namesHint:'Paste semua names, boleh campur cowok & cewek. Auto di-split by gender. Bisa juga tag (L) atau (P) di belakang name.',
- shuffle:'Shuffle',loadDemo:'Load contoh',frontRow:'Front row',rand:'Random',boys:'Cowok',girls:'Cewek',saveStart:'Save & mulai',
- splitTitle:'Hasil split',rulesTitle:'Rules denah',
- rulesBody:'Satu row isinya satu gender (cowok atau cewek), selang-seling. Front row tiap block (kiri, tengah, kanan) di-random. Kiri & kanan 10 seat, tengah 18 seat (6 row).',
- guessSome:'{u} name masih tebakan (garis putus-putus). Tap name buat pindah cowok/cewek.',guessOk:'Salah? Tap name-nya, langsung pindah cowok/cewek.',
- stEmpty:'Isi names dulu di tab Names',stDone:'Semua seat udah keisi',mode:'Mode {g} · {n} names',prog:'Rolling #{r} · {d} / {t} seat',
- spin:'Spin',nextR:'Next rolling',shuffleSeats:'Shuffle denah',reset:'Reset',board:'WHITEBOARD',winLabel:'Dapet seat!',cont:'Next',
- tSaved:'Tersimpan',tShufSeats:'Denah di-shuffle',tReset:'Denah di-reset',tDemo:'Contoh names loaded',tAZ:'Sorted A–Z',tShuf:'Urutan di-shuffle',tNext:'Rolling #{n} ready',
- secL:'Kiri',secM:'Tengah',secR:'Kanan',row:'row',
- finLabel:'Rolling #{n} done',finTitle:'Semua udah dapet seat!',finDesc:'Lanjut next rolling? Denah baru dibuat (front row dibalik) dan denah ini disimpan di history.',finLater:'Later',
- wheelDone:'Done 🎉',wheelNone:'Names habis',histNow:'now',histView:'Lagi lihat Rolling {n} (read only)'}
 };
 let lang='id';
 function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.replace(/\{(\w+)\}/g,(_,x)=>p[x]):s}
