@@ -34,6 +34,13 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 20px;di
 .logo{width:44px;height:44px;flex:none;filter:drop-shadow(0 2px 6px rgba(56,106,32,.35))}
 .brand small{display:block;font-size:12px;letter-spacing:.08em;color:var(--primary);font-weight:700;text-transform:uppercase}
 .brand b{font-size:22px;font-weight:600;line-height:1.1}
+.lang{margin-left:auto;position:relative}
+.langbtn{border:0;background:var(--sc);color:var(--on-sc);padding:9px 14px;border-radius:100px;font:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;display:flex;align-items:center;gap:6px}
+.langbtn svg{width:16px;height:16px;fill:currentColor}
+.menu{position:absolute;right:0;top:48px;background:var(--s3);border-radius:18px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.25);display:none;min-width:180px;z-index:8}
+.menu.open{display:block;animation:in .2s ease}
+.menu button{display:block;width:100%;text-align:left;border:0;background:none;font:inherit;font-size:14px;font-weight:600;color:var(--on-bg);padding:11px 14px;border-radius:12px;cursor:pointer}
+.menu button.on{background:var(--sc);color:var(--on-sc)}
 main{max-width:760px;margin:0 auto;padding:4px 16px}
 section{display:none;animation:in .35s ease}
 section.on{display:block}
@@ -78,6 +85,10 @@ textarea:focus{border-color:var(--primary)}
 .nchip:active{transform:scale(.92)}
 .col.f .nchip{background:var(--fc);color:var(--on-fc)}
 .nchip.u{outline:1.5px dashed var(--outline);outline-offset:1px}
+.hist{display:none;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.hchip{border:0;font:inherit;font-size:12px;font-weight:600;padding:7px 12px;border-radius:100px;cursor:pointer;background:var(--s4);color:var(--onv)}
+.hchip.on{background:var(--sc);color:var(--on-sc)}
+.hnote{flex-basis:100%;font-size:12px;color:var(--onv)}
 .room{display:grid;grid-template-columns:2fr 3fr 2fr;gap:12px;align-items:start}
 .sec h3{margin:0 0 8px;text-align:center;font-size:12px;font-weight:600;color:var(--onv)}
 .grid{display:grid;gap:5px}
@@ -92,23 +103,32 @@ textarea:focus{border-color:var(--primary)}
 .legend{display:flex;gap:14px;justify-content:center;font-size:12px;color:var(--onv);margin-top:14px}
 .legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--m)}
 .legend span.f::before{background:var(--f)}
-/* ===== Liquid tab bar ===== */
-nav{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(74vw,270px);height:56px;z-index:10;border-radius:28px;background:var(--s3);box-shadow:var(--shadow);padding:5px}
+/* ===== Liquid glass tab bar (press + drag) ===== */
+nav{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(74vw,270px);height:56px;z-index:10;border-radius:28px;
+  background:color-mix(in srgb,var(--s3) 72%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
+  box-shadow:var(--shadow),inset 0 0 0 1px rgba(255,255,255,.18);padding:5px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+  transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .3s}
+nav.press{transform:translateX(-50%) translateY(-7px) scale(1.09);box-shadow:0 14px 34px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.28)}
 .tabs{position:relative;display:grid;grid-template-columns:repeat(3,1fr);height:100%}
-.pill{position:absolute;top:0;bottom:0;border-radius:23px;background:var(--pc);left:calc(var(--i,1) * 100% / 3);right:calc((2 - var(--i,1)) * 100% / 3);transition:left .5s cubic-bezier(.3,1.25,.5,1),right .5s cubic-bezier(.3,1.25,.5,1)}
-.pill.fwd{transition:right .3s cubic-bezier(.3,1.35,.5,1),left .52s cubic-bezier(.3,1.2,.5,1) .05s}
-.pill.back{transition:left .3s cubic-bezier(.3,1.35,.5,1),right .52s cubic-bezier(.3,1.2,.5,1) .05s}
-nav.moving .pill{animation:squish .55s ease}
+.pill{position:absolute;top:0;bottom:0;border-radius:23px;background:var(--pc);left:calc(var(--i,1) * 100% / 3);right:calc((2 - var(--i,1)) * 100% / 3);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+  transition:left .5s cubic-bezier(.3,1.25,.5,1),right .5s cubic-bezier(.3,1.25,.5,1),transform .35s cubic-bezier(.3,1.6,.5,1)}
+.pill.fwd{transition:right .3s cubic-bezier(.3,1.35,.5,1),left .52s cubic-bezier(.3,1.2,.5,1) .05s,transform .35s cubic-bezier(.3,1.6,.5,1)}
+.pill.back{transition:left .3s cubic-bezier(.3,1.35,.5,1),right .52s cubic-bezier(.3,1.2,.5,1) .05s,transform .35s cubic-bezier(.3,1.6,.5,1)}
+nav.press .pill{transform:scale(1.1,1.2)}
+nav.drag .pill{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+nav.moving:not(.press) .pill{animation:squish .55s ease}
 @keyframes squish{40%{transform:scaleY(.82)}100%{transform:none}}
-.tab{border:0;background:none;color:var(--onv);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:inherit;font-size:10px;font-weight:600;cursor:pointer;position:relative;z-index:1;transition:color .3s}
+.tab{border:0;background:none;color:var(--onv);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:inherit;font-size:10px;font-weight:600;cursor:pointer;position:relative;z-index:1;transition:color .3s;pointer-events:none}
 .tab svg{width:20px;height:20px;fill:currentColor;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
 .tab.on{color:var(--on-pc)}
 .tab.on svg{transform:scale(1.15)}
+nav.press .tab.on svg{transform:scale(1.35)}
 .badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:16px;height:16px;border-radius:8px;background:var(--primary);color:var(--on-primary);font-size:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
 .badge.show{display:flex}
 #toast{position:fixed;left:50%;bottom:88px;transform:translate(-50%,30px);opacity:0;background:var(--on-bg);color:var(--bg);padding:12px 20px;border-radius:14px;font-size:14px;font-weight:600;z-index:20;transition:.35s;pointer-events:none;max-width:90vw;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
-/* winner dialog */
+/* dialogs */
 .win{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden}
 .win.show{opacity:1;pointer-events:auto}
 .wincard{background:var(--s2);border-radius:28px;padding:26px 32px;text-align:center;min-width:250px;max-width:86vw;transform:scale(.8);transition:transform .35s cubic-bezier(.3,1.5,.5,1);box-shadow:0 12px 40px rgba(0,0,0,.4)}
@@ -116,7 +136,8 @@ nav.moving .pill{animation:squish .55s ease}
 .winlabel{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--onv)}
 .winname{font-size:34px;font-weight:700;margin:6px 0 4px;word-break:break-word}
 .winname.m{color:var(--m2)}.winname.f{color:var(--f2)}
-.winwhere{font-size:14px;color:var(--onv);margin-bottom:16px}
+.winname.fin{font-size:26px;color:var(--primary)}
+.winwhere{font-size:14px;color:var(--onv);margin-bottom:16px;max-width:300px}
 .cf{position:absolute;top:45%;width:9px;height:14px;border-radius:2px;animation:burst 1.5s cubic-bezier(.2,.7,.4,1) forwards}
 @keyframes burst{0%{transform:translate(0,0) rotate(0);opacity:1}35%{transform:translate(calc(var(--dx)*.8),var(--dy)) rotate(calc(var(--r)*.4));opacity:1}100%{transform:translate(var(--dx),calc(var(--dy) + 420px)) rotate(var(--r));opacity:0}}
 footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .h{display:inline-block;color:#e5484d;animation:beat 1.4s infinite}@keyframes beat{0%,60%,100%{transform:scale(1)}30%{transform:scale(1.25)}}footer b{color:var(--primary)}
@@ -127,105 +148,166 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <header>
   <svg class="logo" viewBox="0 0 48 48" aria-label="Rex-bit"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4caf6e"/><stop offset="1" stop-color="#1b6d3b"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#lg)"/><path d="M24 24L24.00 9.00A15 15 0 0 1 36.99 16.50Z" fill="#ffffff" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L36.99 16.50A15 15 0 0 1 36.99 31.50Z" fill="#b7f397" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L36.99 31.50A15 15 0 0 1 24.00 39.00Z" fill="#ffc94d" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L24.00 39.00A15 15 0 0 1 11.01 31.50Z" fill="#ffffff" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L11.01 31.50A15 15 0 0 1 11.01 16.50Z" fill="#b7f397" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L11.01 16.50A15 15 0 0 1 24.00 9.00Z" fill="#ffc94d" stroke="#1b6d3b" stroke-width=".7"/><circle cx="24" cy="24" r="15.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="24" cy="24" r="4.2" fill="#1b6d3b" stroke="#fff" stroke-width="1.4"/><path d="M24 1.5 20 9.5h8z" fill="#ffc94d" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>
   <div class="brand"><small>Rex-bit</small><b>Rolling Kelas</b></div>
+  <div class="lang">
+    <button class="langbtn" id="langBtn" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96A14.7 14.7 0 0 1 10.09 16h3.82A14.7 14.7 0 0 1 12 19.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.26 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"/></svg><span id="langCode">ID</span></button>
+    <div class="menu" id="langMenu">
+      <button data-l="en">English</button>
+      <button data-l="id">Bahasa Indonesia</button>
+      <button data-l="mix">Benglish</button>
+    </div>
+  </div>
 </header>
 
 <main>
-  <!-- TAB 0: NAMA -->
+  <!-- TAB 0: NAMES -->
   <section id="t0">
     <div class="card">
-      <h2>Daftar nama</h2>
-      <p class="hint">Tempel semua nama, boleh campur cowok &amp; cewek. Otomatis dipisah. Bisa juga tulis (L) atau (P) di belakang nama.</p>
+      <h2 data-i18n="namesTitle"></h2>
+      <p class="hint" data-i18n="namesHint"></p>
       <div class="field"><textarea id="names" placeholder="Budi&#10;Siti&#10;Andi (L)&#10;Dewi (P)&#10;..."></textarea></div>
       <div class="row" style="margin-bottom:14px">
-        <button class="btn tonal sm" data-act="shuf">Shuffle</button>
+        <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
         <button class="btn tonal sm" data-act="az">A–Z</button>
-        <button class="btn text sm" id="demo">Muat contoh</button>
+        <button class="btn text sm" id="demo" data-i18n="loadDemo"></button>
       </div>
-      <div class="field"><label>Baris paling depan</label>
-        <div class="seg" id="start"><button data-v="R" class="on">Acak</button><button data-v="M">Cowok</button><button data-v="F">Cewek</button></div>
+      <div class="field"><label data-i18n="frontRow"></label>
+        <div class="seg" id="start"><button data-v="R" class="on" data-i18n="rand"></button><button data-v="M" data-i18n="boys"></button><button data-v="F" data-i18n="girls"></button></div>
       </div>
-      <button class="btn fill" id="save">Simpan &amp; mulai</button>
+      <button class="btn fill" id="save" data-i18n="saveStart"></button>
     </div>
     <div class="card">
-      <h2>Hasil pemisahan</h2>
+      <h2 data-i18n="splitTitle"></h2>
       <p class="hint" id="guess"></p>
       <div class="cols" id="chips"></div>
     </div>
     <div class="card">
-      <h2>Aturan denah</h2>
-      <p class="hint" style="margin:0">Satu baris isinya satu jenis (cowok atau cewek), selang-seling. Baris paling depan tiap blok (kiri, tengah, kanan) diacak. Kiri &amp; kanan 10 meja, tengah 18 meja (6 saf).</p>
+      <h2 data-i18n="rulesTitle"></h2>
+      <p class="hint" style="margin:0" data-i18n="rulesBody"></p>
     </div>
   </section>
 
   <!-- TAB 1: SPIN -->
   <section id="t1" class="on">
     <div class="card">
-      <button class="icon" id="snd" aria-label="Suara"></button>
-      <div class="status"><span class="chip" id="status">Isi nama dulu</span></div>
+      <button class="icon" id="snd" aria-label="Sound"></button>
+      <div class="status"><span class="chip" id="status"></span></div>
       <div class="wheelbox">
         <svg class="pointer" id="ptr" viewBox="0 0 40 40"><path d="M2 20 32 4v32z" fill="#fbbf24" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg>
         <canvas id="wheel" width="680" height="680"></canvas>
       </div>
       <div class="progress"><i id="bar"></i></div>
-      <div class="hint" id="prog" style="text-align:center;margin-bottom:14px">0 / 38 meja</div>
+      <div class="hint" id="prog" style="text-align:center;margin-bottom:14px"></div>
       <div class="row c" style="margin-bottom:10px"><button class="btn fill big" id="spin">Spin</button></div>
       <div class="row c">
-        <button class="btn tonal sm" data-act="shuf">Shuffle</button>
+        <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
         <button class="btn tonal sm" data-act="az">A–Z</button>
-        <button class="btn tonal sm" id="shuffle">Acak denah</button>
-        <button class="btn text sm" id="reset">Reset</button>
+        <button class="btn tonal sm" id="shuffle" data-i18n="shuffleSeats"></button>
+        <button class="btn text sm" id="reset" data-i18n="reset"></button>
       </div>
     </div>
   </section>
 
-  <!-- TAB 2: DENAH -->
+  <!-- TAB 2: SEATS -->
   <section id="t2">
     <div class="card">
-      <div class="board">PAPAN TULIS</div>
+      <div class="hist" id="hist"></div>
+      <div class="board" data-i18n="board"></div>
       <div class="room" id="room"></div>
-      <div class="legend"><span>Cowok</span><span class="f">Cewek</span></div>
+      <div class="legend"><span data-i18n="boys"></span><span class="f" data-i18n="girls"></span></div>
     </div>
   </section>
   <footer>Made with <span class="h">♥</span> by <b>Rex-bit</b></footer>
 </main>
 
 <div id="toast"></div>
+
 <div class="win" id="win"><div class="wincard">
-  <div class="winlabel">Dapat meja!</div>
+  <div class="winlabel" data-i18n="winLabel"></div>
   <div class="winname" id="winname"></div>
   <div class="winwhere" id="winwhere"></div>
-  <button class="btn fill" id="winok">Lanjut</button>
+  <button class="btn fill" id="winok" data-i18n="cont"></button>
+</div></div>
+
+<div class="win" id="fin"><div class="wincard">
+  <div class="winlabel" id="finLabel"></div>
+  <div class="winname fin" data-i18n="finTitle"></div>
+  <div class="winwhere" data-i18n="finDesc"></div>
+  <div class="row c"><button class="btn tonal" id="finLater" data-i18n="finLater"></button><button class="btn fill" id="finNext" data-i18n="nextR"></button></div>
 </div></div>
 
 <nav id="nav">
-  <div class="tabs"><div class="pill" id="pill"></div>
-    <button class="tab" data-i="0"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Nama</button>
-    <button class="tab on" data-i="1"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 0 1 6 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>Spin</button>
-    <button class="tab" data-i="2"><svg viewBox="0 0 24 24"><path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg>Denah<span class="badge" id="badge">0</span></button>
+  <div class="tabs" id="tabsEl"><div class="pill" id="pill"></div>
+    <button class="tab" data-i="0"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg><span data-i18n="tabNames"></span></button>
+    <button class="tab on" data-i="1"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 0 1 6 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg><span data-i18n="tabSpin"></span></button>
+    <button class="tab" data-i="2"><svg viewBox="0 0 24 24"><path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg><span data-i18n="tabSeats"></span><span class="badge" id="badge">0</span></button>
   </div>
 </nav>
 
 <script>
-const SECS=[{id:'L',name:'Kiri',cols:2,rows:5},{id:'M',name:'Tengah',cols:3,rows:6},{id:'R',name:'Kanan',cols:2,rows:5}];
+/* ---------- i18n: English / Bahasa Indonesia / Benglish ---------- */
+const I18N={
+en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name list',
+ namesHint:'Paste all the names, boys and girls mixed. They are split automatically. You can also tag a name with (M) or (F).',
+ shuffle:'Shuffle',loadDemo:'Load sample',frontRow:'Front row',rand:'Random',boys:'Boys',girls:'Girls',saveStart:'Save & start',
+ splitTitle:'Split result',rulesTitle:'Seat rules',
+ rulesBody:'Each row holds one gender (boys or girls), alternating. The front row of every block (left, middle, right) is random. Left & right have 10 seats, the middle has 18 (6 rows).',
+ guessSome:'{u} names are still guesses (dashed outline). Tap a name to move it between boys and girls.',guessOk:'Wrong? Tap a name to move it between boys and girls.',
+ stEmpty:'Add names in the Names tab first',stDone:'All seats filled',mode:'{g} mode · {n} names',prog:'Rolling #{r} · {d} / {t} seats',
+ spin:'Spin',nextR:'Next rolling',shuffleSeats:'Shuffle seats',reset:'Reset',board:'WHITEBOARD',winLabel:'Got a seat!',cont:'Continue',
+ tSaved:'Saved',tShufSeats:'Seats shuffled',tReset:'Seats reset',tDemo:'Sample names loaded',tAZ:'Sorted A–Z',tShuf:'Order shuffled',tNext:'Rolling #{n} is ready',
+ secL:'Left',secM:'Middle',secR:'Right',row:'row',
+ finLabel:'Rolling #{n} complete',finTitle:'Everyone is seated!',finDesc:'Ready for the next rolling? A new seat plan is made (front rows flip) and this one is saved in history.',finLater:'Later',
+ wheelDone:'Done 🎉',wheelNone:'No names left',histNow:'now',histView:'Viewing Rolling {n} (read only)'},
+id:{tabNames:'Nama',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'Daftar nama',
+ namesHint:'Tempel semua nama, boleh campur cowok & cewek. Otomatis dipisah. Bisa juga tulis (L) atau (P) di belakang nama.',
+ shuffle:'Shuffle',loadDemo:'Muat contoh',frontRow:'Baris paling depan',rand:'Acak',boys:'Cowok',girls:'Cewek',saveStart:'Simpan & mulai',
+ splitTitle:'Hasil pemisahan',rulesTitle:'Aturan denah',
+ rulesBody:'Satu baris isinya satu jenis (cowok atau cewek), selang-seling. Baris paling depan tiap blok (kiri, tengah, kanan) diacak. Kiri & kanan 10 meja, tengah 18 meja (6 saf).',
+ guessSome:'{u} nama masih tebakan (garis putus-putus). Ketuk nama untuk pindah cowok/cewek.',guessOk:'Ketuk nama kalau salah, langsung pindah cowok/cewek.',
+ stEmpty:'Isi nama dulu di tab Nama',stDone:'Semua meja terisi',mode:'Mode {g} · {n} nama',prog:'Rolling #{r} · {d} / {t} meja',
+ spin:'Spin',nextR:'Rolling berikutnya',shuffleSeats:'Acak denah',reset:'Reset',board:'PAPAN TULIS',winLabel:'Dapat meja!',cont:'Lanjut',
+ tSaved:'Tersimpan',tShufSeats:'Denah diacak',tReset:'Denah direset',tDemo:'Nama contoh dimuat',tAZ:'Urutan A–Z',tShuf:'Urutan diacak',tNext:'Rolling #{n} siap',
+ secL:'Kiri',secM:'Tengah',secR:'Kanan',row:'baris',
+ finLabel:'Rolling #{n} selesai',finTitle:'Semua sudah dapat meja!',finDesc:'Lanjut ke rolling berikutnya? Denah baru dibuat (baris depan dibalik) dan denah ini tersimpan di riwayat.',finLater:'Nanti',
+ wheelDone:'Selesai 🎉',wheelNone:'Nama habis',histNow:'sekarang',histView:'Melihat Rolling {n} (hanya lihat)'},
+mix:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'List names',
+ namesHint:'Paste semua names, boleh campur cowok & cewek. Auto di-split by gender. Bisa juga tag (L) atau (P) di belakang name.',
+ shuffle:'Shuffle',loadDemo:'Load contoh',frontRow:'Front row',rand:'Random',boys:'Cowok',girls:'Cewek',saveStart:'Save & mulai',
+ splitTitle:'Hasil split',rulesTitle:'Rules denah',
+ rulesBody:'Satu row isinya satu gender (cowok atau cewek), selang-seling. Front row tiap block (kiri, tengah, kanan) di-random. Kiri & kanan 10 seat, tengah 18 seat (6 row).',
+ guessSome:'{u} name masih tebakan (garis putus-putus). Tap name buat pindah cowok/cewek.',guessOk:'Salah? Tap name-nya, langsung pindah cowok/cewek.',
+ stEmpty:'Isi names dulu di tab Names',stDone:'Semua seat udah keisi',mode:'Mode {g} · {n} names',prog:'Rolling #{r} · {d} / {t} seat',
+ spin:'Spin',nextR:'Next rolling',shuffleSeats:'Shuffle denah',reset:'Reset',board:'WHITEBOARD',winLabel:'Dapet seat!',cont:'Next',
+ tSaved:'Tersimpan',tShufSeats:'Denah di-shuffle',tReset:'Denah di-reset',tDemo:'Contoh names loaded',tAZ:'Sorted A–Z',tShuf:'Urutan di-shuffle',tNext:'Rolling #{n} ready',
+ secL:'Kiri',secM:'Tengah',secR:'Kanan',row:'row',
+ finLabel:'Rolling #{n} done',finTitle:'Semua udah dapet seat!',finDesc:'Lanjut next rolling? Denah baru dibuat (front row dibalik) dan denah ini disimpan di history.',finLater:'Later',
+ wheelDone:'Done 🎉',wheelNone:'Names habis',histNow:'now',histView:'Lagi lihat Rolling {n} (read only)'}
+};
+let lang='id';
+function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.replace(/\{(\w+)\}/g,(_,x)=>p[x]):s}
+
+const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}];
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
 let seats=[],people=[],ov={},startMode='R',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
+let round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
 const $=id=>document.getElementById(id);
 const canvas=$('wheel'),ctx=canvas.getContext('2d');
 
 /* ---------- gender detection ---------- */
-const FEM=new Set(('siti dewi ayu nadia putri rani salsa tika vina wulan yuni zahra citra bella fitri gita hana intan alya sri ani ana anisa aisyah aisha amelia anindya annisa aulia azzahra bunga cantika clara dina dinda elsa endang erna fani fara farah fatimah feby gina hani hesti indah indri irma jasmine juwita kartika keisha kirana laila lia lina lisa lestari maya melati mega mawar mira nabila nadya naila nia nina nurul novi nova olivia permata puspita rahma rara regina rina rosa safira sari sekar shinta sinta sofia sophia syifa tiara ulfa umi vera widya winda yanti yulia zalfa alika aurel ayunda balqis callista dhea echa ega fira hanifah kayla keysha khansa laras marsya nabilah nayla rahayu raisa safitri sabrina talitha thalia tuti titin wati lilis ratna rahmawati khadijah mutiara natasya amanda angel angelina anggun ariani cahya cindy devi diah desi eva evi fina febi friska hesty jessica jihan karina kezia lusi mei michelle monica selvi shafa tasya vanya vivi yasmin zara zulfa nabilla salma salwa alifa aqila bilqis chelsea dara fadia gladys hafsah ilma kamila lutfiah maharani nafisa putri qonita rafifah syakira tania vania wafa zulaikha').split(' '));
-const MAL=new Set(('budi andi rizky fajar dimas bayu eko hadi iqbal joko kevin lutfi naufal oscar putra raka satria yoga zaki ahmad muhammad muhamad mohamad moh mohammad agus adi aditya afif agung ali alif alvin arif arya azka bagas bagus bambang daffa danu david deni dika dani dodi edo fahri fadli farhan fauzan fikri galih gilang haikal hafiz hasan hendra hendri ikhsan ilham imam indra irfan ivan jaya kenzo krisna lukman malik mario maulana nugroho panji pratama rafi rafael rama reza rendi ridho rio riko rudi ryan saputra surya taufik teguh tomi wahyu wawan yusuf zidan abdul abdullah rizal rian rifki rifky farel fachri fathur bima bintang daniel dennis dhani dzaky evan fadil fariz gading hanif hilmi ibnu ichsan ihsan jordan kholid kurnia leo nizar bayu candra cahyo dwi fauzi gunawan haris heru ivandi jefri kemal bryan christian dafa deva ega? fajri hakim hafidz kiki lintang mahendra naufan okta rey rifai samuel satya sultan tegar vito wildan yanuar zulkifli').replace('ega?','').split(' '));
-const MARK=/\s*[\(\[,\-–\/|]\s*(laki-laki|laki|perempuan|cowok|cewek|cowo|cewe|lk|pr|l|p)\s*[\)\]]?\s*$/i;
+const FEM=new Set(('siti dewi ayu nadia putri rani salsa tika vina wulan yuni zahra citra bella fitri gita hana intan alya sri ani ana anisa aisyah aisha amelia anindya annisa aulia azzahra bunga cantika clara dina dinda elsa endang erna fani fara farah fatimah feby gina hani hesti indah indri irma jasmine juwita kartika keisha kirana laila lia lina lisa lestari maya melati mega mawar mira nabila nadya naila nia nina nurul novi nova olivia permata puspita rahma rara regina rina rosa safira sari sekar shinta sinta sofia sophia syifa tiara ulfa umi vera widya winda yanti yulia zalfa alika aurel ayunda balqis callista dhea echa ega fira hanifah kayla keysha khansa laras marsya nabilah nayla rahayu raisa safitri sabrina talitha thalia tuti titin wati lilis ratna rahmawati khadijah mutiara natasya amanda angel angelina anggun ariani cahya cindy devi diah desi eva evi fina febi friska hesty jessica jihan karina kezia lusi mei michelle monica selvi shafa tasya vanya vivi yasmin zara zulfa nabilla salma salwa alifa aqila bilqis chelsea dara fadia gladys hafsah ilma kamila lutfiah maharani nafisa qonita rafifah syakira tania vania wafa zulaikha').split(' '));
+const MAL=new Set(('budi andi rizky fajar dimas bayu eko hadi iqbal joko kevin lutfi naufal oscar putra raka satria yoga zaki ahmad muhammad muhamad mohamad moh mohammad agus adi aditya afif agung ali alif alvin arif arya azka bagas bagus bambang daffa danu david deni dika dani dodi edo fahri fadli farhan fauzan fikri galih gilang haikal hafiz hasan hendra hendri ikhsan ilham imam indra irfan ivan jaya kenzo krisna lukman malik mario maulana nugroho panji pratama rafi rafael rama reza rendi ridho rio riko rudi ryan saputra surya taufik teguh tomi wahyu wawan yusuf zidan abdul abdullah rizal rian rifki rifky farel fachri fathur bima bintang daniel dennis dhani dzaky evan fadil fariz gading hanif hilmi ibnu ichsan ihsan jordan kholid kurnia leo nizar candra cahyo dwi fauzi gunawan haris heru jefri kemal bryan christian dafa deva fajri hakim hafidz kiki lintang mahendra naufan okta rey rifai samuel satya sultan tegar vito wildan yanuar zulkifli').split(' '));
+const MARK=/\s*[\(\[,\-–\/|]\s*(laki-laki|laki|perempuan|cowok|cewek|cowo|cewe|female|male|girl|boy|lk|pr|l|p|m|f|b|g)\s*[\)\]]?\s*$/i;
+const MALE_TAGS=['l','lk','laki','laki-laki','cowok','cowo','m','male','boy','b'];
 function guess(name){
   const toks=name.toLowerCase().split(/[^a-z]+/).filter(Boolean);
   let f=0,m=0;
-  toks.forEach((t,i)=>{
+  toks.forEach((tk,i)=>{
     const w=i===0?2:1;
-    if(FEM.has(t))f+=w;
-    else if(MAL.has(t))m+=(t==='muhammad'||t==='ahmad'||t==='moh'||t==='muhamad'||t==='mohamad'||t==='mohammad')?3:w;
-    else if(/(ullah|uddin|wan|syah|putra|pratama|anto|ianto|ndra|man)$/.test(t))m+=1;
-    else if(/(wati|ningsih|yanti|ningrum|sari|iah|ah|ati|ini|ina|ika|ita|ela)$/.test(t))f+=1;
+    if(FEM.has(tk))f+=w;
+    else if(MAL.has(tk))m+=(tk==='muhammad'||tk==='ahmad'||tk==='moh'||tk==='muhamad'||tk==='mohamad'||tk==='mohammad')?3:w;
+    else if(/(ullah|uddin|wan|syah|putra|pratama|anto|ianto|ndra|man)$/.test(tk))m+=1;
+    else if(/(wati|ningsih|yanti|ningrum|sari|iah|ah|ati|ini|ina|ika|ita|ela)$/.test(tk))f+=1;
   });
   return f>m?'F':m>f?'M':null;
 }
@@ -235,18 +317,18 @@ let AC=null,lastTick=0;
 function ac(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}return AC}
 function tick(){
   if(muted)return;const now=performance.now();if(now-lastTick<28)return;lastTick=now;
-  const c=ac();if(!c)return;const t=c.currentTime,o=c.createOscillator(),g=c.createGain();
-  o.type='triangle';o.frequency.setValueAtTime(1150,t);o.frequency.exponentialRampToValueAtTime(480,t+.04);
-  g.gain.setValueAtTime(.2,t);g.gain.exponentialRampToValueAtTime(.001,t+.055);
-  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.07);
+  const c=ac();if(!c)return;const tt=c.currentTime,o=c.createOscillator(),g=c.createGain();
+  o.type='triangle';o.frequency.setValueAtTime(1150,tt);o.frequency.exponentialRampToValueAtTime(480,tt+.04);
+  g.gain.setValueAtTime(.2,tt);g.gain.exponentialRampToValueAtTime(.001,tt+.055);
+  o.connect(g);g.connect(c.destination);o.start(tt);o.stop(tt+.07);
 }
 function fanfare(){
   if(muted)return;const c=ac();if(!c)return;const t0=c.currentTime;
   [523.25,659.25,783.99,1046.5].forEach((f,i)=>{
-    const o=c.createOscillator(),g=c.createGain(),t=t0+i*.1,end=t+(i===3?.9:.28);
+    const o=c.createOscillator(),g=c.createGain(),tt=t0+i*.1,end=tt+(i===3?.9:.28);
     o.type='triangle';o.frequency.value=f;
-    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.24,t+.02);g.gain.exponentialRampToValueAtTime(.0001,end);
-    o.connect(g);g.connect(c.destination);o.start(t);o.stop(end+.05);
+    g.gain.setValueAtTime(.0001,tt);g.gain.exponentialRampToValueAtTime(.24,tt+.02);g.gain.exponentialRampToValueAtTime(.0001,end);
+    o.connect(g);g.connect(c.destination);o.start(tt);o.stop(end+.05);
   });
 }
 const ICON_ON='<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
@@ -254,22 +336,51 @@ const ICON_OFF='<svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97
 function updSnd(){$('snd').innerHTML=muted?ICON_OFF:ICON_ON}
 $('snd').onclick=()=>{muted=!muted;updSnd();persist();if(!muted){ac();tick()}};
 
-/* ---------- liquid tab bar ---------- */
-const nav=$('nav'),tabs=[...document.querySelectorAll('.tab')];
+/* ---------- liquid glass tab bar: tap, press & drag ---------- */
+const nav=$('nav'),tabs=[...document.querySelectorAll('.tab')],tabsEl=$('tabsEl');
+function setOn(k){tabs.forEach((x,j)=>x.classList.toggle('on',j===k))}
 function go(i){
   const fwd=i>tab;tab=i;
   $('pill').className='pill '+(fwd?'fwd':'back');
   nav.style.setProperty('--i',i);
   nav.classList.remove('moving');void nav.offsetWidth;nav.classList.add('moving');
   clearTimeout(go.t);go.t=setTimeout(()=>nav.classList.remove('moving'),650);
-  tabs.forEach((t,k)=>t.classList.toggle('on',k===i));
+  setOn(i);
   document.querySelectorAll('section').forEach((s,k)=>s.classList.toggle('on',k===i));
   if(i===2)renderRoom();
   window.scrollTo({top:0,behavior:'smooth'});
 }
-tabs.forEach(t=>t.onclick=()=>go(+t.dataset.i));
+let drag=null;
+const idxAt=x=>{const r=tabsEl.getBoundingClientRect();return Math.max(0,Math.min(2,Math.floor((x-r.left)/(r.width/3))))};
+nav.addEventListener('pointerdown',e=>{
+  drag={x0:e.clientX,moved:false,idx:idxAt(e.clientX),last:tab};
+  try{nav.setPointerCapture(e.pointerId)}catch(_){}
+  nav.classList.add('press');
+});
+nav.addEventListener('pointermove',e=>{
+  if(!drag)return;
+  if(!drag.moved&&Math.abs(e.clientX-drag.x0)>5){drag.moved=true;nav.classList.add('drag');$('pill').className='pill'}
+  if(drag.moved){
+    const r=tabsEl.getBoundingClientRect(),w=r.width/3;
+    const c=Math.max(0,Math.min(2,(e.clientX-r.left)/w-.5));
+    nav.style.setProperty('--i',c.toFixed(3));
+    const k=Math.round(c);
+    if(k!==drag.last){drag.last=k;setOn(k);try{navigator.vibrate&&navigator.vibrate(6)}catch(_){}}
+  }
+});
+function endDrag(e,cancel){
+  if(!drag)return;
+  let k=drag.idx;
+  if(drag.moved){const r=tabsEl.getBoundingClientRect();k=Math.max(0,Math.min(2,Math.round((e.clientX-r.left)/(r.width/3)-.5)))}
+  drag=null;nav.classList.remove('press','drag');
+  if(cancel||k===tab){$('pill').className='pill';nav.style.setProperty('--i',tab);setOn(tab)}
+  else go(k);
+}
+nav.addEventListener('pointerup',e=>endDrag(e,false));
+nav.addEventListener('pointercancel',e=>endDrag(e,true));
+tabs.forEach(x=>x.onclick=e=>{if(e.detail===0)go(+x.dataset.i)});
 nav.style.setProperty('--i',1);
-function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)}
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2200)}
 
 /* ---------- data ---------- */
 const DEF_M=['Budi','Andi','Rizky','Fajar','Dimas','Bayu','Eko','Hadi','Iqbal','Joko','Kevin','Lutfi','Naufal','Oscar','Putra','Raka','Satria','Yoga','Zaki'];
@@ -277,10 +388,10 @@ const DEF_F=['Siti','Dewi','Ayu','Nadia','Putri','Rani','Salsa','Tika','Vina','W
 function shuffled(a,rnd=Math.random){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function defaultNames(){let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;return shuffled([...DEF_M,...DEF_F],rnd).join('\n')}
 
-function buildSeats(){
+function buildSeats(fronts){
   seats=[];
-  SECS.forEach(s=>{
-    const first=startMode==='R'?(Math.random()<.5?'M':'F'):startMode,other=first==='M'?'F':'M';
+  SECS.forEach((s,si)=>{
+    const first=fronts?fronts[si]:(startMode==='R'?(Math.random()<.5?'M':'F'):startMode),other=first==='M'?'F':'M';
     for(let r=0;r<s.rows;r++)for(let c=0;c<s.cols;c++)
       seats.push({sec:s.id,row:r,col:c,g:r%2===0?first:other,name:null,pg:null});
   });
@@ -288,23 +399,23 @@ function buildSeats(){
 function parse(){
   const seen=new Set();people=[];
   $('names').value.split('\n').forEach(line=>{
-    const raw=line.trim();let t=raw.replace(/^\d+\s*[\.\)]\s*/,'');if(!t)return;
-    let mk=null;const m=t.match(MARK);
-    if(m){t=t.slice(0,m.index).trim();mk=/^(l|lk|laki|cowok|cowo)/i.test(m[1])?'M':'F'}
-    if(!t)return;const k=t.toLowerCase();if(seen.has(k))return;seen.add(k);
+    const raw=line.trim();let nm=raw.replace(/^\d+\s*[\.\)]\s*/,'');if(!nm)return;
+    let mk=null;const m=nm.match(MARK);
+    if(m){nm=nm.slice(0,m.index).trim();mk=MALE_TAGS.includes(m[1].toLowerCase())?'M':'F'}
+    if(!nm)return;const k=nm.toLowerCase();if(seen.has(k))return;seen.add(k);
     let g=ov[k]||mk,u=false;
-    if(!g){const r=guess(t);if(r)g=r;else{g=/a$/i.test(t.split(/\s+/)[0])?'F':'M';u=true}}
-    people.push({name:t,raw,g,u,k});
+    if(!g){const r=guess(nm);if(r)g=r;else{g=/a$/i.test(nm.split(/\s+/)[0])?'F':'M';u=true}}
+    people.push({name:nm,raw,g,u,k});
   });
   renderChips();
 }
 function renderChips(){
   const box=$('chips');box.innerHTML='';
-  [['M','Cowok'],['F','Cewek']].forEach(([g,label])=>{
+  [['M','boys'],['F','girls']].forEach(([g,lk])=>{
     const list=people.filter(p=>p.g===g);
     const col=document.createElement('div');col.className='col '+g.toLowerCase();
-    const h=document.createElement('h3');h.innerHTML='<span class="dot"></span>'+label+'<span class="count">'+list.length+'</span>';
-    col.appendChild(h);
+    const h=document.createElement('h3');h.innerHTML='<span class="dot"></span><span></span><span class="count">'+list.length+'</span>';
+    h.children[1].textContent=t(lk);col.appendChild(h);
     const wrap=document.createElement('div');wrap.className='chips';
     list.forEach(p=>{
       const b=document.createElement('button');b.className='nchip'+(p.u?' u':'');b.textContent=p.name;
@@ -314,14 +425,15 @@ function renderChips(){
     col.appendChild(wrap);box.appendChild(col);
   });
   const u=people.filter(p=>p.u).length;
-  $('guess').textContent=u?`${u} nama masih tebakan (garis putus-putus). Ketuk nama untuk pindah cowok/cewek.`:'Ketuk nama kalau salah, langsung pindah cowok/cewek.';
+  $('guess').textContent=u?t('guessSome',{u}):t('guessOk');
 }
 function persist(){
-  try{localStorage.setItem(KEY,JSON.stringify({names:$('names').value,ov,s:startMode,seats,mute:muted}))}catch(e){}
+  try{localStorage.setItem(KEY,JSON.stringify({names:$('names').value,ov,s:startMode,seats,mute:muted,lang,round,hist:history,dn:doneNotified}))}catch(e){}
 }
 function load(){
   let d={};try{d=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-  ov=d.ov||{};startMode=d.s||'R';muted=!!d.mute;
+  ov=d.ov||{};startMode=d.s||'R';muted=!!d.mute;lang=I18N[d.lang]?d.lang:'id';
+  round=d.round||1;history=Array.isArray(d.hist)?d.hist:[];doneNotified=!!d.dn;
   $('names').value=d.names||'';
   if(!$('names').value.trim())$('names').value=defaultNames();
   setSeg();updSnd();parse();
@@ -334,6 +446,7 @@ $('names').oninput=()=>{parse();renderAll()};
 
 const used=()=>new Set(seats.filter(s=>s.name).map(s=>s.name));
 const nextIdx=()=>seats.findIndex(s=>!s.name);
+const isDone=()=>people.length>0&&(seats.every(s=>s.name)||seats.filter(s=>s.name).length>=people.length);
 const remaining=g=>{const u=used();return people.filter(p=>p.g===g&&!u.has(p.name)).map(p=>p.name)};
 function currentPool(){
   const i=nextIdx();if(i<0)return{g:null,list:[]};
@@ -352,7 +465,7 @@ function drawWheel(){
     const cs=getComputedStyle(document.body);
     ctx.fillStyle=cs.getPropertyValue('--s4');ctx.beginPath();ctx.arc(R,R,R-8,0,7);ctx.fill();
     ctx.fillStyle=cs.getPropertyValue('--onv');ctx.font='600 40px sans-serif';ctx.textAlign='center';
-    ctx.fillText(nextIdx()<0?'Selesai 🎉':'Nama habis',R,R+14);return;
+    ctx.fillText(isDone()||nextIdx()<0?t('wheelDone'):t('wheelNone'),R,R+14);return;
   }
   const n=list.length,a=2*Math.PI/n,pal=WP[g];
   ctx.shadowColor='rgba(0,0,0,.25)';ctx.shadowBlur=14;
@@ -372,37 +485,61 @@ function drawWheel(){
 }
 
 /* ---------- render ---------- */
+const viewSeats=()=>viewRound===null?seats:history[viewRound].seats;
 function renderRoom(){
-  const room=$('room');room.innerHTML='';const ni=nextIdx();
+  const room=$('room');room.innerHTML='';
+  const cur=viewRound===null,list=viewSeats(),ni=cur?nextIdx():-1;
   SECS.forEach(s=>{
     const sec=document.createElement('div');sec.className='sec';
-    sec.innerHTML=`<h3>${s.name} (${s.cols*s.rows})</h3>`;
+    const h=document.createElement('h3');h.textContent=`${t('sec'+s.id)} (${s.cols*s.rows})`;sec.appendChild(h);
     const grid=document.createElement('div');grid.className='grid';grid.style.gridTemplateColumns=`repeat(${s.cols},1fr)`;
-    seats.forEach((st,i)=>{
+    list.forEach((st,i)=>{
       if(st.sec!==s.id)return;
       const d=document.createElement('div');
-      d.className='seat '+(st.name?(st.pg==='M'?'fm':'ff'):(st.g==='M'?'em':'ef'))+(i===ni?' next':'')+(i===lastPlaced&&tab===2?' pop':'');
-      d.textContent=st.name||(st.g==='M'?'♂':'♀');if(st.name&&st.name.length>5)d.style.fontSize=st.name.length>7?'8.5px':'9.5px';grid.appendChild(d);
+      d.className='seat '+(st.name?(st.pg==='M'?'fm':'ff'):(st.g==='M'?'em':'ef'))+(i===ni?' next':'')+(cur&&i===lastPlaced&&tab===2?' pop':'');
+      d.textContent=st.name||(st.g==='M'?'♂':'♀');
+      if(st.name&&st.name.length>5)d.style.fontSize=st.name.length>7?'8.5px':'9.5px';
+      grid.appendChild(d);
     });
     sec.appendChild(grid);room.appendChild(sec);
   });
 }
-function renderAll(){
-  const ni=nextIdx(),done=seats.filter(s=>s.name).length,{g,list}=currentPool(),st=$('status');
-  if(!people.length){st.className='chip';st.textContent='Isi nama dulu di tab Nama'}
-  else if(ni<0){st.className='chip ok';st.textContent='Semua meja terisi'}
-  else{st.className='chip '+(g==='M'?'m':'f');st.textContent=`Mode ${g==='M'?'Cowok':'Cewek'} · ${list.length} nama`}
-  $('bar').style.width=(done/TOTAL*100)+'%';
-  $('prog').textContent=`${done} / ${TOTAL} meja`;
-  const b=$('badge');b.textContent=done;b.classList.toggle('show',done>0);
-  $('spin').disabled=spinning||ni<0||!list.length;
-  $('shuffle').disabled=spinning||!people.length;
-  drawWheel();renderRoom();persist();
+function renderHist(){
+  const h=$('hist');h.innerHTML='';
+  if(!history.length){h.style.display='none';return}
+  h.style.display='flex';
+  const mk=(label,idx)=>{const b=document.createElement('button');b.className='hchip'+(viewRound===idx?' on':'');b.textContent=label;b.onclick=()=>{viewRound=idx;renderRoom();renderHist()};h.appendChild(b)};
+  history.forEach((x,i)=>mk('Rolling '+x.n,i));
+  mk(`Rolling ${round} · ${t('histNow')}`,null);
+  if(viewRound!==null){const n=document.createElement('div');n.className='hnote';n.textContent=t('histView',{n:history[viewRound].n});h.appendChild(n)}
 }
+function renderAll(){
+  const ni=nextIdx(),done=seats.filter(s=>s.name).length,{g,list}=currentPool(),st=$('status'),fin=isDone();
+  if(!people.length){st.className='chip';st.textContent=t('stEmpty')}
+  else if(fin){st.className='chip ok';st.textContent=t('stDone')}
+  else{st.className='chip '+(g==='M'?'m':'f');st.textContent=t('mode',{g:t(g==='M'?'boys':'girls'),n:list.length})}
+  $('bar').style.width=(done/TOTAL*100)+'%';
+  $('prog').textContent=t('prog',{r:round,d:done,t:TOTAL});
+  const b=$('badge');b.textContent=done;b.classList.toggle('show',done>0);
+  $('spin').textContent=fin?t('nextR'):t('spin');
+  $('spin').disabled=spinning||(!fin&&(ni<0||!list.length));
+  $('shuffle').disabled=spinning||!people.length;
+  drawWheel();renderRoom();renderHist();persist();
+}
+function applyLang(){
+  document.documentElement.lang=lang==='en'?'en':'id';
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+  $('langCode').textContent={en:'EN',id:'ID',mix:'MIX'}[lang];
+  document.querySelectorAll('#langMenu button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+  renderChips();renderAll();
+}
+$('langBtn').onclick=e=>{e.stopPropagation();$('langMenu').classList.toggle('open')};
+document.querySelectorAll('#langMenu button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;$('langMenu').classList.remove('open');applyLang()});
+document.addEventListener('click',e=>{if(!e.target.closest('.lang'))$('langMenu').classList.remove('open')});
 
-/* ---------- winner dialog ---------- */
-function confetti(){
-  const cols=['#2f6fb8','#d9669b','#ffc94d','#4caf6e','#ffffff'],w=$('win');
+/* ---------- dialogs ---------- */
+function confetti(id){
+  const cols=['#2f6fb8','#d9669b','#ffc94d','#4caf6e','#ffffff'],w=$(id);
   for(let i=0;i<44;i++){
     const e=document.createElement('i');e.className='cf';
     e.style.cssText=`left:${50+(Math.random()-.5)*16}%;background:${cols[i%cols.length]};--dx:${(Math.random()-.5)*380}px;--dy:${-(90+Math.random()*230)}px;--r:${Math.random()*720}deg;animation-delay:${Math.random()*.12}s`;
@@ -411,35 +548,58 @@ function confetti(){
 }
 function showWin(name,g,where){
   $('winname').textContent=name;$('winname').className='winname '+(g==='M'?'m':'f');
-  $('winwhere').textContent=where;$('win').classList.add('show');confetti();
+  $('winwhere').textContent=where;$('win').classList.add('show');confetti('win');
   clearTimeout(showWin.t);showWin.t=setTimeout(hideWin,2800);
 }
-function hideWin(){$('win').classList.remove('show')}
+function hideWin(){
+  $('win').classList.remove('show');
+  if(pendingFin){pendingFin=false;setTimeout(showFin,350)}
+}
 $('winok').onclick=hideWin;$('win').onclick=e=>{if(e.target.id==='win')hideWin()};
+function showFin(){
+  $('finLabel').textContent=t('finLabel',{n:round});
+  $('fin').classList.add('show');confetti('fin');fanfare();
+}
+const hideFin=()=>$('fin').classList.remove('show');
+$('finLater').onclick=hideFin;$('fin').onclick=e=>{if(e.target.id==='fin')hideFin()};
+function nextRound(){
+  if(spinning)return;
+  history.push({n:round,seats:JSON.parse(JSON.stringify(seats))});history=history.slice(-9);
+  const fronts=SECS.map(s=>seats.find(q=>q.sec===s.id).g).map(g=>g==='M'?'F':'M');
+  round++;buildSeats(fronts);doneNotified=false;lastPlaced=-1;viewRound=null;rot=0;
+  hideFin();renderAll();toast(t('tNext',{n:round}));go(1);
+}
+$('finNext').onclick=nextRound;
 
 function place(name,g){
-  const i=nextIdx();if(i<0)return null;
+  const i=nextIdx();if(i<0)return '';
   seats[i]={...seats[i],name,pg:g};lastPlaced=i;
-  const s=SECS.find(x=>x.id===seats[i].sec);
-  return `${s.name} · baris ${seats[i].row+1}`;
+  return `${t('sec'+seats[i].sec)} · ${t('row')} ${seats[i].row+1}`;
 }
 
 /* ---------- actions ---------- */
 function doSpin(){
-  if(spinning||!pool.length)return;ac();
+  if(spinning)return;
+  if(isDone()){showFin();return}
+  if(!pool.length)return;ac();
   const{g}=currentPool(),n=pool.length,a=2*Math.PI/n;
   const idx=Math.floor(Math.random()*n),target=-(idx+.5)*a;
   const delta=(((target-rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI)+2*Math.PI*7;
   const start=rot,dur=5200,t0=performance.now(),winner=pool[idx];
   let last=segAt(n);
   spinning=true;$('spin').disabled=true;$('shuffle').disabled=true;
-  (function step(t){
-    const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,4);
+  (function step(ts){
+    const p=Math.min(1,(ts-t0)/dur),e=1-Math.pow(1-p,4);
     rot=start+delta*e;
     const sg=segAt(n);if(sg!==last){last=sg;tick();$('ptr').animate([{transform:'translateY(-50%) rotate(-24deg)'},{transform:'translateY(-50%) rotate(0)'}],{duration:110})}
     drawWheel();
     if(p<1)requestAnimationFrame(step);
-    else{spinning=false;rot=rot%(2*Math.PI);const where=place(winner,g);renderAll();showWin(winner,g,where);fanfare()}
+    else{
+      spinning=false;rot=rot%(2*Math.PI);viewRound=null;
+      const where=place(winner,g);
+      if(isDone()&&!doneNotified){doneNotified=true;pendingFin=true}
+      renderAll();showWin(winner,g,where);fanfare();
+    }
   })(t0);
 }
 $('spin').onclick=doSpin;canvas.onclick=doSpin;
@@ -449,24 +609,27 @@ document.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
   if(b.dataset.act==='az')people.sort((x,y)=>x.name.localeCompare(y.name,'id'));
   else people=shuffled(people);
   $('names').value=people.map(p=>p.raw).join('\n');
-  parse();rot=0;renderAll();toast(b.dataset.act==='az'?'Urutan A–Z':'Urutan diacak');
+  parse();rot=0;renderAll();toast(t(b.dataset.act==='az'?'tAZ':'tShuf'));
 });
 
 $('shuffle').onclick=()=>{
   if(spinning)return;
-  buildSeats();
+  buildSeats();viewRound=null;
   const m=shuffled(people.filter(p=>p.g==='M').map(p=>p.name)),f=shuffled(people.filter(p=>p.g==='F').map(p=>p.name));
   seats.forEach(s=>{
     let g=s.g;if(g==='M'&&!m.length)g='F';if(g==='F'&&!f.length)g='M';
     const src=g==='M'?m:f;if(src.length){s.name=src.shift();s.pg=g}
   });
-  lastPlaced=-1;renderAll();toast('Denah diacak');go(2);
+  lastPlaced=-1;doneNotified=false;
+  const fin=isDone();if(fin)doneNotified=true;
+  renderAll();toast(t('tShufSeats'));go(2);
+  if(fin)setTimeout(showFin,700);
 };
-$('reset').onclick=()=>{if(spinning)return;buildSeats();lastPlaced=-1;renderAll();toast('Denah direset')};
-$('save').onclick=()=>{if(spinning)return;parse();buildSeats();lastPlaced=-1;renderAll();toast('Tersimpan');go(1)};
-$('demo').onclick=()=>{$('names').value=defaultNames();ov={};parse();buildSeats();lastPlaced=-1;renderAll();toast('Nama contoh dimuat')};
+$('reset').onclick=()=>{if(spinning)return;buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tReset'))};
+$('save').onclick=()=>{if(spinning)return;parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tSaved'));go(1)};
+$('demo').onclick=()=>{$('names').value=defaultNames();ov={};parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tDemo'))};
 
-load();renderAll();
+load();applyLang();
 </script>
 </body>
 </html>

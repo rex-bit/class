@@ -10,11 +10,13 @@ Web rolling tempat duduk kelas: tempel daftar nama, putar roda, dan nama yang ke
 - **Shuffle** dan **A–Z** untuk mengatur urutan nama di roda. **Acak denah** mengisi semua meja sekaligus.
 - **Denah 38 meja**: kiri 10 (5 baris x 2), tengah 18 (6 saf x 3), kanan 10 (5 baris x 2).
 - **Satu baris satu jenis** (cowok atau cewek), selang-seling. Baris paling depan tiap blok diacak, atau bisa dipilih manual.
+- **Rolling berikutnya**: setelah semua meja terisi muncul popup. Rolling berikutnya membuat denah baru (baris depan dibalik) dan denah lama tersimpan di riwayat tab Denah.
+- **3 bahasa**: English, Bahasa Indonesia, dan Benglish (campuran), ganti lewat tombol di pojok kanan atas.
 - Data tersimpan di browser (localStorage).
 
 ## Tampilan
 - Gaya **Material You** (Material 3) bernuansa hijau, otomatis mode terang/gelap.
-- **Liquid tab bar**: pill indikator melar ke arah tujuan lalu menyusut lagi, murni CSS (stabil di Safari iPhone).
+- **Liquid glass tab bar**: bar tembus pandang yang naik dan membesar saat ditekan. Pill indikator bisa digeser dengan jari, dan melar saat pindah tab. Murni CSS + pointer events (stabil di Safari iPhone).
 
 ## Jalankan
 Buka `index.html` di browser. Tidak perlu build.
