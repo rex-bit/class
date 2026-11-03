@@ -14,8 +14,8 @@ Web rolling tempat duduk kelas: masukkan nama, putar roda, dan nama yang keluar 
 - Data tersimpan di browser (localStorage).
 
 ## Tampilan
-- Gaya **Material You** (Material 3): warna tonal, sudut membulat, otomatis mode terang/gelap.
-- **Liquid tab bar**: indikator tab bergerak seperti cairan. Dua blob dengan filter goo (SVG `feGaussianBlur` + `feColorMatrix`) bergerak dengan easing dan delay berbeda, sehingga menyatu dan meregang saat pindah tab. Tab: Nama, Spin, Denah.
+- Gaya **Material You** (Material 3) bernuansa hijau: warna tonal, sudut membulat, otomatis mode terang/gelap.
+- **Liquid tab bar**: indikator tab bergerak seperti cairan. Pill indikator melar ke arah tujuan (sisi depan bergerak duluan, sisi belakang menyusul) lalu menyusut lagi, murni CSS tanpa filter SVG sehingga stabil di Safari iPhone. Tab: Nama, Spin, Denah.
 
 ## Jalankan
 Buka `index.html` di browser. Tidak perlu build.

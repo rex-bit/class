@@ -3,38 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#6750a4">
+<meta name="theme-color" content="#386a20">
 <title>Rolling Kelas · Rex-bit</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='14' fill='%236750a4'/%3E%3Cg fill='%23fff'%3E%3Crect x='12' y='9' width='7' height='7'/%3E%3Crect x='19' y='9' width='7' height='7'/%3E%3Crect x='26' y='9' width='7' height='7'/%3E%3Crect x='12' y='16' width='7' height='7'/%3E%3Crect x='33' y='16' width='7' height='7'/%3E%3Crect x='12' y='23' width='7' height='7'/%3E%3Crect x='19' y='23' width='7' height='7'/%3E%3Crect x='26' y='23' width='7' height='7'/%3E%3Crect x='12' y='30' width='7' height='7'/%3E%3Crect x='26' y='30' width='7' height='7'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='14' fill='%23386a20'/%3E%3Cg fill='%23fff'%3E%3Crect x='12' y='9' width='7' height='7'/%3E%3Crect x='19' y='9' width='7' height='7'/%3E%3Crect x='26' y='9' width='7' height='7'/%3E%3Crect x='12' y='16' width='7' height='7'/%3E%3Crect x='33' y='16' width='7' height='7'/%3E%3Crect x='12' y='23' width='7' height='7'/%3E%3Crect x='19' y='23' width='7' height='7'/%3E%3Crect x='26' y='23' width='7' height='7'/%3E%3Crect x='12' y='30' width='7' height='7'/%3E%3Crect x='26' y='30' width='7' height='7'/%3E%3C/g%3E%3C/svg%3E">
 <style>
 :root{
-  --liq:480ms;
-  --primary:#6750a4;--on-primary:#fff;
-  --pc:#eaddff;--on-pc:#21005d;
-  --sc:#e8def8;--on-sc:#1d192b;
-  --bg:#fef7ff;--on-bg:#1d1b20;
-  --s1:#f7f2fa;--s2:#f3edf7;--s3:#ece6f0;--s4:#e6e0e9;
-  --outline:#79747e;--ov:#cac4d0;--onv:#49454f;
+  --liq:520ms;
+  --primary:#386a20;--on-primary:#fff;
+  --pc:#b7f397;--on-pc:#072100;
+  --sc:#d7e8cd;--on-sc:#101f0b;
+  --bg:#fdfdf5;--on-bg:#1a1c18;
+  --s1:#f4f6ec;--s2:#eef1e5;--s3:#e8ebdf;--s4:#e0e4d9;
+  --outline:#74796d;--ov:#c3c8bb;--onv:#43483e;
   --m:#2f6fb8;--m2:#5b97dc;--mc:#d3e4ff;--on-mc:#001c3b;
   --f:#b0356f;--f2:#d9669b;--fc:#ffd8e8;--on-fc:#3e001e;
-  --ok:#1b6d3b;
   --shadow:0 1px 3px rgba(0,0,0,.18),0 4px 12px rgba(0,0,0,.08);
 }
 @media(prefers-color-scheme:dark){:root{
-  --primary:#d0bcff;--on-primary:#381e72;
-  --pc:#4f378b;--on-pc:#eaddff;
-  --sc:#4a4458;--on-sc:#e8def8;
-  --bg:#141218;--on-bg:#e6e0e9;
-  --s1:#1d1b20;--s2:#211f26;--s3:#2b2930;--s4:#36343b;
-  --outline:#938f99;--ov:#49454f;--onv:#cac4d0;
+  --primary:#9cd67d;--on-primary:#0b3900;
+  --pc:#205107;--on-pc:#b7f397;
+  --sc:#3b4b38;--on-sc:#d7e8cd;
+  --bg:#11140f;--on-bg:#e2e3dc;
+  --s1:#191d16;--s2:#1e221b;--s3:#272b24;--s4:#32362e;
+  --outline:#8d9387;--ov:#43483e;--onv:#c3c8bb;
   --mc:#00468a;--on-mc:#d3e4ff;--fc:#6b0a3a;--on-fc:#ffd8e8;
-  --ok:#7fdc9a;
 }}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
-body{font-family:'Google Sans','Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--on-bg);min-height:100vh;padding-bottom:120px}
-header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);padding:14px 20px;display:flex;align-items:center;gap:12px}
-.logo{width:44px;height:44px;flex:none;filter:drop-shadow(0 2px 6px rgba(103,80,164,.35))}
+body{font-family:'Google Sans','Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--on-bg);min-height:100vh;padding-bottom:100px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 20px;display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;flex:none;filter:drop-shadow(0 2px 6px rgba(56,106,32,.35))}
 .brand small{display:block;font-size:12px;letter-spacing:.08em;color:var(--primary);font-weight:700;text-transform:uppercase}
 .brand b{font-size:22px;font-weight:600;line-height:1.1}
 main{max-width:760px;margin:0 auto;padding:4px 16px}
@@ -84,36 +82,28 @@ textarea:focus{border-color:var(--primary)}
 .legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--m)}
 .legend span.f::before{background:var(--f)}
 /* ===== Liquid tab bar ===== */
-nav{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(92vw,420px);height:72px;z-index:10;border-radius:36px;background:var(--s3);box-shadow:var(--shadow)}
-.liquid{position:absolute;inset:0;filter:url(#goo);pointer-events:none}
-.blob{position:absolute;top:8px;height:56px;width:calc(100% / 3 - 16px);border-radius:28px;background:var(--pc);left:calc(var(--i,1) * 100% / 3 + 8px);transition:left var(--liq) cubic-bezier(.3,1.35,.5,1)}
-.blob.b2{transition:left var(--liq) cubic-bezier(.6,0,.3,1);transition-delay:calc(var(--liq) * .14);height:44px;top:14px;border-radius:22px}
-nav.moving .blob.b1{transform:scaleY(.9)}
+nav{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(74vw,270px);height:56px;z-index:10;border-radius:28px;background:var(--s3);box-shadow:var(--shadow);padding:5px}
 .tabs{position:relative;display:grid;grid-template-columns:repeat(3,1fr);height:100%}
-.tab{border:0;background:none;color:var(--onv);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:inherit;font-size:11px;font-weight:600;cursor:pointer;position:relative}
-.tab svg{width:24px;height:24px;fill:currentColor;transition:transform var(--liq) cubic-bezier(.3,1.6,.5,1)}
+.pill{position:absolute;top:0;bottom:0;border-radius:23px;background:var(--pc);left:calc(var(--i,1) * 100% / 3);right:calc((2 - var(--i,1)) * 100% / 3);transition:left .5s cubic-bezier(.3,1.25,.5,1),right .5s cubic-bezier(.3,1.25,.5,1)}
+.pill.fwd{transition:right .3s cubic-bezier(.3,1.35,.5,1),left .52s cubic-bezier(.3,1.2,.5,1) .05s}
+.pill.back{transition:left .3s cubic-bezier(.3,1.35,.5,1),right .52s cubic-bezier(.3,1.2,.5,1) .05s}
+nav.moving .pill{animation:squish .55s ease}
+@keyframes squish{40%{transform:scaleY(.82)}100%{transform:none}}
+.tab{border:0;background:none;color:var(--onv);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:inherit;font-size:10px;font-weight:600;cursor:pointer;position:relative;z-index:1;transition:color .3s}
+.tab svg{width:20px;height:20px;fill:currentColor;transition:transform var(--liq) cubic-bezier(.3,1.6,.5,1)}
 .tab.on{color:var(--on-pc)}
-.tab.on svg{transform:translateY(-1px) scale(1.18)}
-.badge{position:absolute;top:10px;left:calc(50% + 8px);min-width:18px;height:18px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:10px;display:none;align-items:center;justify-content:center;padding:0 5px}
+.tab.on svg{transform:scale(1.15)}
+.badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:16px;height:16px;border-radius:8px;background:var(--primary);color:var(--on-primary);font-size:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
 .badge.show{display:flex}
-#toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,30px);opacity:0;background:var(--on-bg);color:var(--bg);padding:12px 20px;border-radius:14px;font-size:14px;font-weight:600;z-index:20;transition:.35s;pointer-events:none;max-width:90vw;text-align:center}
+#toast{position:fixed;left:50%;bottom:88px;transform:translate(-50%,30px);opacity:0;background:var(--on-bg);color:var(--bg);padding:12px 20px;border-radius:14px;font-size:14px;font-weight:600;z-index:20;transition:.35s;pointer-events:none;max-width:90vw;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
-footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}
+footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .h{display:inline-block;color:#e5484d;animation:beat 1.4s infinite}@keyframes beat{0%,60%,100%{transform:scale(1)}30%{transform:scale(1.25)}}footer b{color:var(--primary)}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <filter id="goo" x="-20%" y="-50%" width="140%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/>
-      <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/>
-    </filter>
-  </defs>
-</svg>
-
 <header>
   <svg class="logo" viewBox="0 0 48 48" aria-label="Rex-bit">
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7f67be"/><stop offset="1" stop-color="#4f378b"/></linearGradient></defs>
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a9a3a"/><stop offset="1" stop-color="#2c5a14"/></linearGradient></defs>
     <rect width="48" height="48" rx="14" fill="url(#lg)"/>
     <g fill="#fff">
       <rect x="12" y="9" width="7" height="7" rx="1.5"/><rect x="19" y="9" width="7" height="7" rx="1.5"/><rect x="26" y="9" width="7" height="7" rx="1.5"/>
@@ -121,7 +111,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}
       <rect x="12" y="23" width="7" height="7" rx="1.5"/><rect x="19" y="23" width="7" height="7" rx="1.5"/><rect x="26" y="23" width="7" height="7" rx="1.5"/>
       <rect x="12" y="30" width="7" height="7" rx="1.5"/><rect x="26" y="30" width="7" height="7" rx="1.5"/>
     </g>
-    <rect x="34" y="34" width="6" height="6" rx="1.5" fill="#ffd8e4"/>
+    <rect x="34" y="34" width="6" height="6" rx="1.5" fill="#ffb870"/>
   </svg>
   <div class="brand"><small>Rex-bit</small><b>Rolling Kelas</b></div>
 </header>
@@ -131,7 +121,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}
   <section id="t0">
     <div class="card">
       <h2>Daftar nama</h2>
-      <p class="hint">Satu baris satu nama.</p>
+      <p class="hint">Satu baris satu nama. Sudah terisi contoh, ganti sesuai kelasmu.</p>
       <div class="field m"><label><span class="dot"></span>Cowok<span class="count" id="cm">0</span></label><textarea id="males" placeholder="Budi&#10;Andi&#10;..."></textarea></div>
       <div class="field f"><label><span class="dot"></span>Cewek<span class="count" id="cf">0</span></label><textarea id="females" placeholder="Siti&#10;Dewi&#10;..."></textarea></div>
       <div class="field"><label>Baris pertama mulai dari</label>
@@ -139,7 +129,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}
       </div>
       <div class="row">
         <button class="btn fill" id="save">Simpan &amp; mulai</button>
-        <button class="btn tonal" id="demo">Isi contoh</button>
+        <button class="btn tonal" id="demo">Muat contoh</button>
       </div>
     </div>
     <div class="card">
@@ -174,14 +164,13 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}
       <div class="legend"><span>Cowok</span><span class="f">Cewek</span></div>
     </div>
   </section>
-  <footer>Dibuat oleh Rex-bit</footer>
+  <footer>Made with <span class="h">♥</span> by <b>Rex-bit</b></footer>
 </main>
 
 <div id="toast"></div>
 
 <nav id="nav">
-  <div class="liquid"><div class="blob b1"></div><div class="blob b2"></div></div>
-  <div class="tabs">
+  <div class="tabs"><div class="pill" id="pill"></div>
     <button class="tab" data-i="0"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Nama</button>
     <button class="tab on" data-i="1"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 0 1 6 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>Spin</button>
     <button class="tab" data-i="2"><svg viewBox="0 0 24 24"><path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg>Denah<span class="badge" id="badge">0</span></button>
@@ -193,14 +182,18 @@ const SECS=[{id:'L',name:'Kiri',cols:2},{id:'M',name:'Tengah',cols:3},{id:'R',na
 const ROWS=5,TOTAL=35;
 let seats=[],males=[],females=[],startG='M',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1;
 const $=id=>document.getElementById(id);
+const DEF_M=['Budi','Andi','Rizky','Fajar','Dimas','Bayu','Eko','Hadi','Iqbal','Joko','Kevin','Lutfi','Naufal','Oscar','Putra','Raka','Satria'];
+const DEF_F=['Siti','Dewi','Ayu','Nadia','Putri','Rani','Salsa','Tika','Vina','Wulan','Yuni','Zahra','Citra','Bella','Fitri','Gita','Hana','Intan'];
 const canvas=$('wheel'),ctx=canvas.getContext('2d');
 
 /* ---------- liquid tab bar ---------- */
 const nav=$('nav'),tabs=[...document.querySelectorAll('.tab')];
 function go(i){
-  const dir=i>tab;tab=i;
+  const fwd=i>tab;tab=i;
+  $('pill').className='pill '+(fwd?'fwd':'back');
   nav.style.setProperty('--i',i);
-  nav.classList.add('moving');setTimeout(()=>nav.classList.remove('moving'),400);
+  nav.classList.remove('moving');void nav.offsetWidth;nav.classList.add('moving');
+  clearTimeout(go.t);go.t=setTimeout(()=>nav.classList.remove('moving'),650);
   tabs.forEach((t,k)=>t.classList.toggle('on',k===i));
   document.querySelectorAll('section').forEach((s,k)=>s.classList.toggle('on',k===i));
   if(i===2)renderRoom();
@@ -235,12 +228,13 @@ function load(){
     $('males').value=d.m||'';$('females').value=d.f||'';startG=d.s||'M';
     seats=d.seats&&d.seats.length===TOTAL?d.seats:[];
   }catch(e){}
+  if(!$('males').value.trim()&&!$('females').value.trim()){$('males').value=DEF_M.join('\n');$('females').value=DEF_F.join('\n')}
   setSeg();parse();
   if(!seats.length)buildSeats();
 }
 function setSeg(){document.querySelectorAll('#start button').forEach(b=>b.classList.toggle('on',b.dataset.v===startG))}
 document.querySelectorAll('#start button').forEach(b=>b.onclick=()=>{startG=b.dataset.v;setSeg()});
-$('males').oninput=$('females').oninput=parse;
+$('males').oninput=$('females').oninput=()=>{parse();if(!seats.some(x=>x.name))renderAll()};
 
 const used=()=>new Set(seats.filter(s=>s.name).map(s=>s.name));
 const nextIdx=()=>seats.findIndex(s=>!s.name);
@@ -359,9 +353,8 @@ $('save').onclick=()=>{
   parse();buildSeats();lastPlaced=-1;renderAll();toast('Tersimpan');go(1);
 };
 $('demo').onclick=()=>{
-  $('males').value=['Budi','Andi','Rizky','Fajar','Dimas','Bayu','Eko','Hadi','Iqbal','Joko','Kevin','Lutfi','Naufal','Oscar','Putra','Raka','Satria'].join('\n');
-  $('females').value=['Siti','Dewi','Ayu','Nadia','Putri','Rani','Salsa','Tika','Vina','Wulan','Yuni','Zahra','Citra','Bella','Fitri','Gita','Hana','Intan'].join('\n');
-  parse();
+  $('males').value=DEF_M.join('\n');$('females').value=DEF_F.join('\n');
+  parse();buildSeats();renderAll();toast('Nama contoh dimuat');
 };
 
 load();renderAll();
