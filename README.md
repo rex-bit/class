@@ -1,21 +1,20 @@
 # Rolling Kelas · Rex-bit
 
-Web rolling tempat duduk kelas: masukkan nama, putar roda, dan nama yang keluar otomatis mengisi meja.
+Web rolling tempat duduk kelas: tempel daftar nama, putar roda, dan nama yang keluar otomatis mengisi meja.
 
 ![Demo](demo.gif)
 
 ## Fitur
-- **Spin wheel**: pemenang otomatis mengisi meja berikutnya.
-- **Mode cowok / cewek bergantian**
-  - Kiri dan kanan (2 meja per baris): 2 cowok, lalu 2 cewek, dan seterusnya.
-  - Tengah (3 meja per baris): 3 cowok, lalu 3 cewek, dan seterusnya.
-- **Shuffle semua** untuk mengacak seluruh meja sekaligus.
-- Denah 35 meja: kiri 10, tengah 15, kanan 10.
+- **Satu daftar campur**: tempel semua nama, cowok dan cewek otomatis dipisah. Bisa juga ditandai `(L)` / `(P)`, dan nama yang salah tebak tinggal diketuk untuk dipindah.
+- **Spin wheel** ala Wheel of Names: pointer di kanan, suara tik saat berputar, fanfare dan konfeti saat nama keluar. Ada tombol suara on/off.
+- **Shuffle** dan **A–Z** untuk mengatur urutan nama di roda. **Acak denah** mengisi semua meja sekaligus.
+- **Denah 38 meja**: kiri 10 (5 baris x 2), tengah 18 (6 saf x 3), kanan 10 (5 baris x 2).
+- **Satu baris satu jenis** (cowok atau cewek), selang-seling. Baris paling depan tiap blok diacak, atau bisa dipilih manual.
 - Data tersimpan di browser (localStorage).
 
 ## Tampilan
-- Gaya **Material You** (Material 3) bernuansa hijau: warna tonal, sudut membulat, otomatis mode terang/gelap.
-- **Liquid tab bar**: indikator tab bergerak seperti cairan. Pill indikator melar ke arah tujuan (sisi depan bergerak duluan, sisi belakang menyusul) lalu menyusut lagi, murni CSS tanpa filter SVG sehingga stabil di Safari iPhone. Tab: Nama, Spin, Denah.
+- Gaya **Material You** (Material 3) bernuansa hijau, otomatis mode terang/gelap.
+- **Liquid tab bar**: pill indikator melar ke arah tujuan lalu menyusut lagi, murni CSS (stabil di Safari iPhone).
 
 ## Jalankan
 Buka `index.html` di browser. Tidak perlu build.
