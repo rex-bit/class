@@ -812,16 +812,19 @@ function place(name,g){
 function doSpin(){
   if(spinning)return;
   if(isDone()){showFin();return}
-  if(!pool.length)return;ac();idle=false;
+  if(!pool.length)return;ac();const v0=(cfg.idle&&idle)?IDLE_V:0;idle=false;
   const{g}=currentPool(),n=pool.length,a=2*Math.PI/n;
   const idx=Math.floor(Math.random()*n),target=-(idx+.5)*a;
   const delta=(((target-rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI)+2*Math.PI*7;
   const start=rot,dur=cfg.dur*1000,t0=performance.now(),winner=pool[idx];
+  // smooth start: continue from the idle speed, ease up, then decelerate to the target
+  const ta=Math.min(900,dur*.3),T2=dur-ta;
+  const vp=(4*delta/T2-2*ta*v0/T2)/(1+2*ta/T2),A=ta*(v0+vp)/2,D=delta-A;
   let last=segAt(n);
   spinning=true;$('spin').disabled=true;$('shuffle').disabled=true;
   (function step(ts){
-    const p=Math.min(1,(ts-t0)/dur),e=1-Math.pow(1-p,4);
-    rot=start+delta*e;
+    const el=Math.min(dur,ts-t0),p=el/dur;
+    rot=start+(el<ta?v0*el+(vp-v0)*ta*(Math.pow(el/ta,3)-Math.pow(el/ta,4)/2):A+D*(1-Math.pow(1-(el-ta)/T2,4)));
     const sg=segAt(n);if(sg!==last){last=sg;tick();$('ptr').animate([{transform:'translateY(-50%) rotate(-24deg)'},{transform:'translateY(-50%) rotate(0)'}],{duration:110})}
     drawWheel();
     if(p<1)requestAnimationFrame(step);
@@ -1062,11 +1065,13 @@ document.addEventListener('keydown',e=>{
   if(!deskMQ.matches&&tab!==1)return;
   e.preventDefault();doSpin();
 });
+const IDLE_V=.00021;let idleT=0;
 let idle=!matchMedia('(prefers-reduced-motion: reduce)').matches;
-(function idleLoop(){
-  if(cfg.idle&&idle&&!spinning&&pool.length&&!document.hidden&&$('t1').offsetParent!==null){rot=(rot+.0035)%(2*Math.PI);drawWheel()}
+(function idleLoop(ts){
+  const dt=Math.min(50,ts-idleT);idleT=ts;
+  if(cfg.idle&&idle&&!spinning&&pool.length&&!document.hidden&&$('t1').offsetParent!==null){rot=(rot+IDLE_V*dt)%(2*Math.PI);drawWheel()}
   requestAnimationFrame(idleLoop);
-})();
+})(0);
 
 initIcons();
 
