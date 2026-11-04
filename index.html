@@ -68,7 +68,7 @@ textarea:focus{border-color:var(--primary)}
 .btn svg{width:18px;height:18px;fill:currentColor}
 .icon{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;border-radius:50%;background:var(--sc);color:var(--on-sc);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .icon svg{width:22px;height:22px;fill:currentColor}
-.status{display:flex;justify-content:center;margin-bottom:6px}
+.status{display:flex;justify-content:center;margin-bottom:6px;padding:0 48px}
 .chip{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:8px 14px;font-size:13px;font-weight:600;background:var(--sc);color:var(--on-sc)}
 .chip.m{background:var(--mc);color:var(--on-mc)}.chip.f{background:var(--fc);color:var(--on-fc)}.chip.ok{background:var(--pc);color:var(--on-pc)}
 .wheelbox{position:relative;width:calc(100% - 20px);max-width:330px;margin:14px auto;filter:drop-shadow(0 8px 20px rgba(0,0,0,.18))}
@@ -193,7 +193,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="field"><textarea id="names" placeholder="Budi&#10;Siti&#10;Andi (L)&#10;Dewi (P)&#10;..."></textarea></div>
       <div class="row" style="margin-bottom:14px">
         <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
-        <button class="btn tonal sm" data-act="az">A–Z</button>
+        <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
         <button class="btn text sm" id="demo" data-i18n="loadDemo"></button>
       </div>
       <div class="field"><label data-i18n="frontRow"></label>
@@ -224,10 +224,10 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       </div>
       <div class="progress"><i id="bar"></i></div>
       <div class="hint" id="prog" style="text-align:center;margin-bottom:14px"></div>
-      <div class="row c" style="margin-bottom:10px"><button class="btn fill big" id="spin">Spin</button></div>
+      <div class="row c" style="margin-bottom:10px"><button class="btn fill big" id="spin" data-i18n="spin"></button></div>
       <div class="row c">
         <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
-        <button class="btn tonal sm" data-act="az">A–Z</button>
+        <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
         <button class="btn tonal sm" id="shuffle" data-i18n="shuffleSeats"></button>
         <button class="btn text sm" id="reset" data-i18n="reset"></button>
       </div>
@@ -274,30 +274,36 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name list',
- namesHint:'Paste all the names, boys and girls mixed. They are split automatically. You can also tag a name with (M) or (F).',
- shuffle:'Shuffle',loadDemo:'Load sample',frontRow:'Row pattern',rand:'Fully random',alt:'Alternating',patHint:'Applied to the seat plan right away (see the Seats tab). Alternating = boy, girl, boy… inside every row. Fully random = one row all boys, the next row all girls; the front row of each block is random.',tMode:'Row pattern: {m}',rndPat:'Randomize rows',tPat:'Row pattern randomized',cfmPat:'Filled seats will be cleared. Continue?',boys:'Boys',girls:'Girls',saveStart:'Save & start',
- splitTitle:'Split result',rulesTitle:'Seat rules',
- rulesBody:'Alternating mode: the desks in every row swap between boy and girl (the order is random per row). Fully random mode: each row holds one gender only, boys row then girls row, and the front row of each block is random. Left & right have 10 seats, the middle has 18 (6 rows).',
- guessSome:'{u} names are still guesses (dashed outline). Tap a name to move it between boys and girls.',guessOk:'Wrong? Tap a name to move it between boys and girls.',
- stEmpty:'Add names in the Names tab first',stDone:'All seats filled',mode:'{g} mode · {n} names',prog:'Rolling #{r} · {d} / {t} seats',
- spin:'Spin',nextR:'Next rolling',shuffleSeats:'Shuffle seats',reset:'Reset',board:'WHITEBOARD',winLabel:'Got a seat!',cont:'Continue',
- tSaved:'Saved',tShufSeats:'Seats shuffled',tReset:'Seats reset',tDemo:'Sample names loaded',tAZ:'Sorted A–Z',tShuf:'Order shuffled',tNext:'Rolling #{n} is ready',
- secL:'Left',secM:'Middle',secR:'Right',row:'row',
- finLabel:'Rolling #{n} complete',finTitle:'Everyone is seated!',finDesc:'Ready for the next rolling? A new random seat plan is made and this one is saved in history.',finLater:'Later',
- wheelDone:'Done 🎉',wheelNone:'No names left',histNow:'now',histView:'Viewing Rolling {n} (read only)'},
-id:{tabNames:'Nama',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'Daftar nama',
- namesHint:'Tempel semua nama, boleh campur cowok & cewek. Otomatis dipisah. Bisa juga tulis (L) atau (P) di belakang nama.',
- shuffle:'Shuffle',loadDemo:'Muat contoh',frontRow:'Pola baris',rand:'Acak penuh',alt:'Selang-seling',patHint:'Langsung diterapkan ke denah (lihat di tab Denah). Selang-seling = dalam satu baris, cowok, cewek, cowok… bergantian. Acak penuh = satu baris cowok semua, baris berikutnya cewek semua; baris depan tiap blok diacak.',tMode:'Pola baris: {m}',rndPat:'Acak baris',tPat:'Pola baris diacak',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjut?',boys:'Cowok',girls:'Cewek',saveStart:'Simpan & mulai',
- splitTitle:'Hasil pemisahan',rulesTitle:'Aturan denah',
- rulesBody:'Mode Selang-seling: meja dalam satu baris bergantian cowok dan cewek (urutannya diacak tiap baris). Mode Acak penuh: satu baris isinya satu jenis saja, baris cowok lalu baris cewek, dan baris depan tiap blok diacak. Kiri & kanan 10 meja, tengah 18 meja (6 saf).',
- guessSome:'{u} nama masih tebakan (garis putus-putus). Ketuk nama untuk pindah cowok/cewek.',guessOk:'Ketuk nama kalau salah, langsung pindah cowok/cewek.',
- stEmpty:'Isi nama dulu di tab Nama',stDone:'Semua meja terisi',mode:'Mode {g} · {n} nama',prog:'Rolling #{r} · {d} / {t} meja',
- spin:'Spin',nextR:'Rolling berikutnya',shuffleSeats:'Acak denah',reset:'Reset',board:'PAPAN TULIS',winLabel:'Dapat meja!',cont:'Lanjut',
- tSaved:'Tersimpan',tShufSeats:'Denah diacak',tReset:'Denah direset',tDemo:'Nama contoh dimuat',tAZ:'Urutan A–Z',tShuf:'Urutan diacak',tNext:'Rolling #{n} siap',
- secL:'Kiri',secM:'Tengah',secR:'Kanan',row:'baris',
- finLabel:'Rolling #{n} selesai',finTitle:'Semua sudah dapat meja!',finDesc:'Lanjut ke rolling berikutnya? Denah baru dibuat (pola baris diacak ulang) dan denah ini tersimpan di riwayat.',finLater:'Nanti',
- wheelDone:'Selesai 🎉',wheelNone:'Nama habis',histNow:'sekarang',histView:'Melihat Rolling {n} (hanya lihat)'}
+en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
+ namesHint:'Paste the full list of names (male and female names may be mixed). They are separated automatically. You may also add (M) or (F) after a name.',
+ shuffle:'Shuffle Order',sortAZ:'Sort A–Z',loadDemo:'Use Sample Data',frontRow:'Seat Layout',rand:'Random Rows',alt:'Alternating',
+ rndPat:'Re-randomize Layout',tPat:'Seat layout re-randomized',cfmPat:'Seats that are already filled will be cleared. Continue?',
+ patHint:'Applied to the seating plan immediately (see the Seats tab). Alternating: male and female desks alternate within every row. Random Rows: each row holds one gender only, in random order.',
+ tMode:'Seat layout: {m}',boys:'Male',girls:'Female',saveStart:'Save & Start',
+ splitTitle:'Classification Result',rulesTitle:'Seating Rules',
+ rulesBody:'Alternating: the desks in every row alternate between male and female (the order is random for each row). Random Rows: each row is assigned to one gender only, and the rows are arranged randomly. The left and right blocks have 10 desks each; the middle block has 18 (6 rows).',
+ guessSome:'{u} names are still estimates (dashed outline). Tap a name to move it between male and female.',guessOk:'If a name is in the wrong group, tap it to move it between male and female.',
+ stEmpty:'Please add the name list first',stDone:'All seats have been filled',mode:'Drawing: {g} · {n} left',prog:'Rolling #{r} · {d} of {t} seats filled',
+ spin:'Spin Wheel',nextR:'Next Rolling',shuffleSeats:'Auto-fill Seats',reset:'Reset',board:'WHITEBOARD',winLabel:'Seat Assigned',cont:'Continue',
+ tSaved:'Settings saved',tShufSeats:'Seating plan generated',tReset:'Seating plan reset',tDemo:'Sample data loaded',tAZ:'List sorted A–Z',tShuf:'List order shuffled',tNext:'Rolling #{n} started',
+ secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
+ finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
+ wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
+id:{tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
+ namesHint:'Tempel seluruh daftar nama (nama laki-laki dan perempuan boleh tercampur). Sistem akan memisahkannya secara otomatis. Anda juga dapat menambahkan (L) atau (P) di belakang nama.',
+ shuffle:'Acak Urutan',sortAZ:'Urutkan A–Z',loadDemo:'Gunakan Data Contoh',frontRow:'Pola Denah',rand:'Acak Penuh',alt:'Selang-seling',
+ rndPat:'Acak Ulang Pola',tPat:'Pola denah diacak ulang',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjutkan?',
+ patHint:'Diterapkan langsung pada denah (lihat tab Denah). Selang-seling: dalam satu baris, meja laki-laki dan perempuan bergantian. Acak Penuh: setiap baris hanya berisi satu jenis, dengan urutan baris yang diacak.',
+ tMode:'Pola denah: {m}',boys:'Laki-laki',girls:'Perempuan',saveStart:'Simpan & Mulai',
+ splitTitle:'Hasil Pemisahan',rulesTitle:'Ketentuan Denah',
+ rulesBody:'Selang-seling: meja dalam satu baris bergantian antara laki-laki dan perempuan (urutannya diacak pada setiap baris). Acak Penuh: setiap baris hanya diisi satu jenis, dan urutan barisnya diacak. Blok kiri dan kanan masing-masing 10 meja, blok tengah 18 meja (6 saf).',
+ guessSome:'{u} nama masih berupa perkiraan (garis putus-putus). Ketuk nama untuk memindahkannya antara laki-laki dan perempuan.',guessOk:'Jika ada nama yang salah kelompok, ketuk nama tersebut untuk memindahkannya antara laki-laki dan perempuan.',
+ stEmpty:'Silakan isi daftar nama terlebih dahulu',stDone:'Seluruh meja telah terisi',mode:'Giliran: {g} · {n} nama',prog:'Rolling #{r} · {d} dari {t} meja terisi',
+ spin:'Putar Roda',nextR:'Rolling Berikutnya',shuffleSeats:'Isi Denah Otomatis',reset:'Atur Ulang',board:'PAPAN TULIS',winLabel:'Meja Terpilih',cont:'Lanjutkan',
+ tSaved:'Pengaturan disimpan',tShufSeats:'Denah berhasil disusun',tReset:'Denah telah diatur ulang',tDemo:'Data contoh dimuat',tAZ:'Daftar diurutkan A–Z',tShuf:'Urutan daftar diacak',tNext:'Rolling #{n} dimulai',
+ secL:'Kiri',secM:'Tengah',secR:'Kanan',row:'baris',wheelSpin:'PUTAR',
+ finLabel:'Rolling #{n} selesai',finTitle:'Seluruh siswa telah mendapat meja',finDesc:'Mulai rolling berikutnya? Denah baru akan disusun secara acak, dan denah ini tersimpan di riwayat.',finLater:'Tutup',
+ wheelDone:'Selesai',wheelNone:'Daftar nama habis',histNow:'saat ini',histView:'Menampilkan Rolling {n} (hanya baca)'}
 };
 let lang='id';
 function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.replace(/\{(\w+)\}/g,(_,x)=>p[x]):s}
@@ -423,19 +429,29 @@ function altPattern(){
   });
   return out;
 }
-/* Acak penuh: every row is ONE gender, rows go boys, girls, boys... per block.
-   The front row of each block is random (never the same in all three blocks) and boy-desks match the number of boys. */
+/* Acak Penuh: every row holds ONE gender; which rows are male / female is random.
+   Rules (relaxed step by step only if the head-count makes them impossible):
+   1) male desks ~ number of males  2) both genders in each block  3) no 3 equal rows in a row
+   4) no straight male/female line across left+middle+right on the same row */
 function rowPattern(){
   const nb=people.filter(p=>p.g==='M').length;
   const target=people.length?Math.round(TOTAL*nb/people.length):TOTAL/2;
-  let best=[],bs=1e9;
-  for(let m=0;m<8;m++){
-    const fr=SECS.map((_,i)=>(m>>i)&1?'M':'F');if(fr.every(x=>x===fr[0]))continue;
-    const g=[];SECS.forEach((s,i)=>{const f=fr[i],o=f==='M'?'F':'M';for(let r=0;r<s.rows;r++)g.push(r%2===0?f:o)});
-    const ms=g.reduce((a,x,j)=>a+(x==='M'?ROWSL[j].n:0),0),sc=Math.abs(ms-target);
-    if(sc<bs){bs=sc;best=[g]}else if(sc===bs)best.push(g);
+  const off=[0,SECS[0].rows,SECS[0].rows+SECS[1].rows];
+  for(let level=0;level<4;level++){
+    let best=[],bs=1e9;
+    for(let k=0;k<2500;k++){
+      const g=ROWSL.map(()=>Math.random()<.5?'M':'F');let ok=true;
+      if(level<3)SECS.forEach((s,i)=>{const seg=g.slice(off[i],off[i]+s.rows);
+        if(level<2&&(!seg.includes('M')||!seg.includes('F')))ok=false;
+        if(level<1)for(let j=2;j<seg.length;j++)if(seg[j]===seg[j-1]&&seg[j]===seg[j-2])ok=false});
+      if(level<2)for(let r=0;r<5;r++)if(g[off[0]+r]===g[off[1]+r]&&g[off[1]+r]===g[off[2]+r])ok=false;
+      if(!ok)continue;
+      const ms=g.reduce((a,x,i)=>a+(x==='M'?ROWSL[i].n:0),0),sc=Math.abs(ms-target);
+      if(sc<bs){bs=sc;best=[g]}else if(sc===bs)best.push(g);
+    }
+    if(best.length)return expandRows(best[Math.floor(Math.random()*best.length)]);
   }
-  return expandRows(best[Math.floor(Math.random()*best.length)]);
+  return altPattern();
 }
 const pickPattern=()=>startMode==='A'?altPattern():rowPattern();
 function newPattern(prev){let g,n=0;do{g=pickPattern();n++}while(n<60&&g.filter((x,i)=>x!==prev[i]).length<10);return g}
@@ -534,7 +550,7 @@ function drawWheel(){
   });
   ctx.shadowColor='rgba(0,0,0,.3)';ctx.shadowBlur=10;
   ctx.beginPath();ctx.arc(R,R,54,0,7);ctx.fillStyle='#fff';ctx.fill();ctx.shadowBlur=0;
-  ctx.fillStyle=pal[0];ctx.font='700 24px sans-serif';ctx.textAlign='center';ctx.fillText('SPIN',R,R+8);
+  ctx.fillStyle=pal[0];ctx.font='700 22px sans-serif';ctx.textAlign='center';ctx.fillText(t('wheelSpin'),R,R+8);
 }
 
 /* ---------- render ---------- */
