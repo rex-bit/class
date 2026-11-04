@@ -30,3 +30,4 @@ Buka `index.html` di browser. Tidak perlu build.
 - Spasi untuk memutar, tombol layar penuh
 - Pengaturan (ala wheelofnames): suara putaran/pemenang, volume, durasi, konfeti, popup, warna roda, latar gradien
 - Konfeti gradien (hijau, biru, pink, emas, putih)
+- Mode Fokus (hanya roda) dan tombol Urungkan (Ctrl+Z)
