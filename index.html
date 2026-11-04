@@ -228,6 +228,20 @@ body.flat header::after{display:none}
 .cfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 @media(max-width:520px){.crow{flex-wrap:wrap}.crow>label{flex:1 0 100%}}
 @media(min-width:960px){#cfgBtn{display:none}}
+/* focus mode */
+#unfocus{display:none;position:fixed;top:14px;right:14px;z-index:20;border:0;border-radius:100px;background:var(--sc);color:var(--on-sc);font:inherit;font-size:13px;font-weight:700;padding:10px 16px;align-items:center;gap:8px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:.55;transition:opacity .2s}
+#unfocus:hover,#unfocus:focus-visible{opacity:1}
+#unfocus svg{width:19px;height:19px;fill:currentColor}
+body.focus #unfocus{display:flex}
+@media(max-width:959px){#unfocus{top:auto;bottom:22px;right:auto;left:50%;transform:translateX(-50%);opacity:.85}}
+body.focus header,body.focus nav,body.focus .ptabs,body.focus #t0,body.focus #t2,body.focus .faq,body.focus footer,body.focus .hist,body.focus .kbd,body.focus #prog,body.focus .progress,body.focus #focusBtn,body.focus #t1 .row:not(:has(#spin)){display:none!important}
+body.focus #t1{display:block!important}
+body.focus{padding-bottom:20px}
+body.focus main{display:block;max-width:860px;margin:0 auto;padding:12px}
+body.focus .card{background:transparent;box-shadow:none}
+body.focus .wheelbox{width:min(calc(100% - 20px),820px,78vh);max-width:none;margin:18px auto 22px}
+body.focus #cfgBtn{display:flex!important}
+@media(min-width:960px){#focusBtn{display:none}}
 /* dialogs */
 .win{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden}
 .win.show{opacity:1;pointer-events:auto}
@@ -248,7 +262,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <header>
   <svg class="logo" viewBox="0 0 48 48" aria-label="Rex-bit"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4caf6e"/><stop offset="1" stop-color="#1b6d3b"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#lg)"/><path d="M24 24L24.00 9.00A15 15 0 0 1 36.99 16.50Z" fill="#ffffff" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L36.99 16.50A15 15 0 0 1 36.99 31.50Z" fill="#b7f397" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L36.99 31.50A15 15 0 0 1 24.00 39.00Z" fill="#ffc94d" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L24.00 39.00A15 15 0 0 1 11.01 31.50Z" fill="#ffffff" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L11.01 31.50A15 15 0 0 1 11.01 16.50Z" fill="#b7f397" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L11.01 16.50A15 15 0 0 1 24.00 9.00Z" fill="#ffc94d" stroke="#1b6d3b" stroke-width=".7"/><circle cx="24" cy="24" r="15.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="24" cy="24" r="4.2" fill="#1b6d3b" stroke="#fff" stroke-width="1.4"/><path d="M24 1.5 20 9.5h8z" fill="#ffc94d" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>
   <div class="brand"><small>Rex-bit</small><b>Rolling Kelas</b></div>
-  <div class="hactions"><button class="hbtn" id="cfgHd"><span data-i18n="cfgBtn"></span></button><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
+  <div class="hactions"><button class="hbtn" id="focusHd"><span data-i18n="focusBtn"></span></button><button class="hbtn" id="cfgHd"><span data-i18n="cfgBtn"></span></button><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
   <div class="lang">
     <button class="langbtn" id="langBtn" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96A14.7 14.7 0 0 1 10.09 16h3.82A14.7 14.7 0 0 1 12 19.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.26 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"/></svg><span id="langCode">ID</span></button>
     <div class="menu" id="langMenu">
@@ -292,6 +306,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <section id="t1" class="on">
     <div class="card">
       <button class="icon" id="cfgBtn" aria-label="Settings" style="right:auto;left:12px"></button>
+      <button class="icon" id="focusBtn" aria-label="Focus" style="right:auto;left:60px"></button>
       <button class="icon" id="snd" aria-label="Sound"></button>
       <div class="status"><span class="chip" id="status"></span></div>
       <div class="wheelbox">
@@ -354,6 +369,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   </div>
   <div class="cfoot"><button class="btn tonal sm" id="cReset" data-i18n="cfgReset"></button><button class="btn fill sm" id="cOk" data-i18n="cfgOk"></button></div>
 </div></div>
+<button id="unfocus"><span data-i18n="unfocus"></span></button>
 <div id="toast"></div>
 
 <div class="win" id="win"><div class="wincard">
@@ -381,7 +397,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
+en:{focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
  namesHint:'Paste the full list of names (male and female names may be mixed). They are separated automatically. You may also add (M) or (F) after a name.',
  shuffle:'Shuffle Order',sortAZ:'Sort A–Z',loadDemo:'Use Sample Data',frontRow:'Seat Layout',rand:'Random Rows',alt:'Alternating',
  rndPat:'Re-randomize Layout',tPat:'Seat layout re-randomized',cfmPat:'Seats that are already filled will be cleared. Continue?',
@@ -396,7 +412,7 @@ en:{cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',t
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
+id:{focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
  namesHint:'Tempel seluruh daftar nama (nama laki-laki dan perempuan boleh tercampur). Sistem akan memisahkannya secara otomatis. Anda juga dapat menambahkan (L) atau (P) di belakang nama.',
  shuffle:'Acak Urutan',sortAZ:'Urutkan A–Z',loadDemo:'Gunakan Data Contoh',frontRow:'Pola Denah',rand:'Acak Penuh',alt:'Selang-seling',
  rndPat:'Acak Ulang Pola',tPat:'Pola denah diacak ulang',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjutkan?',
@@ -881,6 +897,8 @@ const ICONS={
  fullscreen:'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z',
  exitfs:'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
  help:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z',
+ hide:'M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46A11.804 11.804 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78 3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z',
+ show:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
  settings:'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z',
  play:'M8 5v14l11-7z',
  lock:'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z',
@@ -891,7 +909,7 @@ const ICONS={
 };
 const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#demo','sample'],['#save','check'],['#shuffle','auto'],['#reset','reset'],
  ['#finNext','next'],['#finLater','close'],['#winok','next'],['#spin','spin'],['#expCopy','copy'],['#expImg','download'],['#expPrint','print'],
- ['#cfgHd','settings'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
+ ['#cfgHd','settings'],['#focusHd','hide'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
  ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
 function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
 function addIcon(el,name){
@@ -930,6 +948,9 @@ document.querySelectorAll('#ctabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.cp').forEach(x=>x.classList.toggle('on',x.dataset.p===b.dataset.p));
 });
 const openCfg=()=>$('cfg').classList.add('show'),closeCfg=()=>$('cfg').classList.remove('show');
+const setFocus=on=>{if(on){go(1);scrollTo(0,0)}document.body.classList.toggle('focus',on);if(on&&document.documentElement.requestFullscreen&&0)0};
+$('focusHd').onclick=$('focusBtn').onclick=()=>setFocus(true);$('unfocus').onclick=()=>setFocus(false);
+$('focusBtn').innerHTML=mkIcon('hide').outerHTML;
 $('cfgBtn').onclick=openCfg;$('cfgHd').onclick=openCfg;$('cOk').onclick=closeCfg;
 $('cfg').onclick=e=>{if(e.target.id==='cfg')closeCfg()};
 $('cfgBtn').innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z'+'"/></svg>';
@@ -1058,7 +1079,7 @@ $('fs').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();els
 document.addEventListener('fullscreenchange',()=>{const pa=$('fs').querySelector('path');if(pa)pa.setAttribute('d',ICONS[document.fullscreenElement?'exitfs':'fullscreen'])});
 const deskMQ=matchMedia('(min-width:960px)');
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeCfg();closePolicy();hideFin();hideWin();return}
+  if(e.key==='Escape'){if(!document.querySelector('.win.show')&&document.body.classList.contains('focus')){setFocus(false);return}closeCfg();closePolicy();hideFin();hideWin();return}
   if(e.code!=='Space'||e.repeat)return;
   if(['TEXTAREA','INPUT','BUTTON','SUMMARY','A','SELECT'].includes(e.target.tagName))return;
   if(document.querySelector('.win.show'))return;
