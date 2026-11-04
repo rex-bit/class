@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#386a20">
+<meta name="description" content="Rolling Kelas: a spin-the-wheel seat rotation tool for classrooms. Private by design: everything stays in your browser.">
+<meta property="og:title" content="Rolling Kelas">
+<meta property="og:description" content="Spin the wheel to rotate classroom seats. Your data never leaves your browser.">
 <title>Rolling Kelas · Rex-bit</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22%3E%3Crect width=%2248%22 height=%2248%22 rx=%2214%22 fill=%22%231b6d3b%22/%3E%3Cpath d=%22M24 24L24.00 9.00A15 15 0 0 1 36.99 16.50Z%22 fill=%22%23ffffff%22 stroke=%22%231b6d3b%22 stroke-width=%22.7%22/%3E%3Cpath d=%22M24 24L36.99 16.50A15 15 0 0 1 36.99 31.50Z%22 fill=%22%23b7f397%22 stroke=%22%231b6d3b%22 stroke-width=%22.7%22/%3E%3Cpath d=%22M24 24L36.99 31.50A15 15 0 0 1 24.00 39.00Z%22 fill=%22%23ffc94d%22 stroke=%22%231b6d3b%22 stroke-width=%22.7%22/%3E%3Cpath d=%22M24 24L24.00 39.00A15 15 0 0 1 11.01 31.50Z%22 fill=%22%23ffffff%22 stroke=%22%231b6d3b%22 stroke-width=%22.7%22/%3E%3Cpath d=%22M24 24L11.01 31.50A15 15 0 0 1 11.01 16.50Z%22 fill=%22%23b7f397%22 stroke=%22%231b6d3b%22 stroke-width=%22.7%22/%3E%3Cpath d=%22M24 24L11.01 16.50A15 15 0 0 1 24.00 9.00Z%22 fill=%22%23ffc94d%22 stroke=%22%231b6d3b%22 stroke-width=%22.7%22/%3E%3Ccircle cx=%2224%22 cy=%2224%22 r=%2215.8%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%221.6%22/%3E%3Ccircle cx=%2224%22 cy=%2224%22 r=%224.2%22 fill=%22%231b6d3b%22 stroke=%22%23fff%22 stroke-width=%221.4%22/%3E%3Cpath d=%22M24 1.5 20 9.5h8z%22 fill=%22%23ffc94d%22 stroke=%22%23fff%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
 <style>
@@ -154,6 +157,53 @@ nav.press .tab.on svg{transform:scale(1.28)}
 .ptab{flex:1;border:0;background:none;font:inherit;font-size:14px;font-weight:700;padding:13px 12px;color:var(--onv);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;display:flex;align-items:center;justify-content:center;gap:8px}
 .ptab.on{color:var(--primary);border-color:var(--primary)}
 .ptab .pb{background:var(--primary);color:var(--on-primary);font-size:11px;border-radius:10px;padding:1px 8px}
+/* ===== header hides on scroll down, returns on scroll up ===== */
+header{transition:transform .35s cubic-bezier(.3,.8,.3,1),box-shadow .3s}
+header.hide{transform:translateY(-110%)}
+header.scrolled{box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.hactions{display:none;gap:4px}
+.hbtn{border:0;background:none;color:var(--onv);font:inherit;font-size:13px;font-weight:600;padding:9px 14px;border-radius:100px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .2s}
+.hbtn:hover{background:var(--sc);color:var(--on-sc)}
+.hbtn svg{width:19px;height:19px;fill:currentColor}
+.card h2 .hi,.faq h2 .hi{width:20px;height:20px;fill:var(--primary);vertical-align:-4px;margin-right:8px}
+.kbd{display:none}
+/* FAQ + footer */
+.faq{margin:34px 0 8px}
+.faq h2{font-size:20px;margin:0 0 14px}
+.faq details{background:var(--s2);border-radius:20px;padding:0 20px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15px;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-size:24px;font-weight:400;color:var(--primary);transition:transform .25s;flex:none}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details>p{margin:0 0 14px;font-size:14px;line-height:1.65;color:var(--onv)}
+.faq details>.row{padding-bottom:16px}
+.flinks{display:flex;gap:6px;justify-content:center;margin-bottom:8px}
+.flink{border:0;background:none;color:var(--primary);font:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:6px 12px;border-radius:100px}
+.flink:hover{background:var(--sc)}
+.wincard.policy{text-align:left;max-width:600px;width:92vw;max-height:84vh;overflow:auto;padding:26px 28px}
+.policy h3{margin:0 0 2px;font-size:22px}
+.policy .upd{font-size:12px;color:var(--onv);margin-bottom:10px}
+.policy h4{margin:16px 0 4px;font-size:14px}
+.policy p{margin:0;font-size:13.5px;line-height:1.6;color:var(--onv)}
+.policy .row{margin-top:20px}
+@media(min-width:960px){
+  .hactions{display:flex;margin-left:auto}.lang{margin-left:4px}
+  .kbd{display:block}
+  body{background:radial-gradient(900px 520px at 27% 4%,color-mix(in srgb,var(--pc) 40%,transparent),transparent 70%),var(--bg);background-attachment:fixed}
+  #t1 .card{background:transparent;padding:0;margin-bottom:0}
+  .wheelbox{width:min(calc(100% - 20px),680px,62vh)}
+  .faq{grid-column:1 / -1;grid-row:5;max-width:860px;width:100%;margin:64px auto 12px}
+  footer{grid-row:6}
+}
+@media print{
+  :root{--bg:#fff;--on-bg:#000;--s2:#fff;--s4:#eee;--onv:#333;--mc:#d3e4ff;--on-mc:#001c3b;--fc:#ffd8e8;--on-fc:#3e001e;--ov:#bbb;--outline:#666;--m:#2f6fb8;--m2:#2f6fb8;--f:#b0356f;--f2:#b0356f}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff!important;padding:0}
+  header,nav,.ptabs,#t0,#t1,.faq,footer,.hist,#toast,.win,.noprint{display:none!important}
+  main{display:block!important;padding:0}
+  #t2{display:block!important;animation:none}
+  .card{background:#fff;box-shadow:none}
+}
 /* dialogs */
 .win{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden}
 .win.show{opacity:1;pointer-events:auto}
@@ -174,6 +224,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <header>
   <svg class="logo" viewBox="0 0 48 48" aria-label="Rex-bit"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4caf6e"/><stop offset="1" stop-color="#1b6d3b"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#lg)"/><path d="M24 24L24.00 9.00A15 15 0 0 1 36.99 16.50Z" fill="#ffffff" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L36.99 16.50A15 15 0 0 1 36.99 31.50Z" fill="#b7f397" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L36.99 31.50A15 15 0 0 1 24.00 39.00Z" fill="#ffc94d" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L24.00 39.00A15 15 0 0 1 11.01 31.50Z" fill="#ffffff" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L11.01 31.50A15 15 0 0 1 11.01 16.50Z" fill="#b7f397" stroke="#1b6d3b" stroke-width=".7"/><path d="M24 24L11.01 16.50A15 15 0 0 1 24.00 9.00Z" fill="#ffc94d" stroke="#1b6d3b" stroke-width=".7"/><circle cx="24" cy="24" r="15.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="24" cy="24" r="4.2" fill="#1b6d3b" stroke="#fff" stroke-width="1.4"/><path d="M24 1.5 20 9.5h8z" fill="#ffc94d" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>
   <div class="brand"><small>Rex-bit</small><b>Rolling Kelas</b></div>
+  <div class="hactions"><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
   <div class="lang">
     <button class="langbtn" id="langBtn" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96A14.7 14.7 0 0 1 10.09 16h3.82A14.7 14.7 0 0 1 12 19.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.26 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"/></svg><span id="langCode">ID</span></button>
     <div class="menu" id="langMenu">
@@ -225,6 +276,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="progress"><i id="bar"></i></div>
       <div class="hint" id="prog" style="text-align:center;margin-bottom:14px"></div>
       <div class="row c" style="margin-bottom:10px"><button class="btn fill big" id="spin" data-i18n="spin"></button></div>
+      <p class="hint kbd" style="text-align:center;margin:-2px 0 14px" data-i18n="kbd"></p>
       <div class="row c">
         <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
         <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
@@ -240,13 +292,19 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="hist" id="hist"></div>
       <div class="board" data-i18n="board"></div>
       <div class="room" id="room"></div>
-      <div class="row c" style="margin-top:14px"><button class="btn fill sm" id="rndPat"><svg viewBox="0 0 24 24"><path d="M10.59 9.17 5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg><span data-i18n="rndPat"></span></button></div>
+      <div class="row c noprint" style="margin-top:14px"><button class="btn fill sm" id="rndPat"><svg viewBox="0 0 24 24"><path d="M10.59 9.17 5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg><span data-i18n="rndPat"></span></button></div>
+      <div class="row c noprint" style="margin-top:10px"><button class="btn tonal sm" id="expCopy" data-i18n="copyList"></button><button class="btn tonal sm" id="expImg" data-i18n="dlImg"></button><button class="btn tonal sm" id="expPrint" data-i18n="printPlan"></button></div>
       <div class="legend"><span data-i18n="boys"></span><span class="f" data-i18n="girls"></span></div>
     </div>
   </section>
-  <footer>Made with <span class="h">♥</span> by <b>Rex-bit</b></footer>
+  <div class="faq" id="faq"><h2 data-i18n="faqTitle"></h2><div id="faqList"></div></div>
+  <footer><div class="flinks"><button class="flink" id="polLink" data-i18n="polLink"></button><button class="flink" id="faqLink" data-i18n="faqNav"></button></div>Made with <span class="h">♥</span> by <b>Rex-bit</b></footer>
 </main>
 
+<div class="win" id="policy"><div class="wincard policy">
+  <h3 id="polTitle"></h3><div class="upd" id="polUpd"></div><div id="polBody"></div>
+  <div class="row"><button class="btn tonal sm" id="polWipe" data-i18n="wipe"></button><button class="btn fill sm" id="polClose" data-i18n="polClose"></button></div>
+</div></div>
 <div id="toast"></div>
 
 <div class="win" id="win"><div class="wincard">
@@ -274,7 +332,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
+en:{copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
  namesHint:'Paste the full list of names (male and female names may be mixed). They are separated automatically. You may also add (M) or (F) after a name.',
  shuffle:'Shuffle Order',sortAZ:'Sort A–Z',loadDemo:'Use Sample Data',frontRow:'Seat Layout',rand:'Random Rows',alt:'Alternating',
  rndPat:'Re-randomize Layout',tPat:'Seat layout re-randomized',cfmPat:'Seats that are already filled will be cleared. Continue?',
@@ -289,7 +347,7 @@ en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
+id:{copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
  namesHint:'Tempel seluruh daftar nama (nama laki-laki dan perempuan boleh tercampur). Sistem akan memisahkannya secara otomatis. Anda juga dapat menambahkan (L) atau (P) di belakang nama.',
  shuffle:'Acak Urutan',sortAZ:'Urutkan A–Z',loadDemo:'Gunakan Data Contoh',frontRow:'Pola Denah',rand:'Acak Penuh',alt:'Selang-seling',
  rndPat:'Acak Ulang Pola',tPat:'Pola denah diacak ulang',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjutkan?',
@@ -548,6 +606,8 @@ function drawWheel(){
     ctx.font=`600 ${Math.max(20,Math.min(38,360/Math.max(n,6)))}px sans-serif`;
     ctx.fillText(name.length>13?name.slice(0,12)+'…':name,R-70,10);ctx.restore();
   });
+  ctx.beginPath();ctx.arc(R,R,R-6,0,7);ctx.lineWidth=9;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.stroke();
+  for(let i=0;i<n;i++){const an=rot+i*a;ctx.beginPath();ctx.arc(R+(R-6)*Math.cos(an),R+(R-6)*Math.sin(an),4.5,0,7);ctx.fillStyle=pal[0];ctx.fill()}
   ctx.shadowColor='rgba(0,0,0,.3)';ctx.shadowBlur=10;
   ctx.beginPath();ctx.arc(R,R,54,0,7);ctx.fillStyle='#fff';ctx.fill();ctx.shadowBlur=0;
   ctx.fillStyle=pal[0];ctx.font='700 22px sans-serif';ctx.textAlign='center';ctx.fillText(t('wheelSpin'),R,R+8);
@@ -591,7 +651,7 @@ function renderAll(){
   $('bar').style.width=(done/TOTAL*100)+'%';
   $('prog').textContent=t('prog',{r:round,d:done,t:TOTAL});
   const b=$('badge');b.textContent=done;b.classList.toggle('show',done>0);$('pbadge').textContent=done;
-  $('spin').textContent=fin?t('nextR'):t('spin');
+  $('spin').lastElementChild.textContent=fin?t('nextR'):t('spin');
   $('spin').disabled=spinning||(!fin&&(ni<0||!list.length));
   $('shuffle').disabled=spinning||!people.length;
   drawWheel();renderRoom();renderHist();persist();
@@ -601,7 +661,7 @@ function applyLang(){
   document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
   $('langCode').textContent={en:'EN',id:'ID'}[lang];
   document.querySelectorAll('#langMenu button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
-  renderChips();renderAll();
+  renderChips();renderAll();renderFaq();renderPolicy();
 }
 $('langBtn').onclick=e=>{e.stopPropagation();$('langMenu').classList.toggle('open')};
 document.querySelectorAll('#langMenu button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;$('langMenu').classList.remove('open');applyLang()});
@@ -656,7 +716,7 @@ function place(name,g){
 function doSpin(){
   if(spinning)return;
   if(isDone()){showFin();return}
-  if(!pool.length)return;ac();
+  if(!pool.length)return;ac();idle=false;
   const{g}=currentPool(),n=pool.length,a=2*Math.PI/n;
   const idx=Math.floor(Math.random()*n),target=-(idx+.5)*a;
   const delta=(((target-rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI)+2*Math.PI*7;
@@ -703,6 +763,183 @@ $('shuffle').onclick=()=>{
 $('reset').onclick=()=>{if(spinning)return;buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tReset'))};
 $('save').onclick=()=>{if(spinning)return;parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tSaved'));go(1)};
 $('demo').onclick=()=>{$('names').value=defaultNames();ov={};parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tDemo'))};
+
+
+/* ---------- icons ---------- */
+const ICONS={
+ shuffle:'M10.59 9.17 5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z',
+ sort:'M14.94 4.66h-4.72l2.36-2.36zm-4.69 14.71h4.66l-2.33 2.33zM6.1 6.27L1.6 17.73h1.84l.92-2.45h5.11l.92 2.45h1.84L7.74 6.27H6.1zm-1.13 7.37l1.94-5.18 1.94 5.18H4.97zm10.76 2.5h6.12v1.59h-8.53v-1.29l5.92-8.56h-5.88v-1.6h8.3v1.26l-5.93 8.6z',
+ sample:'M14 10H2v2h12v-2zm0-4H2v2h12V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM2 16h8v-2H2v2z',
+ check:'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z',
+ auto:'M7.5 5.6 10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29a.996.996 0 0 0-1.41 0L1.29 18.96a.996.996 0 0 0 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05a.996.996 0 0 0 0-1.41l-2.33-2.35zm-1.03 5.49-2.12-2.12 2.44-2.44 2.12 2.12-2.44 2.44z',
+ reset:'M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z',
+ next:'M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z',
+ close:'M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+ spin:'M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 0 1 6 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z',
+ copy:'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z',
+ download:'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z',
+ print:'M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z',
+ fullscreen:'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z',
+ exitfs:'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
+ help:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z',
+ lock:'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z',
+ delete:'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+ people:'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z',
+ wc:'M5.5 22v-7.5H4V9c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v5.5H9.5V22h-4zM18 22v-6h3l-2.54-7.63A2.01 2.01 0 0 0 16.56 7h-.12a2 2 0 0 0-1.9 1.37L12 16h3v6h3zM7.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm9 0c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2z',
+ rules:'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'
+};
+const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#demo','sample'],['#save','check'],['#shuffle','auto'],['#reset','reset'],
+ ['#finNext','next'],['#finLater','close'],['#winok','next'],['#spin','spin'],['#expCopy','copy'],['#expImg','download'],['#expPrint','print'],
+ ['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
+ ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
+function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
+function addIcon(el,name){
+  if(el.querySelector('svg'))return;
+  const v=mkIcon(name);if(el.tagName==='H2')v.setAttribute('class','hi');
+  const key=el.dataset.i18n;
+  if(key){el.removeAttribute('data-i18n');el.textContent='';el.appendChild(v);const sp=document.createElement('span');sp.dataset.i18n=key;el.appendChild(sp)}
+  else el.insertBefore(v,el.firstChild);
+}
+function initIcons(){ICON_MAP.forEach(([sel,ic])=>document.querySelectorAll(sel).forEach(el=>addIcon(el,ic)))}
+
+/* ---------- FAQ + privacy policy ---------- */
+const FAQ={
+en:[
+['Is my data private?','Yes. The names and seating plans you enter stay in your own browser (local storage on this device). They are never uploaded to a server, there is no account or sign-up, and this site uses no analytics or advertising trackers. You can erase everything at any time with the button below. As with any website, the hosting provider may keep standard server logs.'],
+['Where is my data stored?','Only in this browser, on this device. It does not sync between devices, and it disappears if you clear your browser\'s site data or use a private window.'],
+['How are boys and girls detected?','The app estimates it on your device using a built-in list of common Indonesian names and name endings. Uncertain names have a dashed outline. Tap any name to correct it, or write (L)/(P) or (M)/(F) after the name.'],
+['What do the seating patterns mean?','Alternating: inside every row, desks alternate between boys and girls. Random Rows: each row holds one gender only, and the rows are arranged randomly. The left and right blocks have 10 desks each and the middle block has 18.'],
+['What is a rolling?','One rolling is a full round of giving every student a seat. When all seats are filled you can start the next rolling; the previous seating plan stays in the history on the Seats tab.'],
+['Is the draw really random?','Yes. Each spin picks the winner with your browser\'s random number generator, and the wheel then animates to land on that name. Every remaining name has the same chance.'],
+['Can I save or print the seating plan?','Yes. On the Seats tab you can copy the plan as text, download it as an image, or print it.']],
+id:[
+['Apakah data saya privat?','Ya. Nama dan denah yang Anda masukkan hanya tersimpan di browser Anda sendiri (penyimpanan lokal di perangkat ini). Data tidak pernah diunggah ke server, tidak ada akun atau pendaftaran, dan situs ini tidak memakai analitik maupun pelacak iklan. Anda dapat menghapus semuanya kapan saja dengan tombol di bawah. Seperti situs web pada umumnya, penyedia hosting dapat menyimpan log server standar.'],
+['Di mana data saya disimpan?','Hanya di browser ini, pada perangkat ini. Data tidak tersinkron antarperangkat, dan akan hilang jika Anda menghapus data situs di browser atau memakai jendela pribadi.'],
+['Bagaimana cowok dan cewek dideteksi?','Aplikasi memperkirakannya di perangkat Anda memakai daftar nama dan akhiran nama Indonesia yang umum. Nama yang kurang pasti diberi garis putus-putus. Ketuk nama untuk memperbaikinya, atau tulis (L)/(P) di belakang nama.'],
+['Apa arti pola denah?','Selang-seling: dalam satu baris, meja bergantian antara laki-laki dan perempuan. Acak Penuh: setiap baris hanya berisi satu jenis, dengan susunan baris yang diacak. Blok kiri dan kanan masing-masing 10 meja, blok tengah 18 meja.'],
+['Apa itu rolling?','Satu rolling adalah satu putaran penuh pembagian meja untuk seluruh siswa. Setelah semua meja terisi, Anda dapat memulai rolling berikutnya; denah sebelumnya tetap tersimpan di riwayat pada tab Denah.'],
+['Apakah undiannya benar-benar acak?','Ya. Setiap putaran memilih pemenang dengan generator angka acak di browser Anda, lalu roda dianimasikan hingga berhenti di nama tersebut. Setiap nama yang tersisa memiliki peluang yang sama.'],
+['Bisakah denah disimpan atau dicetak?','Bisa. Di tab Denah, Anda dapat menyalin denah sebagai teks, mengunduhnya sebagai gambar, atau mencetaknya.']]
+};
+const POL={
+en:{title:'Privacy Policy',sections:[
+['Summary','Rolling Kelas runs entirely in your browser. We do not collect, upload, sell or share the names or seating plans you enter.'],
+['What is stored on your device','To keep your work between visits, the app saves your name list, gender corrections, seating plans, rolling history and settings (language, sound) in your browser\'s local storage. This data never leaves your device.'],
+['What we do not do','There are no accounts, no tracking cookies, no analytics, no advertising and no third-party scripts or fonts.'],
+['Hosting','The site is hosted on GitHub Pages. As with any website, the hosting provider may process technical request data (for example IP address and browser type) in its server logs. The app itself does not receive or use this information. See GitHub\'s privacy statement for details.'],
+['Class lists','Because a roster can identify real people, we recommend using first names or nicknames only, and following your school\'s rules on sharing student information.'],
+['Your control','You can delete everything at any time with the button below, or by clearing this site\'s data in your browser settings. Private windows start empty and forget everything when closed.'],
+['Changes','If this policy changes, the date above will be updated. Questions? Contact the site owner, Rex-bit.']]},
+id:{title:'Kebijakan Privasi',sections:[
+['Ringkasan','Rolling Kelas berjalan sepenuhnya di browser Anda. Kami tidak mengumpulkan, mengunggah, menjual, atau membagikan nama maupun denah yang Anda masukkan.'],
+['Yang disimpan di perangkat Anda','Agar pekerjaan Anda tidak hilang saat kembali, aplikasi menyimpan daftar nama, koreksi jenis kelamin, denah, riwayat rolling, dan pengaturan (bahasa, suara) di penyimpanan lokal browser. Data ini tidak pernah meninggalkan perangkat Anda.'],
+['Yang tidak kami lakukan','Tidak ada akun, tidak ada cookie pelacak, tidak ada analitik, tidak ada iklan, dan tidak ada skrip atau font pihak ketiga.'],
+['Hosting','Situs ini di-host di GitHub Pages. Seperti situs web pada umumnya, penyedia hosting dapat memproses data teknis permintaan (misalnya alamat IP dan jenis browser) pada log servernya. Aplikasi ini sendiri tidak menerima maupun memakai informasi tersebut. Lihat pernyataan privasi GitHub untuk rinciannya.'],
+['Daftar kelas','Karena daftar siswa dapat mengidentifikasi orang sungguhan, kami menyarankan memakai nama depan atau nama panggilan saja, serta mengikuti aturan sekolah Anda tentang berbagi informasi siswa.'],
+['Kendali Anda','Anda dapat menghapus semuanya kapan saja dengan tombol di bawah, atau dengan menghapus data situs ini di pengaturan browser. Jendela pribadi dimulai kosong dan melupakan semuanya saat ditutup.'],
+['Perubahan','Jika kebijakan ini berubah, tanggal di atas akan diperbarui. Ada pertanyaan? Hubungi pemilik situs, Rex-bit.']]}
+};
+function wipeData(){
+  if(!confirm(t('cfmWipe')))return;
+  try{localStorage.removeItem(KEY)}catch(e){}
+  location.reload();
+}
+function renderFaq(){
+  const box=$('faqList');box.innerHTML='';
+  FAQ[lang].forEach(([q,a],i)=>{
+    const d=document.createElement('details');if(i===0)d.open=true;
+    const sm=document.createElement('summary');sm.textContent=q;
+    const p=document.createElement('p');p.textContent=a;d.append(sm,p);
+    if(i===0){
+      const row=document.createElement('div');row.className='row';
+      const w=document.createElement('button');w.className='btn tonal sm';w.insertBefore(mkIcon('delete'),null);const wl=document.createElement('span');wl.textContent=t('wipe');w.appendChild(wl);w.onclick=wipeData;
+      const pb=document.createElement('button');pb.className='btn text sm';pb.appendChild(mkIcon('lock'));const pl=document.createElement('span');pl.textContent=t('polLink');pb.appendChild(pl);pb.onclick=openPolicy;
+      row.append(w,pb);d.appendChild(row);
+    }
+    box.appendChild(d);
+  });
+}
+function renderPolicy(){
+  const P=POL[lang];$('polTitle').textContent=P.title;$('polUpd').textContent=t('polUpd');
+  const b=$('polBody');b.innerHTML='';
+  P.sections.forEach(([h,x])=>{const e=document.createElement('h4');e.textContent=h;const q=document.createElement('p');q.textContent=x;b.append(e,q)});
+}
+function openPolicy(){$('policy').classList.add('show')}
+const closePolicy=()=>$('policy').classList.remove('show');
+$('polLink').onclick=openPolicy;$('polClose').onclick=closePolicy;$('polWipe').onclick=wipeData;
+$('policy').onclick=e=>{if(e.target.id==='policy')closePolicy()};
+const toFaq=()=>$('faq').scrollIntoView({behavior:'smooth'});
+$('faqLink').onclick=toFaq;$('faqBtn').onclick=toFaq;
+
+/* ---------- export the seating plan ---------- */
+const viewN=()=>viewRound===null?round:history[viewRound].n;
+function seatText(){
+  const L=viewSeats();let out=`Rolling Kelas · Rolling #${viewN()}\n`;
+  SECS.forEach(s=>{out+=`\n${t('sec'+s.id)}\n`;for(let r=0;r<s.rows;r++){out+=`${t('row')} ${r+1}: ${L.filter(x=>x.sec===s.id&&x.row===r).map(x=>x.name||'-').join(' | ')}\n`}});
+  return out;
+}
+$('expCopy').onclick=async()=>{
+  const txt=seatText();
+  try{await navigator.clipboard.writeText(txt);toast(t('tCopied'))}
+  catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(t('tCopied'))}catch(_){toast(t('tCopyFail'))}ta.remove()}
+};
+function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
+function seatCanvas(){
+  const L=viewSeats(),W=1240,sw=100,sh=60,sg=10,gap=44,top=150;
+  const bw=SECS.map(s=>s.cols*sw+(s.cols-1)*sg),total=bw.reduce((a,b)=>a+b,0)+gap*(SECS.length-1),x0=(W-total)/2;
+  const H=top+Math.max(...SECS.map(s=>s.rows))*(sh+sg)+100;
+  const c=document.createElement('canvas');c.width=W*2;c.height=H*2;const g=c.getContext('2d');g.scale(2,2);
+  g.fillStyle='#fff';g.fillRect(0,0,W,H);g.textAlign='center';
+  g.fillStyle='#1a1c18';g.font='700 30px sans-serif';g.fillText('Rolling Kelas · Rolling #'+viewN(),W/2,50);
+  g.fillStyle='#e0e4d9';rr(g,W/2-190,68,380,38,12);g.fill();g.fillStyle='#43483e';g.font='700 15px sans-serif';g.fillText(t('board'),W/2,92);
+  let x=x0;
+  SECS.forEach((s,i)=>{
+    g.fillStyle='#43483e';g.font='600 16px sans-serif';g.textAlign='center';g.fillText(`${t('sec'+s.id)} (${s.cols*s.rows})`,x+bw[i]/2,top-14);
+    L.filter(q=>q.sec===s.id).forEach(q=>{
+      const sx=x+q.col*(sw+sg),sy=top+q.row*(sh+sg);rr(g,sx,sy,sw,sh,14);
+      if(q.name){
+        g.fillStyle=q.pg==='M'?'#d3e4ff':'#ffd8e8';g.fill();g.fillStyle=q.pg==='M'?'#001c3b':'#3e001e';
+        let f=17;g.font='700 '+f+'px sans-serif';while(g.measureText(q.name).width>sw-14&&f>9){f--;g.font='700 '+f+'px sans-serif'}
+        g.textAlign='center';g.fillText(q.name,sx+sw/2,sy+sh/2+f/3);
+      }else{g.setLineDash([5,4]);g.lineWidth=1.5;g.strokeStyle=q.g==='M'?'#5b97dc':'#d9669b';g.stroke();g.setLineDash([])}
+    });
+    x+=bw[i]+gap;
+  });
+  g.textAlign='left';g.font='600 14px sans-serif';
+  g.fillStyle='#2f6fb8';rr(g,W/2-130,H-52,14,14,3);g.fill();g.fillStyle='#43483e';g.fillText(t('boys'),W/2-110,H-40);
+  g.fillStyle='#b0356f';rr(g,W/2+20,H-52,14,14,3);g.fill();g.fillStyle='#43483e';g.fillText(t('girls'),W/2+40,H-40);
+  return c;
+}
+$('expImg').onclick=()=>seatCanvas().toBlob(bl=>{const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='rolling-kelas-'+viewN()+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(t('tImg'))});
+$('expPrint').onclick=()=>window.print();
+
+/* ---------- header auto-hide, fullscreen, keyboard, idle wheel ---------- */
+const hdr=document.querySelector('header');let lastY=0;
+addEventListener('scroll',()=>{
+  const y=window.scrollY;if(Math.abs(y-lastY)<6)return;
+  hdr.classList.toggle('scrolled',y>10);
+  if(y>90&&y>lastY&&!$('langMenu').classList.contains('open'))hdr.classList.add('hide');else hdr.classList.remove('hide');
+  lastY=y;
+},{passive:true});
+if(!document.documentElement.requestFullscreen)$('fs').style.display='none';
+$('fs').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(()=>{})};
+document.addEventListener('fullscreenchange',()=>{const pa=$('fs').querySelector('path');if(pa)pa.setAttribute('d',ICONS[document.fullscreenElement?'exitfs':'fullscreen'])});
+const deskMQ=matchMedia('(min-width:960px)');
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closePolicy();hideFin();hideWin();return}
+  if(e.code!=='Space'||e.repeat)return;
+  if(['TEXTAREA','INPUT','BUTTON','SUMMARY','A','SELECT'].includes(e.target.tagName))return;
+  if(document.querySelector('.win.show'))return;
+  if(!deskMQ.matches&&tab!==1)return;
+  e.preventDefault();doSpin();
+});
+let idle=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function idleLoop(){
+  if(idle&&!spinning&&pool.length&&!document.hidden&&$('t1').offsetParent!==null){rot=(rot+.0035)%(2*Math.PI);drawWheel()}
+  requestAnimationFrame(idleLoop);
+})();
+
+initIcons();
 
 load();applyLang();
 </script>

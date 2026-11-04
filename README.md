@@ -21,3 +21,10 @@ Web rolling tempat duduk kelas: tempel daftar nama, putar roda, dan nama yang ke
 
 ## Jalankan
 Buka `index.html` di browser. Tidak perlu build.
+
+## Fitur tambahan
+- Roda berputar pelan sendiri sebelum spin pertama
+- Header otomatis sembunyi saat scroll ke bawah, muncul lagi saat scroll ke atas
+- FAQ + Kebijakan Privasi ("Apakah data saya privat?") dan tombol hapus semua data
+- Ekspor denah: salin teks, simpan PNG, cetak
+- Spasi untuk memutar, tombol layar penuh
