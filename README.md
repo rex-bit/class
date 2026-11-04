@@ -9,7 +9,7 @@ Web rolling tempat duduk kelas: tempel daftar nama, putar roda, dan nama yang ke
 - **Spin wheel** ala Wheel of Names: pointer di kanan, suara tik saat berputar, fanfare dan konfeti saat nama keluar. Ada tombol suara on/off.
 - **Shuffle** dan **A–Z** untuk mengatur urutan nama di roda. **Acak denah** mengisi semua meja sekaligus.
 - **Denah 38 meja**: kiri 10 (5 baris x 2), tengah 18 (6 saf x 3), kanan 10 (5 baris x 2).
-- **Satu baris satu jenis** (cowok atau cewek). Baris mana yang cowok dan mana yang cewek diacak, tidak sejajar kiri-tengah-kanan, dan jumlah kursinya mengikuti jumlah cowok/cewek. Tombol **Acak baris** di tab Denah mengacak ulang polanya. Bisa juga dipilih selang-seling.
+- **Satu baris satu jenis** (cowok atau cewek), selang-seling: baris cowok, baris cewek. Baris depan tiap blok (kiri, tengah, kanan) diacak dan tidak pernah sama semua, jadi tidak ada garis cowok/cewek yang sejajar. Jumlah kursi mengikuti jumlah cowok/cewek. Tombol **Acak baris** di tab Denah mengacak ulang polanya. Ada juga mode **Acak penuh** (tiap baris diacak bebas).
 - **Rolling berikutnya**: setelah semua meja terisi muncul popup. Rolling berikutnya membuat denah baru (pola baris diacak ulang) dan denah lama tersimpan di riwayat tab Denah.
 - **2 bahasa**: English dan Bahasa Indonesia, ganti lewat tombol di pojok kanan atas.
 - Data tersimpan di browser (localStorage).
