@@ -198,6 +198,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       </div>
       <div class="field"><label data-i18n="frontRow"></label>
         <div class="seg" id="start"><button data-v="R" class="on" data-i18n="rand"></button><button data-v="A" data-i18n="alt"></button></div>
+        <p class="hint" style="margin:8px 0 0" data-i18n="patHint"></p>
       </div>
       <button class="btn fill" id="save" data-i18n="saveStart"></button>
     </div>
@@ -275,7 +276,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 const I18N={
 en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name list',
  namesHint:'Paste all the names, boys and girls mixed. They are split automatically. You can also tag a name with (M) or (F).',
- shuffle:'Shuffle',loadDemo:'Load sample',frontRow:'Row pattern',rand:'Random',alt:'Alternating',rndPat:'Randomize rows',tPat:'Row pattern randomized',cfmPat:'Filled seats will be cleared. Continue?',boys:'Boys',girls:'Girls',saveStart:'Save & start',
+ shuffle:'Shuffle',loadDemo:'Load sample',frontRow:'Row pattern',rand:'Random',alt:'Alternating',patHint:'Applied to the seat plan right away (see the Seats tab). Random = rows are boys/girls at random. Alternating = boys, girls, boys, girls…',tMode:'Row pattern: {m}',rndPat:'Randomize rows',tPat:'Row pattern randomized',cfmPat:'Filled seats will be cleared. Continue?',boys:'Boys',girls:'Girls',saveStart:'Save & start',
  splitTitle:'Split result',rulesTitle:'Seat rules',
  rulesBody:'Each row holds one gender (boys or girls). Which rows are boys and which are girls is random, so it differs every time. Left & right have 10 seats, the middle has 18 (6 rows).',
  guessSome:'{u} names are still guesses (dashed outline). Tap a name to move it between boys and girls.',guessOk:'Wrong? Tap a name to move it between boys and girls.',
@@ -287,7 +288,7 @@ en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name list',
  wheelDone:'Done 🎉',wheelNone:'No names left',histNow:'now',histView:'Viewing Rolling {n} (read only)'},
 id:{tabNames:'Nama',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'Daftar nama',
  namesHint:'Tempel semua nama, boleh campur cowok & cewek. Otomatis dipisah. Bisa juga tulis (L) atau (P) di belakang nama.',
- shuffle:'Shuffle',loadDemo:'Muat contoh',frontRow:'Pola baris',rand:'Acak',alt:'Selang-seling',rndPat:'Acak baris',tPat:'Pola baris diacak',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjut?',boys:'Cowok',girls:'Cewek',saveStart:'Simpan & mulai',
+ shuffle:'Shuffle',loadDemo:'Muat contoh',frontRow:'Pola baris',rand:'Acak',alt:'Selang-seling',patHint:'Langsung diterapkan ke denah (lihat di tab Denah). Acak = baris cowok/cewek diacak. Selang-seling = cowok, cewek, cowok, cewek…',tMode:'Pola baris: {m}',rndPat:'Acak baris',tPat:'Pola baris diacak',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjut?',boys:'Cowok',girls:'Cewek',saveStart:'Simpan & mulai',
  splitTitle:'Hasil pemisahan',rulesTitle:'Aturan denah',
  rulesBody:'Satu baris isinya satu jenis (cowok atau cewek). Baris mana yang cowok dan mana yang cewek diacak, jadi beda tiap kali. Kiri & kanan 10 meja, tengah 18 meja (6 saf).',
  guessSome:'{u} nama masih tebakan (garis putus-putus). Ketuk nama untuk pindah cowok/cewek.',guessOk:'Ketuk nama kalau salah, langsung pindah cowok/cewek.',
@@ -410,7 +411,7 @@ function defaultNames(){let s=7;const rnd=()=>(s=(s*16807)%2147483647)/214748364
 
 const ROWSL=[];SECS.forEach(s=>{for(let r=0;r<s.rows;r++)ROWSL.push({si:s.id,r,n:s.cols})});
 const patOf=list=>ROWSL.map(x=>list.find(q=>q.sec===x.si&&q.row===x.r).g);
-function altPattern(){const out=[];SECS.forEach(s=>{const f=Math.random()<.5?'M':'F',o=f==='M'?'F':'M';for(let r=0;r<s.rows;r++)out.push(r%2===0?f:o)});return out}
+function altPattern(){let fr;do{fr=SECS.map(()=>Math.random()<.5?'M':'F')}while(fr.every(x=>x===fr[0]));const out=[];SECS.forEach((s,i)=>{const f=fr[i],o=f==='M'?'F':'M';for(let r=0;r<s.rows;r++)out.push(r%2===0?f:o)});return out}
 /* random: every row is one gender, boy-seats ~ number of boys, both genders in each block,
    no run of 3 same rows, and no straight line of the same gender across left+middle+right */
 function randomPattern(){
@@ -481,7 +482,13 @@ function load(){
   if(!seats.length)buildSeats();
 }
 function setSeg(){document.querySelectorAll('#start button').forEach(b=>b.classList.toggle('on',b.dataset.v===startMode))}
-document.querySelectorAll('#start button').forEach(b=>b.onclick=()=>{startMode=b.dataset.v;setSeg()});
+document.querySelectorAll('#start button').forEach(b=>b.onclick=()=>{
+  if(spinning)return;
+  if(seats.some(x=>x.name)&&!confirm(t('cfmPat')))return;
+  startMode=b.dataset.v;setSeg();
+  buildSeats(newPattern(patOf(seats)));lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();
+  toast(t('tMode',{m:t(startMode==='A'?'alt':'rand')}));
+});
 $('names').oninput=()=>{parse();renderAll()};
 
 const used=()=>new Set(seats.filter(s=>s.name).map(s=>s.name));
