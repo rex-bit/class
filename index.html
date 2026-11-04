@@ -276,9 +276,9 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 const I18N={
 en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name list',
  namesHint:'Paste all the names, boys and girls mixed. They are split automatically. You can also tag a name with (M) or (F).',
- shuffle:'Shuffle',loadDemo:'Load sample',frontRow:'Row pattern',rand:'Fully random',alt:'Alternating',patHint:'Applied to the seat plan right away (see the Seats tab). Alternating = a boys row, then a girls row, and so on; the front row of each block is random. Fully random = every row is boys or girls at random.',tMode:'Row pattern: {m}',rndPat:'Randomize rows',tPat:'Row pattern randomized',cfmPat:'Filled seats will be cleared. Continue?',boys:'Boys',girls:'Girls',saveStart:'Save & start',
+ shuffle:'Shuffle',loadDemo:'Load sample',frontRow:'Row pattern',rand:'Fully random',alt:'Alternating',patHint:'Applied to the seat plan right away (see the Seats tab). Alternating = boy, girl, boy… inside every row. Fully random = one row all boys, the next row all girls; the front row of each block is random.',tMode:'Row pattern: {m}',rndPat:'Randomize rows',tPat:'Row pattern randomized',cfmPat:'Filled seats will be cleared. Continue?',boys:'Boys',girls:'Girls',saveStart:'Save & start',
  splitTitle:'Split result',rulesTitle:'Seat rules',
- rulesBody:'Each row holds one gender (boys or girls), alternating: a boys row, then a girls row. The front row of every block (left, middle, right) is random, so it differs every time. Left & right have 10 seats, the middle has 18 (6 rows).',
+ rulesBody:'Alternating mode: the desks in every row swap between boy and girl (the order is random per row). Fully random mode: each row holds one gender only, boys row then girls row, and the front row of each block is random. Left & right have 10 seats, the middle has 18 (6 rows).',
  guessSome:'{u} names are still guesses (dashed outline). Tap a name to move it between boys and girls.',guessOk:'Wrong? Tap a name to move it between boys and girls.',
  stEmpty:'Add names in the Names tab first',stDone:'All seats filled',mode:'{g} mode · {n} names',prog:'Rolling #{r} · {d} / {t} seats',
  spin:'Spin',nextR:'Next rolling',shuffleSeats:'Shuffle seats',reset:'Reset',board:'WHITEBOARD',winLabel:'Got a seat!',cont:'Continue',
@@ -288,9 +288,9 @@ en:{tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name list',
  wheelDone:'Done 🎉',wheelNone:'No names left',histNow:'now',histView:'Viewing Rolling {n} (read only)'},
 id:{tabNames:'Nama',tabSpin:'Spin',tabSeats:'Denah',namesTitle:'Daftar nama',
  namesHint:'Tempel semua nama, boleh campur cowok & cewek. Otomatis dipisah. Bisa juga tulis (L) atau (P) di belakang nama.',
- shuffle:'Shuffle',loadDemo:'Muat contoh',frontRow:'Pola baris',rand:'Acak penuh',alt:'Selang-seling',patHint:'Langsung diterapkan ke denah (lihat di tab Denah). Selang-seling = baris cowok, baris cewek, bergantian; baris depan tiap blok diacak. Acak penuh = tiap baris cowok/cewek diacak bebas.',tMode:'Pola baris: {m}',rndPat:'Acak baris',tPat:'Pola baris diacak',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjut?',boys:'Cowok',girls:'Cewek',saveStart:'Simpan & mulai',
+ shuffle:'Shuffle',loadDemo:'Muat contoh',frontRow:'Pola baris',rand:'Acak penuh',alt:'Selang-seling',patHint:'Langsung diterapkan ke denah (lihat di tab Denah). Selang-seling = dalam satu baris, cowok, cewek, cowok… bergantian. Acak penuh = satu baris cowok semua, baris berikutnya cewek semua; baris depan tiap blok diacak.',tMode:'Pola baris: {m}',rndPat:'Acak baris',tPat:'Pola baris diacak',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjut?',boys:'Cowok',girls:'Cewek',saveStart:'Simpan & mulai',
  splitTitle:'Hasil pemisahan',rulesTitle:'Aturan denah',
- rulesBody:'Satu baris isinya satu jenis (cowok atau cewek), selang-seling: baris cowok, baris cewek. Baris depan tiap blok (kiri, tengah, kanan) diacak, jadi beda tiap kali. Kiri & kanan 10 meja, tengah 18 meja (6 saf).',
+ rulesBody:'Mode Selang-seling: meja dalam satu baris bergantian cowok dan cewek (urutannya diacak tiap baris). Mode Acak penuh: satu baris isinya satu jenis saja, baris cowok lalu baris cewek, dan baris depan tiap blok diacak. Kiri & kanan 10 meja, tengah 18 meja (6 saf).',
  guessSome:'{u} nama masih tebakan (garis putus-putus). Ketuk nama untuk pindah cowok/cewek.',guessOk:'Ketuk nama kalau salah, langsung pindah cowok/cewek.',
  stEmpty:'Isi nama dulu di tab Nama',stDone:'Semua meja terisi',mode:'Mode {g} · {n} nama',prog:'Rolling #{r} · {d} / {t} meja',
  spin:'Spin',nextR:'Rolling berikutnya',shuffleSeats:'Acak denah',reset:'Reset',board:'PAPAN TULIS',winLabel:'Dapat meja!',cont:'Lanjut',
@@ -410,8 +410,22 @@ function shuffled(a,rnd=Math.random){a=[...a];for(let i=a.length-1;i>0;i--){cons
 function defaultNames(){let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;return shuffled([...DEF_M,...DEF_F],rnd).join('\n')}
 
 const ROWSL=[];SECS.forEach(s=>{for(let r=0;r<s.rows;r++)ROWSL.push({si:s.id,r,n:s.cols})});
-const patOf=list=>ROWSL.map(x=>list.find(q=>q.sec===x.si&&q.row===x.r).g);
+const patOf=list=>list.map(x=>x.g);   /* one gender per desk, in seat order */
+const expandRows=g=>{const out=[];let k=0;SECS.forEach(s=>{for(let r=0;r<s.rows;r++){const x=g[k++];for(let c=0;c<s.cols;c++)out.push(x)}});return out};
+/* Selang-seling: inside every row the desks alternate boy / girl.
+   Orientation is random per row; 3-desk rows are split evenly (3x boy-girl-boy, 3x girl-boy-girl) so totals stay equal. */
 function altPattern(){
+  const out=[];
+  SECS.forEach(s=>{
+    const ori=s.cols===3?shuffled([...Array(Math.ceil(s.rows/2)).fill(0),...Array(Math.floor(s.rows/2)).fill(1)])
+                        :Array.from({length:s.rows},()=>Math.random()<.5?0:1);
+    for(let r=0;r<s.rows;r++)for(let c=0;c<s.cols;c++)out.push((c+ori[r])%2===0?'M':'F');
+  });
+  return out;
+}
+/* Acak penuh: every row is ONE gender, rows go boys, girls, boys... per block.
+   The front row of each block is random (never the same in all three blocks) and boy-desks match the number of boys. */
+function rowPattern(){
   const nb=people.filter(p=>p.g==='M').length;
   const target=people.length?Math.round(TOTAL*nb/people.length):TOTAL/2;
   let best=[],bs=1e9;
@@ -421,32 +435,13 @@ function altPattern(){
     const ms=g.reduce((a,x,j)=>a+(x==='M'?ROWSL[j].n:0),0),sc=Math.abs(ms-target);
     if(sc<bs){bs=sc;best=[g]}else if(sc===bs)best.push(g);
   }
-  return best[Math.floor(Math.random()*best.length)];
+  return expandRows(best[Math.floor(Math.random()*best.length)]);
 }
-/* random: every row is one gender, boy-seats ~ number of boys, both genders in each block,
-   no run of 3 same rows, and no straight line of the same gender across left+middle+right */
-function randomPattern(){
-  const nb=people.filter(p=>p.g==='M').length;
-  const target=people.length?Math.round(TOTAL*nb/people.length):TOTAL/2;
-  const off=[0,SECS[0].rows,SECS[0].rows+SECS[1].rows];
-  let best=[],bs=1e9;
-  for(let k=0;k<1500;k++){
-    const g=ROWSL.map(()=>Math.random()<.5?'M':'F');let ok=true;
-    SECS.forEach((s,i)=>{const seg=g.slice(off[i],off[i]+s.rows);
-      if(!seg.includes('M')||!seg.includes('F'))ok=false;
-      for(let j=2;j<seg.length;j++)if(seg[j]===seg[j-1]&&seg[j]===seg[j-2])ok=false});
-    for(let r=0;r<5;r++)if(g[off[0]+r]===g[off[1]+r]&&g[off[1]+r]===g[off[2]+r])ok=false;
-    if(!ok)continue;
-    const ms=g.reduce((a,x,i)=>a+(x==='M'?ROWSL[i].n:0),0),sc=Math.abs(ms-target);
-    if(sc<bs){bs=sc;best=[g]}else if(sc===bs)best.push(g);
-  }
-  return best.length?best[Math.floor(Math.random()*best.length)]:altPattern();
-}
-const pickPattern=()=>startMode==='A'?altPattern():randomPattern();
-function newPattern(prev){let g,n=0;do{g=pickPattern();n++}while(n<60&&g.filter((x,i)=>x!==prev[i]).length<6);return g}
+const pickPattern=()=>startMode==='A'?altPattern():rowPattern();
+function newPattern(prev){let g,n=0;do{g=pickPattern();n++}while(n<60&&g.filter((x,i)=>x!==prev[i]).length<10);return g}
 function buildSeats(pat){
   const g=pat||pickPattern();seats=[];let k=0;
-  SECS.forEach(s=>{for(let r=0;r<s.rows;r++){const gg=g[k++];for(let c=0;c<s.cols;c++)seats.push({sec:s.id,row:r,col:c,g:gg,name:null,pg:null})}});
+  SECS.forEach(s=>{for(let r=0;r<s.rows;r++)for(let c=0;c<s.cols;c++)seats.push({sec:s.id,row:r,col:c,g:g[k++],name:null,pg:null})});
 }
 function parse(){
   const seen=new Set();people=[];
