@@ -98,6 +98,7 @@ textarea:focus{border-color:var(--primary)}
 .seat.fm{background:var(--mc);color:var(--on-mc);border:0}
 .seat.ff{background:var(--fc);color:var(--on-fc);border:0}
 .seat.next{outline:2.5px solid var(--primary);outline-offset:2px}
+.seat.sm{font-size:9.5px}.seat.xs{font-size:8.5px}
 .seat.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
 @keyframes pop{from{transform:scale(.4)}to{transform:none}}
 .board{margin:0 auto 14px;max-width:70%;text-align:center;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px;border-radius:12px;background:var(--s4);color:var(--onv)}
@@ -128,6 +129,31 @@ nav.press .tab.on svg{transform:scale(1.28)}
 .badge.show{display:flex}
 #toast{position:fixed;left:50%;bottom:88px;transform:translate(-50%,30px);opacity:0;background:var(--on-bg);color:var(--bg);padding:12px 20px;border-radius:14px;font-size:14px;font-weight:600;z-index:20;transition:.35s;pointer-events:none;max-width:90vw;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+.ptabs{display:none}
+/* ===== Desktop / laptop: wheel on the left, Names/Seats panel on the right (like wheelofnames.com) ===== */
+@media(min-width:960px){
+  body{padding-bottom:24px}
+  header{padding:16px max(32px,calc((100vw - 1360px)/2 + 32px))}
+  main{max-width:1360px;padding:8px 32px;display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:0 28px;align-items:start}
+  section{display:block;animation:none}
+  #t1{grid-column:1;grid-row:1 / span 4}
+  .ptabs{display:flex;grid-column:2;grid-row:1;border-bottom:1px solid var(--ov);margin-bottom:14px}
+  #t0,#t2{grid-column:2;grid-row:2}
+  body.s0 #t2,body.s2 #t0{display:none}
+  footer{grid-column:1 / -1;grid-row:5}
+  nav{display:none}
+  #toast{bottom:32px}
+  .wheelbox{max-width:none;width:min(calc(100% - 20px),560px,58vh);margin:22px auto 26px}
+  .card{padding:22px}
+  textarea{height:240px}
+  .seat{height:54px;font-size:12px}
+  .seat.sm{font-size:12px}.seat.xs{font-size:10px}
+  .room{gap:16px}
+  .btn.big{padding:16px 64px;font-size:18px}
+}
+.ptab{flex:1;border:0;background:none;font:inherit;font-size:14px;font-weight:700;padding:13px 12px;color:var(--onv);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;display:flex;align-items:center;justify-content:center;gap:8px}
+.ptab.on{color:var(--primary);border-color:var(--primary)}
+.ptab .pb{background:var(--primary);color:var(--on-primary);font-size:11px;border-radius:10px;padding:1px 8px}
 /* dialogs */
 .win{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden}
 .win.show{opacity:1;pointer-events:auto}
@@ -158,6 +184,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 </header>
 
 <main>
+  <div class="ptabs"><button class="ptab on" data-p="0"><span data-i18n="tabNames"></span></button><button class="ptab" data-p="2"><span data-i18n="tabSeats"></span><span class="pb" id="pbadge">0</span></button></div>
   <!-- TAB 0: NAMES -->
   <section id="t0">
     <div class="card">
@@ -192,7 +219,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="status"><span class="chip" id="status"></span></div>
       <div class="wheelbox">
         <svg class="pointer" id="ptr" viewBox="0 0 40 40"><path d="M2 20 32 4v32z" fill="#fbbf24" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg>
-        <canvas id="wheel" width="680" height="680"></canvas>
+        <canvas id="wheel" width="1000" height="1000"></canvas>
       </div>
       <div class="progress"><i id="bar"></i></div>
       <div class="hint" id="prog" style="text-align:center;margin-bottom:14px"></div>
@@ -278,7 +305,7 @@ const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
 let seats=[],people=[],ov={},startMode='R',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
-let round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
+let side=0,round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
 const $=id=>document.getElementById(id);
 const canvas=$('wheel'),ctx=canvas.getContext('2d');
 
@@ -334,10 +361,15 @@ function go(i){
   nav.classList.remove('moving');void nav.offsetWidth;nav.classList.add('moving');
   clearTimeout(go.t);go.t=setTimeout(()=>nav.classList.remove('moving'),650);
   setOn(i);
+  if(i!==1)side=i;
+  document.body.classList.toggle('s0',side===0);document.body.classList.toggle('s2',side===2);
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.toggle('on',+b.dataset.p===side));
   document.querySelectorAll('section').forEach((s,k)=>s.classList.toggle('on',k===i));
   if(i===2)renderRoom();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+document.body.classList.add('s0');
+document.querySelectorAll('.ptab').forEach(b=>b.onclick=()=>go(+b.dataset.p));
 let drag=null;
 const idxAt=x=>{const r=tabsEl.getBoundingClientRect();return Math.max(0,Math.min(2,Math.floor((x-r.left)/(r.width/3))))};
 nav.addEventListener('pointerdown',e=>{
@@ -467,7 +499,7 @@ function currentPool(){
 const WP={M:['#2f6fb8','#4a90d9','#1d8fa8','#5b7fd6'],F:['#b0356f','#d9669b','#c2418a','#e3799f']};
 function segAt(n){const a=2*Math.PI/n;return Math.floor((((-rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI)/a)%n}
 function drawWheel(){
-  const W=canvas.width,R=W/2;ctx.clearRect(0,0,W,W);
+  const W=680,R=W/2;ctx.setTransform(canvas.width/W,0,0,canvas.width/W,0,0);ctx.clearRect(0,0,W,W);
   const{g,list}=currentPool();pool=list;
   if(!list.length){
     const cs=getComputedStyle(document.body);
@@ -506,7 +538,7 @@ function renderRoom(){
       const d=document.createElement('div');
       d.className='seat '+(st.name?(st.pg==='M'?'fm':'ff'):(st.g==='M'?'em':'ef'))+(i===ni?' next':'')+(cur&&i===lastPlaced&&tab===2?' pop':'');
       d.textContent=st.name||(st.g==='M'?'♂':'♀');
-      if(st.name&&st.name.length>5)d.style.fontSize=st.name.length>7?'8.5px':'9.5px';
+      if(st.name&&st.name.length>5)d.classList.add(st.name.length>7?'xs':'sm');
       grid.appendChild(d);
     });
     sec.appendChild(grid);room.appendChild(sec);
@@ -529,7 +561,7 @@ function renderAll(){
   else{st.className='chip '+(g==='M'?'m':'f');st.textContent=t('mode',{g:t(g==='M'?'boys':'girls'),n:list.length})}
   $('bar').style.width=(done/TOTAL*100)+'%';
   $('prog').textContent=t('prog',{r:round,d:done,t:TOTAL});
-  const b=$('badge');b.textContent=done;b.classList.toggle('show',done>0);
+  const b=$('badge');b.textContent=done;b.classList.toggle('show',done>0);$('pbadge').textContent=done;
   $('spin').textContent=fin?t('nextR'):t('spin');
   $('spin').disabled=spinning||(!fin&&(ni<0||!list.length));
   $('shuffle').disabled=spinning||!people.length;

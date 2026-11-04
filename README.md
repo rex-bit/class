@@ -15,6 +15,7 @@ Web rolling tempat duduk kelas: tempel daftar nama, putar roda, dan nama yang ke
 - Data tersimpan di browser (localStorage).
 
 ## Tampilan
+- **Layout laptop/desktop** ala Wheel of Names: roda besar di kiri, panel **Nama / Denah** di kanan. Di HP tetap memakai tab bar di bawah.
 - Gaya **Material You** (Material 3) bernuansa hijau, otomatis mode terang/gelap.
 - **Liquid glass tab bar**: bar tembus pandang. Saat ditekan, hanya pill hijaunya yang membesar. Pill bisa digeser dengan jari dan melar saat pindah tab. Murni CSS + pointer events (stabil di Safari iPhone).
 
