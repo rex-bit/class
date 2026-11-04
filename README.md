@@ -28,3 +28,5 @@ Buka `index.html` di browser. Tidak perlu build.
 - FAQ + Kebijakan Privasi ("Apakah data saya privat?") dan tombol hapus semua data
 - Ekspor denah: salin teks, simpan PNG, cetak
 - Spasi untuk memutar, tombol layar penuh
+- Pengaturan (ala wheelofnames): suara putaran/pemenang, volume, durasi, konfeti, popup, warna roda, latar gradien
+- Konfeti gradien (hijau, biru, pink, emas, putih)
