@@ -31,3 +31,4 @@ Buka `index.html` di browser. Tidak perlu build.
 - Pengaturan (ala wheelofnames): suara putaran/pemenang, volume, durasi, konfeti, popup, warna roda, latar gradien
 - Konfeti gradien (hijau, biru, pink, emas, putih)
 - Mode Fokus (hanya roda) dan tombol Urungkan (Ctrl+Z)
+- Tukar posisi dua meja (ketuk meja terisi, lalu meja lain); menu ⋮ di HP

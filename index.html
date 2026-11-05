@@ -227,7 +227,16 @@ body.flat header::after{display:none}
 .crow .btn svg{width:20px;height:20px;fill:currentColor}
 .cfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 @media(max-width:520px){.crow{flex-wrap:wrap}.crow>label{flex:1 0 100%}}
-@media(min-width:960px){#cfgBtn{display:none}}
+.more{position:absolute;left:12px;top:12px;z-index:6}
+.more .icon{position:static}
+.mmenu{display:none;position:absolute;top:48px;left:0;min-width:210px;background:var(--s2);border-radius:18px;padding:6px;box-shadow:0 8px 28px rgba(0,0,0,.28);border:1px solid var(--ov)}
+.mmenu.open{display:block}
+.mmenu button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:var(--on-bg);font:inherit;font-size:14px;font-weight:600;padding:11px 14px;border-radius:12px;cursor:pointer;text-align:left}
+.mmenu button:hover,.mmenu button:focus-visible{background:var(--sc);color:var(--on-sc)}
+.mmenu svg{width:20px;height:20px;fill:currentColor;flex:none}
+.seat.sel{outline:3px solid var(--primary);outline-offset:1px}
+.seat.fm,.seat.ff{cursor:pointer}
+@media(min-width:960px){.more{display:none}body.focus .more{display:block}}
 /* focus mode */
 #unfocus{display:none;position:fixed;top:14px;right:14px;z-index:20;border:0;border-radius:100px;background:var(--sc);color:var(--on-sc);font:inherit;font-size:13px;font-weight:700;padding:10px 16px;align-items:center;gap:8px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:.55;transition:opacity .2s}
 #unfocus:hover,#unfocus:focus-visible{opacity:1}
@@ -240,8 +249,7 @@ body.focus{padding-bottom:20px}
 body.focus main{display:block;max-width:860px;margin:0 auto;padding:12px}
 body.focus .card{background:transparent;box-shadow:none}
 body.focus .wheelbox{width:min(calc(100% - 20px),820px,78vh);max-width:none;margin:18px auto 22px}
-body.focus #cfgBtn{display:flex!important}
-@media(min-width:960px){#focusBtn{display:none}}
+body.focus #faqMore{display:none}
 /* dialogs */
 .win{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden}
 .win.show{opacity:1;pointer-events:auto}
@@ -305,8 +313,8 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <!-- TAB 1: SPIN -->
   <section id="t1" class="on">
     <div class="card">
-      <button class="icon" id="cfgBtn" aria-label="Settings" style="right:auto;left:12px"></button>
-      <button class="icon" id="focusBtn" aria-label="Focus" style="right:auto;left:60px"></button>
+      <div class="more"><button class="icon" id="moreBtn" aria-label="Menu" aria-haspopup="true"></button>
+        <div class="mmenu" id="moreMenu"><button id="cfgBtn" data-i18n="cfgBtn"></button><button id="focusBtn" data-i18n="focusBtn"></button><button id="faqMore" data-i18n="faqNav"></button></div></div>
       <button class="icon" id="snd" aria-label="Sound"></button>
       <div class="status"><span class="chip" id="status"></span></div>
       <div class="wheelbox">
@@ -398,7 +406,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
+en:{swapHint:'Tap another occupied desk to swap',tSwap:'{a} ⇄ {b} swapped',undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
  namesHint:'Paste the full list of names (male and female names may be mixed). They are separated automatically. You may also add (M) or (F) after a name.',
  shuffle:'Shuffle Order',sortAZ:'Sort A–Z',loadDemo:'Use Sample Data',frontRow:'Seat Layout',rand:'Random Rows',alt:'Alternating',
  rndPat:'Re-randomize Layout',tPat:'Seat layout re-randomized',cfmPat:'Seats that are already filled will be cleared. Continue?',
@@ -413,7 +421,7 @@ en:{undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{undo:'Urungkan',tUndo:'{n} dikeluarkan dari meja',focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
+id:{swapHint:'Ketuk meja lain yang terisi untuk menukar',tSwap:'{a} ⇄ {b} ditukar',undo:'Urungkan',tUndo:'{n} dikeluarkan dari meja',focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
  namesHint:'Tempel seluruh daftar nama (nama laki-laki dan perempuan boleh tercampur). Sistem akan memisahkannya secara otomatis. Anda juga dapat menambahkan (L) atau (P) di belakang nama.',
  shuffle:'Acak Urutan',sortAZ:'Urutkan A–Z',loadDemo:'Gunakan Data Contoh',frontRow:'Pola Denah',rand:'Acak Penuh',alt:'Selang-seling',
  rndPat:'Acak Ulang Pola',tPat:'Pola denah diacak ulang',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjutkan?',
@@ -713,11 +721,24 @@ function renderRoom(){
       const d=document.createElement('div');
       d.className='seat '+(st.name?(st.pg==='M'?'fm':'ff'):(st.g==='M'?'em':'ef'))+(i===ni?' next':'')+(cur&&i===lastPlaced&&tab===2?' pop':'');
       if(st.name)d.textContent=st.name;else d.innerHTML=st.g==='M'?SI_M:SI_F;
+      if(cur&&st.name){d.onclick=()=>seatTap(i)}
+      if(cur&&i===swapSel)d.classList.add('sel');
       if(st.name&&st.name.length>5)d.classList.add(st.name.length>7?'xs':'sm');
       grid.appendChild(d);
     });
     sec.appendChild(grid);room.appendChild(sec);
   });
+}
+let swapSel=-1;
+function seatTap(i){
+  if(spinning)return;
+  if(swapSel<0){swapSel=i;renderRoom();toast(t('swapHint'));return}
+  if(swapSel===i){swapSel=-1;renderRoom();return}
+  const j=swapSel;swapSel=-1;
+  if(!seats[i].name){renderRoom();return}
+  const a=seats[j],b=seats[i];
+  seats[j]={...a,name:b.name,pg:b.pg};seats[i]={...b,name:a.name,pg:a.pg};
+  lastPlaced=-1;renderAll();toast(t('tSwap',{a:a.name,b:b.name}));
 }
 function renderHist(){
   $('rndPat').style.display=viewRound===null?'':'none';
@@ -906,6 +927,7 @@ const ICONS={
  exitfs:'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
  help:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z',
  undo:'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z',
+ more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
  hide:'M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46A11.804 11.804 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78 3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z',
  show:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
  settings:'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z',
@@ -918,7 +940,7 @@ const ICONS={
 };
 const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#demo','sample'],['#save','check'],['#shuffle','auto'],['#reset','reset'],
  ['#finNext','next'],['#finLater','close'],['#winok','next'],['#spin','spin'],['#expCopy','copy'],['#expImg','download'],['#expPrint','print'],
- ['#cfgHd','settings'],['#focusHd','hide'],['#undo','undo'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
+ ['#cfgHd','settings'],['#focusHd','hide'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
  ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
 function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
 function addIcon(el,name){
@@ -959,10 +981,12 @@ document.querySelectorAll('#ctabs button').forEach(b=>b.onclick=()=>{
 const openCfg=()=>$('cfg').classList.add('show'),closeCfg=()=>$('cfg').classList.remove('show');
 const setFocus=on=>{if(on){go(1);scrollTo(0,0)}document.body.classList.toggle('focus',on);if(on&&document.documentElement.requestFullscreen&&0)0};
 $('focusHd').onclick=$('focusBtn').onclick=()=>setFocus(true);$('unfocus').onclick=()=>setFocus(false);
-$('focusBtn').innerHTML=mkIcon('hide').outerHTML;
+$('moreBtn').innerHTML=mkIcon('more').outerHTML;
+$('moreBtn').onclick=e=>{e.stopPropagation();$('moreMenu').classList.toggle('open')};
+document.addEventListener('click',()=>$('moreMenu').classList.remove('open'));
+$('faqMore').onclick=()=>$('faq').scrollIntoView({behavior:'smooth'});
 $('cfgBtn').onclick=openCfg;$('cfgHd').onclick=openCfg;$('cOk').onclick=closeCfg;
 $('cfg').onclick=e=>{if(e.target.id==='cfg')closeCfg()};
-$('cfgBtn').innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z'+'"/></svg>';
 
 /* ---------- FAQ + privacy policy ---------- */
 const FAQ={
