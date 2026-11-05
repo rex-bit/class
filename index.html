@@ -443,7 +443,7 @@ function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.repl
 const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}];
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
-const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'fanfare',fv:70,conf:true,pop:true,msg:'',auto:3,pal:'gender',pegs:true,bg:true};
+const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:70,conf:true,pop:true,msg:'',auto:3,pal:'gender',pegs:true,bg:true};
 let cfg={...CFG0};
 let seats=[],people=[],ov={},startMode='A',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
 let side=0,round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
@@ -481,9 +481,17 @@ function tick(force){
   g.gain.setValueAtTime(Math.max(.0002,pk*cfg.tv/70),tt);g.gain.exponentialRampToValueAtTime(.0001,tt+.055);
   o.connect(g);g.connect(c.destination);o.start(tt);o.stop(tt+.07);
 }
+let clapAu=null;
+function getClap(){if(!clapAu){clapAu=new Audio('sounds/applause.mp3');clapAu.preload='auto'}return clapAu}
+function unlockClap(){ // call from a user gesture so playback is allowed later
+  try{const a=getClap(),v=a.volume;a.volume=0;const pr=a.play();if(pr)pr.then(()=>{a.pause();a.currentTime=0;a.volume=v}).catch(()=>{a.volume=v})}catch(e){}
+}
 function fanfare(force){
   if((muted&&!force)||cfg.fan==='none')return;const c=ac();if(!c)return;const t0=c.currentTime,v=cfg.fv/70;
   if(cfg.fan==='clap'){
+    const a=getClap();a.volume=Math.min(1,cfg.fv/100);try{a.currentTime=0}catch(e){}a.play().catch(()=>{});return;
+  }
+  if(false){
     const len=Math.floor(c.sampleRate*1.6),buf=c.createBuffer(1,len,c.sampleRate),d=buf.getChannelData(0);
     for(let i=0;i<len;i++)d[i]=Math.random()*2-1;
     const src=c.createBufferSource();src.buffer=buf;
@@ -851,7 +859,7 @@ function place(name,g){
 function doSpin(){
   if(spinning)return;
   if(isDone()){showFin();return}
-  if(!pool.length)return;ac();const v0=(cfg.idle&&idle)?IDLE_V:0;idle=false;
+  if(!pool.length)return;ac();if(cfg.fan==='clap'&&!muted)unlockClap();const v0=(cfg.idle&&idle)?IDLE_V:0;idle=false;
   const{g}=currentPool(),n=pool.length,a=2*Math.PI/n;
   const idx=Math.floor(Math.random()*n),target=-(idx+.5)*a;
   const delta=(((target-rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI)+2*Math.PI*7;
@@ -973,6 +981,7 @@ CFG_BIND.forEach(([id,k,o,u])=>{
 $('cPrevT').onclick=()=>{ac();tick(true)};
 $('cTick').addEventListener('change',()=>{ac();tick(true)});
 $('cPrevF').onclick=()=>{ac();fanfare(true)};
+$('cFan').addEventListener('change',()=>{ac();fanfare(true)});
 $('cReset').onclick=()=>{cfg={...CFG0};applyCfg();persist()};
 document.querySelectorAll('#ctabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#ctabs button').forEach(x=>x.classList.toggle('on',x===b));

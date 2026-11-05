@@ -32,3 +32,6 @@ Buka `index.html` di browser. Tidak perlu build.
 - Konfeti gradien (hijau, biru, pink, emas, putih)
 - Mode Fokus (hanya roda) dan tombol Urungkan (Ctrl+Z)
 - Tukar posisi dua meja (ketuk meja terisi, lalu meja lain); menu ⋮ di HP
+
+## Kredit suara
+Tepuk tangan: "celebration-applause-big" dari [SFX Kit by Wyzowl](https://github.com/wyzowl/sfx-kit), lisensi CC0 (lihat `sounds/README.md`).
