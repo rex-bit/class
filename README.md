@@ -34,4 +34,4 @@ Buka `index.html` di browser. Tidak perlu build.
 - Tukar posisi dua meja (ketuk meja terisi, lalu meja lain); menu ⋮ di HP
 
 ## Kredit suara
-Tepuk tangan: "celebration-applause-big" dari [SFX Kit by Wyzowl](https://github.com/wyzowl/sfx-kit), lisensi CC0 (lihat `sounds/README.md`).
+Tepuk tangan: "celebration-applause-small" dari [SFX Kit by Wyzowl](https://github.com/wyzowl/sfx-kit), lisensi CC0 (lihat `sounds/README.md`).

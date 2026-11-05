@@ -443,7 +443,7 @@ function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.repl
 const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}];
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
-const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:70,conf:true,pop:true,msg:'',auto:3,pal:'gender',pegs:true,bg:true};
+const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',pegs:true,bg:true};
 let cfg={...CFG0};
 let seats=[],people=[],ov={},startMode='A',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
 let side=0,round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
@@ -489,7 +489,7 @@ function unlockClap(){ // call from a user gesture so playback is allowed later
 function fanfare(force){
   if((muted&&!force)||cfg.fan==='none')return;const c=ac();if(!c)return;const t0=c.currentTime,v=cfg.fv/70;
   if(cfg.fan==='clap'){
-    const a=getClap();a.volume=Math.min(1,cfg.fv/100);try{a.currentTime=0}catch(e){}a.play().catch(()=>{});return;
+    const a=getClap();a.volume=Math.min(1,cfg.fv/100*.6);try{a.currentTime=0}catch(e){}a.play().catch(()=>{});return;
   }
   if(false){
     const len=Math.floor(c.sampleRate*1.6),buf=c.createBuffer(1,len,c.sampleRate),d=buf.getChannelData(0);
