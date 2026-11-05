@@ -22,6 +22,7 @@
   --wc:#5a4500;--on-wc:#ffe9a8;--err:#f2b8b5;
 }}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:84px}
 body{margin:0;font-family:'Google Sans','Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--on-bg);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 a{color:var(--primary)}

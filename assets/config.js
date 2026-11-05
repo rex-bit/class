@@ -8,5 +8,5 @@ window.SITE_CONFIG={
   owner:'Rex-bit',
   repo:'',
   email:'',
-  reportEndpoint:''
+  reportEndpoint:'https://formspree.io/f/xaeekaaa'
 };

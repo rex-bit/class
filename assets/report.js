@@ -63,7 +63,7 @@
     var txt=build(),S=RK.SITE;
     if(S.reportEndpoint){
       var btn=document.getElementById('submit');btn.disabled=true;RK.toast(m().sending);
-      fetch(S.reportEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:val('title'),description:val('desc'),category:val('cat'),device:val('device'),steps:val('steps'),expected:val('expected'),actual:val('actual'),created:new Date().toISOString()})})
+      fetch(S.reportEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:'[Bug] '+val('title'),title:val('title'),description:val('desc'),category:val('cat'),device:val('device'),steps:val('steps'),expected:val('expected'),actual:val('actual'),created:new Date().toISOString(),language:RK.lang()})})
         .then(function(r){if(!r.ok)throw new Error(r.status);result(txt,true);RK.toast(m().sent);form.reset();ids.forEach(count)})
         .catch(function(){result(txt,false);RK.toast(m().sendFail)})
         .then(function(){btn.disabled=false});
@@ -82,6 +82,7 @@
   document.addEventListener('DOMContentLoaded',function(){
     form=document.getElementById('bugform');if(!form)return;
     form.setAttribute('novalidate','');
+    var remote=!!RK.SITE.reportEndpoint;var nl=document.getElementById('note-local'),nr=document.getElementById('note-remote');if(nl)nl.hidden=remote;if(nr)nr.hidden=!remote;
     Object.keys(LABELS).forEach(function(id){
       var el=form.elements[id];
       el.addEventListener('input',function(){count(id);if(touched[id])show(id)});
