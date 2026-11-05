@@ -35,3 +35,7 @@ Buka `index.html` di browser. Tidak perlu build.
 
 ## Kredit suara
 Tepuk tangan: "celebration-applause-small" dari [SFX Kit by Wyzowl](https://github.com/wyzowl/sfx-kit), lisensi CC0 (lihat `sounds/README.md`).
+
+## Cadangan & aplikasi
+- Pengaturan > Data & Aplikasi: simpan semua data ke file `.json` dan buka lagi di perangkat lain
+- Bisa dipasang sebagai aplikasi (PWA) dan dibuka offline setelah sekali dimuat

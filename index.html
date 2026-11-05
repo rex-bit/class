@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#386a20">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rolling Kelas">
 <meta name="description" content="Rolling Kelas: a spin-the-wheel seat rotation tool for classrooms. Private by design: everything stays in your browser.">
 <meta property="og:title" content="Rolling Kelas">
 <meta property="og:description" content="Spin the wheel to rotate classroom seats. Your data never leaves your browser.">
@@ -356,7 +361,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 </div></div>
 <div class="win" id="cfg"><div class="wincard cfg">
   <h2 data-i18n="cfgTitle"></h2>
-  <div class="ctabs" id="ctabs"><button data-p="0" class="on" data-i18n="tDur"></button><button data-p="1" data-i18n="tAft"></button><button data-p="2" data-i18n="tApp"></button></div>
+  <div class="ctabs" id="ctabs"><button data-p="0" class="on" data-i18n="tDur"></button><button data-p="1" data-i18n="tAft"></button><button data-p="2" data-i18n="tApp"></button><button data-p="3" data-i18n="tData"></button></div>
   <div class="cp on" data-p="0">
     <div class="crow"><label for="cTick" data-i18n="sTick"></label><div class="grow"><select id="cTick"><option value="tick" data-i18n="oTick"></option><option value="wood" data-i18n="oWood"></option><option value="soft" data-i18n="oSoft"></option><option value="none" data-i18n="oNone"></option></select><button class="btn tonal" id="cPrevT" aria-label="Preview"></button></div></div>
     <div class="crow"><label for="cTv" data-i18n="sVol"></label><div class="grow"><input type="range" id="cTv" min="0" max="100"><output id="oTv"></output></div></div>
@@ -375,6 +380,13 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
     <div class="crow"><label for="cPal" data-i18n="sPal"></label><div class="grow"><select id="cPal"><option value="gender" data-i18n="oPalG"></option><option value="rainbow" data-i18n="oPalR"></option></select></div></div>
     <div class="crow chk"><label for="cPegs" data-i18n="sPegs"></label><input type="checkbox" id="cPegs"></div>
     <div class="crow chk"><label for="cBg" data-i18n="sBg"></label><input type="checkbox" id="cBg"></div>
+  </div>
+  <div class="cp" data-p="3">
+    <p class="hint" style="margin:10px 0 4px" data-i18n="dHint"></p>
+    <div class="crow"><div class="grow"><button class="btn tonal" id="dSave" data-i18n="dSave"></button></div></div>
+    <div class="crow"><div class="grow"><button class="btn tonal" id="dOpen" data-i18n="dOpen"></button><input type="file" id="dFile" accept=".json,application/json" hidden></div></div>
+    <div class="crow" id="dInstRow" style="display:none"><div class="grow"><button class="btn fill" id="dInstall" data-i18n="dInstall"></button></div></div>
+    <p class="hint" style="margin:10px 0 0" data-i18n="dIos"></p>
   </div>
   <div class="cfoot"><button class="btn tonal sm" id="cReset" data-i18n="cfgReset"></button><button class="btn fill sm" id="cOk" data-i18n="cfgOk"></button></div>
 </div></div>
@@ -406,7 +418,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{swapHint:'Tap another occupied desk to swap',tSwap:'{a} ⇄ {b} swapped',undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
+en:{tData:'Data & App',dHint:'Your data lives only in this browser. Save a backup file to move it to another device, then open it there.',dSave:'Save to File',dOpen:'Open File',dInstall:'Install App',dIos:'iPhone/iPad: tap Share, then \u201cAdd to Home Screen\u201d.',cfmImport:'Replace the current data with this file?',tSaved:'File saved',tBadFile:'This file is not a valid Rolling Kelas backup',swapHint:'Tap another occupied desk to swap',tSwap:'{a} ⇄ {b} swapped',undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 4 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
  namesHint:'Paste the full list of names (male and female names may be mixed). They are separated automatically. You may also add (M) or (F) after a name.',
  shuffle:'Shuffle Order',sortAZ:'Sort A–Z',loadDemo:'Use Sample Data',frontRow:'Seat Layout',rand:'Random Rows',alt:'Alternating',
  rndPat:'Re-randomize Layout',tPat:'Seat layout re-randomized',cfmPat:'Seats that are already filled will be cleared. Continue?',
@@ -421,7 +433,7 @@ en:{swapHint:'Tap another occupied desk to swap',tSwap:'{a} ⇄ {b} swapped',und
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{swapHint:'Ketuk meja lain yang terisi untuk menukar',tSwap:'{a} ⇄ {b} ditukar',undo:'Urungkan',tUndo:'{n} dikeluarkan dari meja',focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
+id:{tData:'Data & Aplikasi',dHint:'Data Anda hanya tersimpan di browser ini. Simpan file cadangan untuk memindahkannya ke perangkat lain, lalu buka di sana.',dSave:'Simpan ke File',dOpen:'Buka File',dInstall:'Pasang Aplikasi',dIos:'iPhone/iPad: ketuk Bagikan, lalu \u201cTambahkan ke Layar Utama\u201d.',cfmImport:'Ganti data saat ini dengan isi file ini?',tSaved:'File tersimpan',tBadFile:'File ini bukan cadangan Rolling Kelas yang valid',swapHint:'Ketuk meja lain yang terisi untuk menukar',tSwap:'{a} ⇄ {b} ditukar',undo:'Urungkan',tUndo:'{n} dikeluarkan dari meja',focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 4 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
  namesHint:'Tempel seluruh daftar nama (nama laki-laki dan perempuan boleh tercampur). Sistem akan memisahkannya secara otomatis. Anda juga dapat menambahkan (L) atau (P) di belakang nama.',
  shuffle:'Acak Urutan',sortAZ:'Urutkan A–Z',loadDemo:'Gunakan Data Contoh',frontRow:'Pola Denah',rand:'Acak Penuh',alt:'Selang-seling',
  rndPat:'Acak Ulang Pola',tPat:'Pola denah diacak ulang',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjutkan?',
@@ -935,6 +947,7 @@ const ICONS={
  exitfs:'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
  help:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z',
  undo:'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z',
+ upload:'M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z',
  more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
  hide:'M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46A11.804 11.804 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78 3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z',
  show:'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z',
@@ -948,7 +961,7 @@ const ICONS={
 };
 const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#demo','sample'],['#save','check'],['#shuffle','auto'],['#reset','reset'],
  ['#finNext','next'],['#finLater','close'],['#winok','next'],['#spin','spin'],['#expCopy','copy'],['#expImg','download'],['#expPrint','print'],
- ['#cfgHd','settings'],['#focusHd','hide'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
+ ['#cfgHd','settings'],['#focusHd','hide'],['#dSave','download'],['#dOpen','upload'],['#dInstall','download'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
  ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
 function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
 function addIcon(el,name){
@@ -997,6 +1010,37 @@ $('faqMore').onclick=()=>$('faq').scrollIntoView({behavior:'smooth'});
 $('cfgBtn').onclick=openCfg;$('cfgHd').onclick=openCfg;$('cOk').onclick=closeCfg;
 $('cfg').onclick=e=>{if(e.target.id==='cfg')closeCfg()};
 
+/* ---------- backup file + install ---------- */
+function cleanData(d){
+  if(!d||typeof d!=='object')return null;
+  const gs=v=>v==='M'||v==='F';
+  const seat=x=>(!x||typeof x!=='object'||!['L','M','R'].includes(x.sec)||!gs(x.g))?null:{sec:x.sec,row:x.row|0,col:x.col|0,g:x.g,name:typeof x.name==='string'?x.name.slice(0,60):null,pg:gs(x.pg)?x.pg:null};
+  const seatsOk=a=>{if(!Array.isArray(a)||a.length!==TOTAL)return null;const r=a.map(seat);return r.includes(null)?null:r};
+  const seats=seatsOk(d.seats);if(!seats)return null;
+  const hist=[];if(Array.isArray(d.hist))d.hist.slice(-9).forEach(h=>{const sx=h&&seatsOk(h.seats);if(sx)hist.push({n:Math.max(1,h.n|0),seats:sx})});
+  const ov={};if(d.ov&&typeof d.ov==='object')Object.keys(d.ov).slice(0,3000).forEach(k=>{if(gs(d.ov[k]))ov[String(k).slice(0,80)]=d.ov[k]});
+  return {names:typeof d.names==='string'?d.names.slice(0,30000):'',ov,s2:d.s2==='R'?'R':'A',seats,mute:!!d.mute,lang:I18N[d.lang]?d.lang:'id',round:Math.max(1,d.round|0),hist,dn:!!d.dn,cfg:(d.cfg&&typeof d.cfg==='object')?d.cfg:{}};
+}
+$('dSave').onclick=()=>{
+  persist();let raw='{}';try{raw=localStorage.getItem(KEY)||'{}'}catch(e){}
+  const blob=new Blob([JSON.stringify({app:'rolling-kelas',v:2,saved:new Date().toISOString(),data:JSON.parse(raw)},null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rolling-kelas-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(t('tSaved'));
+};
+$('dOpen').onclick=()=>$('dFile').click();
+$('dFile').onchange=async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  let clean=null;try{if(f.size<2e6){const j=JSON.parse(await f.text());if(j&&j.app==='rolling-kelas')clean=cleanData(j.data)}}catch(x){}
+  if(!clean){toast(t('tBadFile'));return}
+  if(!confirm(t('cfmImport')))return;
+  try{localStorage.setItem(KEY,JSON.stringify(clean));location.reload()}catch(x){toast(t('tBadFile'))}
+};
+let instEv=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();instEv=e;$('dInstRow').style.display=''});
+addEventListener('appinstalled',()=>{instEv=null;$('dInstRow').style.display='none'});
+$('dInstall').onclick=async()=>{if(!instEv)return;instEv.prompt();try{await instEv.userChoice}catch(e){}instEv=null;$('dInstRow').style.display='none'};
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+
 /* ---------- FAQ + privacy policy ---------- */
 const FAQ={
 en:[
@@ -1004,6 +1048,7 @@ en:[
 ['Where is my data stored?','Only in this browser, on this device. It does not sync between devices, and it disappears if you clear your browser\'s site data or use a private window.'],
 ['How are boys and girls detected?','The app estimates it on your device using a built-in list of common Indonesian names and name endings. Uncertain names have a dashed outline. Tap any name to correct it, or write (L)/(P) or (M)/(F) after the name.'],
 ['What do the seating patterns mean?','Alternating: inside every row, desks alternate between boys and girls. Random Rows: each row holds one gender only, and the rows are arranged randomly. The left and right blocks have 10 desks each and the middle block has 18.'],
+['Can I install it as an app or use it offline?','Yes. On Android/desktop Chrome use Settings > Data & App > Install App; on iPhone/iPad tap Share > Add to Home Screen. After the first load the app files are cached on your device, so it also opens without internet. Your data still never leaves the device.'],
 ['What is a rolling?','One rolling is a full round of giving every student a seat. When all seats are filled you can start the next rolling; the previous seating plan stays in the history on the Seats tab.'],
 ['Is the draw really random?','Yes. Each spin picks the winner with your browser\'s random number generator, and the wheel then animates to land on that name. Every remaining name has the same chance.'],
 ['Can I save or print the seating plan?','Yes. On the Seats tab you can copy the plan as text, download it as an image, or print it.']],
@@ -1012,6 +1057,7 @@ id:[
 ['Di mana data saya disimpan?','Hanya di browser ini, pada perangkat ini. Data tidak tersinkron antarperangkat, dan akan hilang jika Anda menghapus data situs di browser atau memakai jendela pribadi.'],
 ['Bagaimana cowok dan cewek dideteksi?','Aplikasi memperkirakannya di perangkat Anda memakai daftar nama dan akhiran nama Indonesia yang umum. Nama yang kurang pasti diberi garis putus-putus. Ketuk nama untuk memperbaikinya, atau tulis (L)/(P) di belakang nama.'],
 ['Apa arti pola denah?','Selang-seling: dalam satu baris, meja bergantian antara laki-laki dan perempuan. Acak Penuh: setiap baris hanya berisi satu jenis, dengan susunan baris yang diacak. Blok kiri dan kanan masing-masing 10 meja, blok tengah 18 meja.'],
+['Bisakah dipasang sebagai aplikasi atau dipakai offline?','Bisa. Di Chrome Android/desktop gunakan Pengaturan > Data & Aplikasi > Pasang Aplikasi; di iPhone/iPad ketuk Bagikan > Tambahkan ke Layar Utama. Setelah dibuka sekali, file aplikasi tersimpan di perangkat sehingga bisa dibuka tanpa internet. Data Anda tetap tidak pernah meninggalkan perangkat.'],
 ['Apa itu rolling?','Satu rolling adalah satu putaran penuh pembagian meja untuk seluruh siswa. Setelah semua meja terisi, Anda dapat memulai rolling berikutnya; denah sebelumnya tetap tersimpan di riwayat pada tab Denah.'],
 ['Apakah undiannya benar-benar acak?','Ya. Setiap putaran memilih pemenang dengan generator angka acak di browser Anda, lalu roda dianimasikan hingga berhenti di nama tersebut. Setiap nama yang tersisa memiliki peluang yang sama.'],
 ['Bisakah denah disimpan atau dicetak?','Bisa. Di tab Denah, Anda dapat menyalin denah sebagai teks, mengunduhnya sebagai gambar, atau mencetaknya.']]
