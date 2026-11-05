@@ -39,3 +39,9 @@ Tepuk tangan: "celebration-applause-small" dari [SFX Kit by Wyzowl](https://gith
 ## Cadangan & aplikasi
 - Pengaturan > Data & Aplikasi: simpan semua data ke file `.json` dan buka lagi di perangkat lain
 - Bisa dipasang sebagai aplikasi (PWA) dan dibuka offline setelah sekali dimuat
+
+## Halaman informasi
+`about.html`, `terms.html`, `changelog.html`, `roadmap.html`, `report-bug.html` (Indonesia + English, ikut pilihan bahasa aplikasi).
+- Ubah riwayat rilis di `data/changelog.js` dan rencana di `data/roadmap.js` (tanpa build).
+- Teks Ketentuan/Tentang/Lapor Bug ada di `tools/build_pages.py`; jalankan `python3 tools/build_pages.py` setelah mengubahnya.
+- `assets/config.js`: isi `email`, `repo` (repo publik), atau `reportEndpoint` agar formulir bug benar-benar bisa mengirim. Selama kosong, formulir hanya menyiapkan laporan di perangkat dan tidak mengirim apa pun.
