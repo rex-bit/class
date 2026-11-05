@@ -31,9 +31,8 @@ I = {
 
 NAV = [('about.html', 'about', 'Tentang', 'About'), ('changelog.html', 'changelog', 'Changelog', 'Changelog'),
        ('roadmap.html', 'roadmap', 'Roadmap', 'Roadmap'), ('report-bug.html', 'report', 'Lapor Bug', 'Report a Bug')]
-FOOT = [('index.html', 'home', 'Aplikasi', 'App'), ('about.html', 'about', 'Tentang', 'About'), ('terms.html', 'terms', 'Ketentuan Layanan', 'Terms of Service'),
-        ('index.html#privacy', 'privacy', 'Kebijakan Privasi', 'Privacy Policy'), ('index.html#faq', 'faq', 'FAQ', 'FAQ'),
-        ('changelog.html', 'changelog', 'Changelog', 'Changelog'), ('roadmap.html', 'roadmap', 'Roadmap', 'Roadmap'), ('report-bug.html', 'report', 'Lapor Bug', 'Report a Bug')]
+FOOT = [('terms.html', 'terms', 'Ketentuan Layanan', 'Terms of Service'),
+        ('index.html#privacy', 'privacy', 'Kebijakan Privasi', 'Privacy Policy'), ('index.html#faq', 'faq', 'FAQ', 'FAQ')]
 
 def layout(key, fname, title_id, title_en, desc_id, desc_en, body, scripts=''):
     nav = ''.join(f'<a href="{h}"{" aria-current=\"page\"" if k == key else ""}>{S(i, e)}</a>' for h, k, i, e in NAV)
