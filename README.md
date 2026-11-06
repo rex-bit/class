@@ -47,3 +47,9 @@ Tepuk tangan: "celebration-applause-small" dari [SFX Kit by Wyzowl](https://gith
 - `assets/config.js`: isi `email`, `repo` (repo publik), atau `reportEndpoint` agar formulir bug benar-benar bisa mengirim. Selama kosong, formulir hanya menyiapkan laporan di perangkat dan tidak mengirim apa pun.
 
 Deteksi gender nama: `assets/namedata.js` dibuat oleh `tools/build_namedata.py` dari [indonesian-name-gender-dataset](https://github.com/physicsunivriaumlgroup/indonesian-name-gender-dataset) dan [Cipta-Nama](https://github.com/wafarifki/Cipta-Nama) (keduanya MIT; hanya fakta nama→gender yang diambil).
+
+## Riwayat, Undo/Redo, Ekspor, Notifikasi
+- Riwayat aktivitas (header / menu ⋮): disimpan di localStorage (`rolling-kelas-activity`), bisa dihapus dengan konfirmasi.
+- Urungkan / Ulangi: Ctrl+Z, Ctrl+Shift+Z (atau Ctrl+Y), maks. 60 langkah, tersimpan di memori sesi.
+- Ekspor JSON/CSV (Pengaturan > Data & Aplikasi): denah + nama, dan riwayat aktivitas.
+- Toast (`toast(msg, 'success'|'error'|'warning'|'info')`) dan pengaturan bahasa, mode terang/gelap/sistem.

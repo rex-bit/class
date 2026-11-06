@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fdfdf5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#11140f" media="(prefers-color-scheme: dark)">
+<script src="assets/init.js"></script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -27,7 +28,7 @@
   --f:#b0356f;--f2:#d9669b;--fc:#ffd8e8;--on-fc:#3e001e;
   --shadow:0 1px 3px rgba(0,0,0,.18),0 4px 12px rgba(0,0,0,.08);
 }
-@media(prefers-color-scheme:dark){:root{
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
   --primary:#9cd67d;--on-primary:#0b3900;
   --pc:#205107;--on-pc:#b7f397;
   --sc:#3b4b38;--on-sc:#d7e8cd;
@@ -36,6 +37,16 @@
   --outline:#8d9387;--ov:#43483e;--onv:#c3c8bb;
   --mc:#00468a;--on-mc:#d3e4ff;--fc:#6b0a3a;--on-fc:#ffd8e8;
 }}
+:root[data-theme=dark]{
+  --primary:#9cd67d;--on-primary:#0b3900;
+  --pc:#205107;--on-pc:#b7f397;
+  --sc:#3b4b38;--on-sc:#d7e8cd;
+  --bg:#11140f;--on-bg:#e2e3dc;
+  --s1:#191d16;--s2:#1e221b;--s3:#272b24;--s4:#32362e;
+  --outline:#8d9387;--ov:#43483e;--onv:#c3c8bb;
+  --mc:#00468a;--on-mc:#d3e4ff;--fc:#6b0a3a;--on-fc:#ffd8e8;
+}
+:root[data-theme=dark]{color-scheme:dark}:root[data-theme=light]{color-scheme:light}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{font-family:'Google Sans','Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--on-bg);min-height:100vh;padding-bottom:100px}
@@ -136,8 +147,6 @@ nav.moving:not(.press) .pill{animation:squish .55s ease}
 nav.press .tab.on svg{transform:scale(1.28)}
 .badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:16px;height:16px;border-radius:8px;background:var(--primary);color:var(--on-primary);font-size:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
 .badge.show{display:flex}
-#toast{position:fixed;left:50%;bottom:88px;transform:translate(-50%,30px);opacity:0;background:var(--on-bg);color:var(--bg);padding:12px 20px;border-radius:14px;font-size:14px;font-weight:600;z-index:20;transition:.35s;pointer-events:none;max-width:90vw;text-align:center}
-#toast.show{opacity:1;transform:translate(-50%,0)}
 .ptabs{display:none}
 /* ===== Desktop / laptop: wheel on the left, Names/Seats panel on the right (like wheelofnames.com) ===== */
 @media(min-width:960px){
@@ -151,7 +160,6 @@ nav.press .tab.on svg{transform:scale(1.28)}
   body.s0 #t2,body.s2 #t0{display:none}
   footer{grid-column:1 / -1;grid-row:5}
   nav{display:none}
-  #toast{bottom:32px}
   .wheelbox{max-width:none;width:min(calc(100% - 20px),560px,58vh);margin:22px auto 26px}
   .card{padding:22px}
   textarea{height:240px}
@@ -206,7 +214,7 @@ a.flink{text-decoration:none;display:inline-block}
   :root{--bg:#fff;--on-bg:#000;--s2:#fff;--s4:#eee;--onv:#333;--mc:#d3e4ff;--on-mc:#001c3b;--fc:#ffd8e8;--on-fc:#3e001e;--ov:#bbb;--outline:#666;--m:#2f6fb8;--m2:#2f6fb8;--f:#b0356f;--f2:#b0356f}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{background:#fff!important;padding:0}
-  header,nav,.ptabs,#t0,#t1,.faq,footer,.hist,#toast,.win,.noprint{display:none!important}
+  header,nav,.ptabs,#t0,#t1,.faq,footer,.hist,#toasts,.win,.noprint{display:none!important}
   main{display:block!important;padding:0}
   #t2{display:block!important;animation:none}
   .card{background:#fff;box-shadow:none}
@@ -270,6 +278,36 @@ body.focus #faqMore{display:none}
 .cf{position:absolute;top:45%;width:9px;height:14px;border-radius:2px;animation:burst 1.5s cubic-bezier(.2,.7,.4,1) forwards}
 @keyframes burst{0%{transform:translate(0,0) rotate(0);opacity:1}35%{transform:translate(calc(var(--dx)*.8),var(--dy)) rotate(calc(var(--r)*.4));opacity:1}100%{transform:translate(var(--dx),calc(var(--dy) + 420px)) rotate(var(--r));opacity:0}}
 footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .h{display:inline-block;color:#e5484d;animation:beat 1.4s infinite}@keyframes beat{0%,60%,100%{transform:scale(1)}30%{transform:scale(1.25)}}footer b{color:var(--primary)}
+
+[hidden]{display:none!important}
+#toasts{--tw:#d99a00;--te:#d3382f;--ti:#2f6fb8;position:fixed;left:50%;bottom:88px;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;width:min(420px,calc(100vw - 32px));pointer-events:none}
+.toast{--tc:var(--primary);pointer-events:auto;display:flex;align-items:flex-start;gap:10px;padding:12px 8px 12px 14px;border-radius:16px;background:color-mix(in srgb,var(--tc) 14%,var(--s3));color:var(--on-bg);border:1px solid color-mix(in srgb,var(--tc) 35%,transparent);border-left:4px solid var(--tc);box-shadow:var(--shadow);font-size:14px;font-weight:600;line-height:1.4;animation:tin .32s cubic-bezier(.2,.9,.3,1.1)}
+.toast.out{animation:tout .22s ease forwards}
+.toast.success{--tc:var(--primary)}.toast.error{--tc:var(--te)}.toast.warning{--tc:var(--tw)}.toast.info{--tc:var(--ti)}
+.toast svg{width:22px;height:22px;flex:none;fill:var(--tc);margin-top:1px}
+.toast .tx{flex:1;min-width:0;overflow-wrap:anywhere;padding-top:1px}
+.toast .tcl{border:0;background:none;color:var(--onv);width:30px;height:30px;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none;padding:0}
+.toast .tcl:hover{background:color-mix(in srgb,var(--on-bg) 10%,transparent)}
+.toast .tcl svg{width:18px;height:18px;margin:0;fill:currentColor}
+@keyframes tin{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes tout{to{opacity:0;transform:translateY(8px) scale(.96)}}
+@media(min-width:960px){#toasts{bottom:32px}}
+@media(prefers-reduced-motion:reduce){.toast,.toast.out{animation-duration:.01s}}
+.actlist{display:flex;flex-direction:column;gap:2px;margin:8px 0 4px;max-height:52vh;overflow:auto}
+.actitem{display:flex;gap:12px;padding:10px 4px;border-bottom:1px solid var(--ov)}
+.actitem:last-child{border-bottom:0}
+.actitem .ad{width:10px;height:10px;border-radius:50%;background:var(--primary);flex:none;margin-top:6px}
+.actitem b{display:block;font-size:14px}
+.actitem span.dd{display:block;font-size:13px;color:var(--onv);overflow-wrap:anywhere}
+.actitem time{display:block;font-size:12px;color:var(--outline);margin-top:2px}
+.actempty{text-align:center;padding:26px 8px;color:var(--onv)}
+.actempty svg{width:44px;height:44px;fill:var(--outline);margin-bottom:6px}
+.actempty b{display:block;color:var(--on-bg);font-size:15px;margin-bottom:2px}
+.actask{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px;font-size:13px;font-weight:600}
+.actask span{flex:1 1 220px;text-align:left}
+.exrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+.exrow>span{flex:1 1 140px;font-size:14px;font-weight:600}
+.cp h4{margin:14px 0 2px;font-size:14px}
 </style>
 </head>
 <body>
@@ -277,7 +315,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <header>
   <svg class="logo" viewBox="0 0 48 48" aria-label="Rex-bit"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--lg1,#4caf6e)"/><stop offset="1" style="stop-color:var(--lg2,#1b6d3b)"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#lg)"/><path d="M24 24L24.00 9.00A15 15 0 0 1 36.99 16.50Z" fill="#ffffff" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L36.99 16.50A15 15 0 0 1 36.99 31.50Z" style="fill:var(--lgs,#b7f397)" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L36.99 31.50A15 15 0 0 1 24.00 39.00Z" fill="#ffc94d" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L24.00 39.00A15 15 0 0 1 11.01 31.50Z" fill="#ffffff" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L11.01 31.50A15 15 0 0 1 11.01 16.50Z" style="fill:var(--lgs,#b7f397)" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L11.01 16.50A15 15 0 0 1 24.00 9.00Z" fill="#ffc94d" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><circle cx="24" cy="24" r="15.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="24" cy="24" r="4.2" fill="#1b6d3b" stroke="#fff" stroke-width="1.4"/><path d="M24 1.5 20 9.5h8z" fill="#ffc94d" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>
   <div class="brand"><small>Rex-bit</small><b>Rolling Kelas</b></div>
-  <div class="hactions"><button class="hbtn" id="focusHd"><span data-i18n="focusBtn"></span></button><button class="hbtn" id="cfgHd"><span data-i18n="cfgBtn"></span></button><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
+  <div class="hactions"><button class="hbtn" id="focusHd"><span data-i18n="focusBtn"></span></button><button class="hbtn" id="actHd"><span data-i18n="actBtn"></span></button><button class="hbtn" id="cfgHd"><span data-i18n="cfgBtn"></span></button><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
   <div class="lang">
     <button class="langbtn" id="langBtn" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96A14.7 14.7 0 0 1 10.09 16h3.82A14.7 14.7 0 0 1 12 19.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.26 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"/></svg><span id="langCode">ID</span></button>
     <div class="menu" id="langMenu">
@@ -322,7 +360,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <section id="t1" class="on">
     <div class="card">
       <div class="more"><button class="icon" id="moreBtn" aria-label="Menu" aria-haspopup="true"></button>
-        <div class="mmenu" id="moreMenu"><button id="cfgBtn" data-i18n="cfgBtn"></button><button id="focusBtn" data-i18n="focusBtn"></button><button id="faqMore" data-i18n="faqNav"></button></div></div>
+        <div class="mmenu" id="moreMenu"><button id="actBtn" data-i18n="actBtn"></button><button id="cfgBtn" data-i18n="cfgBtn"></button><button id="focusBtn" data-i18n="focusBtn"></button><button id="faqMore" data-i18n="faqNav"></button></div></div>
       <button class="icon" id="snd" aria-label="Sound"></button>
       <div class="status"><span class="chip" id="status"></span></div>
       <div class="wheelbox">
@@ -336,7 +374,8 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="row c">
         <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
         <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
-        <button class="btn tonal sm" id="undo" data-i18n="undo"></button>
+        <button class="btn tonal sm" id="undo" data-i18n="undo" title="Ctrl+Z"></button>
+        <button class="btn tonal sm" id="redo" data-i18n="redo" title="Ctrl+Shift+Z"></button>
         <button class="btn tonal sm" id="shuffle" data-i18n="shuffleSeats"></button>
         <button class="btn text sm" id="reset" data-i18n="reset"></button>
       </div>
@@ -362,6 +401,14 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <h3 id="polTitle"></h3><div class="upd" id="polUpd"></div><div id="polBody"></div>
   <div class="row"><button class="btn tonal sm" id="polWipe" data-i18n="wipe"></button><button class="btn fill sm" id="polClose" data-i18n="polClose"></button></div>
 </div></div>
+<div class="win" id="act"><div class="wincard cfg" role="dialog" aria-modal="true" aria-labelledby="actTitle">
+  <h2 id="actTitle" data-i18n="actTitle"></h2>
+  <p class="hint" data-i18n="actHint"></p>
+  <div class="actlist" id="actList"></div>
+  <div class="actempty" id="actEmpty" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><b data-i18n="actEmpty"></b><span data-i18n="actEmptyD"></span></div>
+  <div class="cfoot" id="actFoot"><button class="btn tonal sm" id="actClear" data-i18n="actClear"></button><button class="btn fill sm" id="actOk" data-i18n="actClose"></button></div>
+  <div class="actask" id="actAsk" hidden><span id="actAskT"></span><button class="btn tonal sm" id="actNo" data-i18n="actNo"></button><button class="btn fill sm" id="actYes" data-i18n="actYes"></button></div>
+</div></div>
 <div class="win" id="cfg"><div class="wincard cfg">
   <h2 data-i18n="cfgTitle"></h2>
   <div class="ctabs" id="ctabs"><button data-p="0" class="on" data-i18n="tDur"></button><button data-p="1" data-i18n="tAft"></button><button data-p="2" data-i18n="tApp"></button><button data-p="3" data-i18n="tData"></button></div>
@@ -380,12 +427,20 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
     <div class="crow"><label for="cAuto" data-i18n="sAuto"></label><div class="grow"><input type="range" id="cAuto" min="0" max="10"><output id="oAuto"></output></div></div>
   </div>
   <div class="cp" data-p="2">
+    <div class="crow"><label for="cLang" data-i18n="sLang"></label><div class="grow"><select id="cLang"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select></div></div>
+    <div class="crow"><label for="cMode" data-i18n="sMode"></label><div class="grow"><select id="cMode"><option value="system" data-i18n="mSys"></option><option value="light" data-i18n="mLight"></option><option value="dark" data-i18n="mDark"></option></select></div></div>
     <div class="crow"><label for="cTheme" data-i18n="sTheme"></label><div class="grow"><select id="cTheme"><option value="green" data-i18n="thG"></option><option value="blue" data-i18n="thB"></option><option value="purple" data-i18n="thP"></option><option value="orange" data-i18n="thO"></option><option value="pink" data-i18n="thK"></option></select></div></div>
     <div class="crow"><label for="cPal" data-i18n="sPal"></label><div class="grow"><select id="cPal"><option value="gender" data-i18n="oPalG"></option><option value="rainbow" data-i18n="oPalR"></option></select></div></div>
     <div class="crow chk"><label for="cPegs" data-i18n="sPegs"></label><input type="checkbox" id="cPegs"></div>
     <div class="crow chk"><label for="cBg" data-i18n="sBg"></label><input type="checkbox" id="cBg"></div>
+    <div class="crow chk"><label for="cToasts" data-i18n="sToasts"></label><input type="checkbox" id="cToasts"></div>
   </div>
   <div class="cp" data-p="3">
+    <h4 data-i18n="exTitle"></h4>
+    <p class="hint" style="margin:0 0 2px" data-i18n="exHint"></p>
+    <div class="exrow"><span data-i18n="exSeat"></span><button class="btn tonal sm" id="exSJ">JSON</button><button class="btn tonal sm" id="exSC">CSV</button></div>
+    <div class="exrow"><span data-i18n="exAct"></span><button class="btn tonal sm" id="exAJ">JSON</button><button class="btn tonal sm" id="exAC">CSV</button></div>
+    <h4 data-i18n="bkTitle"></h4>
     <p class="hint" style="margin:10px 0 4px" data-i18n="dHint"></p>
     <div class="crow"><div class="grow"><button class="btn tonal" id="dSave" data-i18n="dSave"></button></div></div>
     <div class="crow"><div class="grow"><button class="btn tonal" id="dOpen" data-i18n="dOpen"></button><input type="file" id="dFile" accept=".json,application/json" hidden></div></div>
@@ -395,7 +450,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <div class="cfoot"><button class="btn tonal sm" id="cReset" data-i18n="cfgReset"></button><button class="btn fill sm" id="cOk" data-i18n="cfgOk"></button></div>
 </div></div>
 <button id="unfocus"><span data-i18n="unfocus"></span></button>
-<div id="toast"></div>
+<div id="toasts" role="region" aria-label="Notifications" aria-live="polite"></div>
 
 <div class="win" id="win"><div class="wincard">
   <div class="winlabel" data-i18n="winLabel"></div>
@@ -423,7 +478,12 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{sTheme:'Color theme',thG:'Green',thB:'Blue',thP:'Purple',thO:'Orange',thK:'Pink',tagLink:'Add (L)/(P) tags to a name list \u2192',lnkTerms:'Terms of Service',lnkAbout:'About',lnkLog:'Changelog',lnkRoad:'Roadmap',lnkBug:'Report a Bug',tData:'Data & App',dHint:'Your data lives only in this browser. Save a backup file to move it to another device, then open it there.',dSave:'Save to File',dOpen:'Open File',dInstall:'Install App',dIos:'iPhone/iPad: tap Share, then \u201cAdd to Home Screen\u201d.',cfmImport:'Replace the current data with this file?',tSaved:'File saved',tBadFile:'This file is not a valid Rolling Kelas backup',swapHint:'Tap another occupied desk to swap',tSwap:'{a} ⇄ {b} swapped',undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 6 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
+en:{actBtn:'History',actTitle:'Activity history',actHint:'Your recent actions in this browser, newest first.',actEmpty:'No activity yet',actEmptyD:'Actions like spinning, shuffling and swapping seats will show up here.',actClear:'Clear history',actSure:'Delete all {n} history entries? This cannot be undone.',actYes:'Yes, delete',actNo:'Cancel',actCleared:'History cleared',actClose:'Close',
+redo:'Redo',tUndoA:'Undone: {a}',tRedoA:'Redone: {a}',tNoUndo:'Nothing to undo',tNoRedo:'Nothing to redo',tClose:'Dismiss notification',
+a_spin:'Spin result',d_spin:'{n} \u2192 {w} (Rolling {r})',a_next:'New rolling round',d_next:'Started Rolling #{r}',a_pattern:'Pattern reshuffled',d_pattern:'A new desk pattern was generated.',a_mode:'Seat pattern changed',d_mode:'Mode: {m}',a_sort:'Names sorted A\u2013Z',d_sort:'{n} names.',a_shuf:'Names shuffled',d_shuf:'{n} names.',a_shufSeats:'Seats shuffled automatically',d_shufSeats:'{n} students seated.',a_reset:'Seats cleared',d_reset:'All seats were emptied.',a_save:'Name list saved',d_save:'{n} names, seats reset.',a_demo:'Sample data loaded',d_demo:'The name list was replaced with sample names.',a_swap:'Seats swapped',d_swap:'{a} \u2194 {b}',a_gender:'Gender changed',d_gender:'{n} is now in the {g} list.',a_names:'Name list edited',d_names:'The name list was edited.',a_undo:'Undo',d_undo:'Undone: {a}',a_redo:'Redo',d_redo:'Redone: {a}',a_export:'Data exported',d_export:'{w} as {f}',a_backup:'Backup saved',d_backup:'Backup file downloaded.',a_cfgReset:'Settings reset',d_cfgReset:'All settings were restored to default.',
+sLang:'Language',sMode:'Appearance',mSys:'System',mLight:'Light',mDark:'Dark',sToasts:'Show notifications',cfmCfgReset:'Reset all settings to default?',tCfgReset:'Settings reset to default',
+exTitle:'Export data',exHint:'Download your data as a file. Only data that exists in the app is exported.',exSeat:'Seating & names',exAct:'Activity history',exNone:'Nothing to export yet: {w}',tExOk:'Exported {f}: {file}',tExErr:'Something went wrong. Please try again.',wSeat:'seating data',wAct:'activity history',bkTitle:'Backup & restore',
+sTheme:'Color theme',thG:'Green',thB:'Blue',thP:'Purple',thO:'Orange',thK:'Pink',tagLink:'Add (L)/(P) tags to a name list \u2192',lnkTerms:'Terms of Service',lnkAbout:'About',lnkLog:'Changelog',lnkRoad:'Roadmap',lnkBug:'Report a Bug',tData:'Data & App',dHint:'Your data lives only in this browser. Save a backup file to move it to another device, then open it there.',dSave:'Save to File',dOpen:'Open File',dInstall:'Install App',dIos:'iPhone/iPad: tap Share, then \u201cAdd to Home Screen\u201d.',cfmImport:'Replace the current data with this file?',tSaved:'File saved',tBadFile:'This file is not a valid Rolling Kelas backup',swapHint:'Tap another occupied desk to swap',tSwap:'{a} ⇄ {b} swapped',undo:'Undo',tUndo:'{n} removed from the seat',focusBtn:'Focus Mode',unfocus:'Show Everything',cfgTitle:'Settings',cfgBtn:'Settings',tDur:'During spin',tAft:'After spin',tApp:'Appearance',sTick:'Spin sound',oTick:'Ticking',oWood:'Wood click',oSoft:'Soft tick',oNone:'No sound',sVol:'Volume',sDur:'Spin time (seconds)',sIdle:'Slowly rotate the wheel when idle',sFan:'Winner sound',oFan:'Fanfare',oChime:'Chime',oClap:'Applause',sConf:'Launch confetti',sPop:'Show winner popup',sMsg:'Popup message',sAuto:'Auto-close popup (seconds, 0 = off)',sPal:'Wheel colors',oPalG:'By gender',oPalR:'Rainbow',sPegs:'Show pegs on the rim',sBg:'Gradient background',cfgReset:'Restore Defaults',cfgOk:'Done',copyList:'Copy as Text',dlImg:'Download Image',printPlan:'Print',tCopied:'Seating plan copied',tCopyFail:'Copy failed',tImg:'Image downloaded',faqTitle:'Frequently Asked Questions',faqNav:'FAQ',fsLabel:'Fullscreen',kbd:'Tip: press Space to spin',wipe:'Delete All My Data',cfmWipe:'This permanently deletes your name list, seating plans and history from this browser. Continue?',polLink:'Privacy Policy',polClose:'Close',polUpd:'Last updated: 6 November 2026',tabNames:'Names',tabSpin:'Spin',tabSeats:'Seats',namesTitle:'Name List',
  namesHint:'Paste the full list of names (male and female names may be mixed). They are separated automatically. You may also add (M) or (F) after a name.',
  shuffle:'Shuffle Order',sortAZ:'Sort A–Z',loadDemo:'Use Sample Data',frontRow:'Seat Layout',rand:'Random Rows',alt:'Alternating',
  rndPat:'Re-randomize Layout',tPat:'Seat layout re-randomized',cfmPat:'Seats that are already filled will be cleared. Continue?',
@@ -438,7 +498,12 @@ en:{sTheme:'Color theme',thG:'Green',thB:'Blue',thP:'Purple',thO:'Orange',thK:'P
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{sTheme:'Tema warna',thG:'Hijau',thB:'Biru',thP:'Ungu',thO:'Oranye',thK:'Merah muda',tagLink:'Tambah penanda (L)/(P) pada daftar nama \u2192',lnkTerms:'Ketentuan Layanan',lnkAbout:'Tentang',lnkLog:'Changelog',lnkRoad:'Roadmap',lnkBug:'Lapor Bug',tData:'Data & Aplikasi',dHint:'Data Anda hanya tersimpan di browser ini. Simpan file cadangan untuk memindahkannya ke perangkat lain, lalu buka di sana.',dSave:'Simpan ke File',dOpen:'Buka File',dInstall:'Pasang Aplikasi',dIos:'iPhone/iPad: ketuk Bagikan, lalu \u201cTambahkan ke Layar Utama\u201d.',cfmImport:'Ganti data saat ini dengan isi file ini?',tSaved:'File tersimpan',tBadFile:'File ini bukan cadangan Rolling Kelas yang valid',swapHint:'Ketuk meja lain yang terisi untuk menukar',tSwap:'{a} ⇄ {b} ditukar',undo:'Urungkan',tUndo:'{n} dikeluarkan dari meja',focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 6 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
+id:{actBtn:'Riwayat',actTitle:'Riwayat aktivitas',actHint:'Aktivitas terbaru Anda di browser ini, terbaru di atas.',actEmpty:'Belum ada aktivitas',actEmptyD:'Tindakan seperti memutar, mengacak, dan menukar kursi akan muncul di sini.',actClear:'Hapus riwayat',actSure:'Hapus semua {n} entri riwayat? Tindakan ini tidak bisa dibatalkan.',actYes:'Ya, hapus',actNo:'Batal',actCleared:'Riwayat dihapus',actClose:'Tutup',
+redo:'Ulangi',tUndoA:'Dibatalkan: {a}',tRedoA:'Diulang: {a}',tNoUndo:'Tidak ada yang bisa diurungkan',tNoRedo:'Tidak ada yang bisa diulang',tClose:'Tutup notifikasi',
+a_spin:'Hasil putaran',d_spin:'{n} \u2192 {w} (Rolling {r})',a_next:'Rolling baru',d_next:'Memulai Rolling #{r}',a_pattern:'Pola diacak ulang',d_pattern:'Pola meja baru dibuat.',a_mode:'Pola denah diganti',d_mode:'Mode: {m}',a_sort:'Nama diurutkan A\u2013Z',d_sort:'{n} nama.',a_shuf:'Nama diacak',d_shuf:'{n} nama.',a_shufSeats:'Denah diacak otomatis',d_shufSeats:'{n} siswa ditempatkan.',a_reset:'Meja dikosongkan',d_reset:'Semua meja dikosongkan.',a_save:'Daftar nama disimpan',d_save:'{n} nama, meja dikosongkan.',a_demo:'Data contoh dimuat',d_demo:'Daftar nama diganti dengan nama contoh.',a_swap:'Kursi ditukar',d_swap:'{a} \u2194 {b}',a_gender:'Gender diubah',d_gender:'{n} dipindah ke daftar {g}.',a_names:'Daftar nama diubah',d_names:'Daftar nama diedit.',a_undo:'Urungkan',d_undo:'Dibatalkan: {a}',a_redo:'Ulangi',d_redo:'Diulang: {a}',a_export:'Data diekspor',d_export:'{w} sebagai {f}',a_backup:'Cadangan disimpan',d_backup:'Berkas cadangan diunduh.',a_cfgReset:'Pengaturan direset',d_cfgReset:'Semua pengaturan dikembalikan ke bawaan.',
+sLang:'Bahasa',sMode:'Tampilan',mSys:'Sistem',mLight:'Terang',mDark:'Gelap',sToasts:'Tampilkan notifikasi',cfmCfgReset:'Kembalikan semua pengaturan ke bawaan?',tCfgReset:'Pengaturan dikembalikan ke bawaan',
+exTitle:'Ekspor data',exHint:'Unduh data Anda sebagai berkas. Hanya data yang ada di aplikasi yang diekspor.',exSeat:'Denah & nama',exAct:'Riwayat aktivitas',exNone:'Belum ada data untuk diekspor: {w}',tExOk:'Berhasil mengekspor {f}: {file}',tExErr:'Terjadi kesalahan. Coba lagi.',wSeat:'data denah',wAct:'riwayat aktivitas',bkTitle:'Cadangan & pulihkan',
+sTheme:'Tema warna',thG:'Hijau',thB:'Biru',thP:'Ungu',thO:'Oranye',thK:'Merah muda',tagLink:'Tambah penanda (L)/(P) pada daftar nama \u2192',lnkTerms:'Ketentuan Layanan',lnkAbout:'Tentang',lnkLog:'Changelog',lnkRoad:'Roadmap',lnkBug:'Lapor Bug',tData:'Data & Aplikasi',dHint:'Data Anda hanya tersimpan di browser ini. Simpan file cadangan untuk memindahkannya ke perangkat lain, lalu buka di sana.',dSave:'Simpan ke File',dOpen:'Buka File',dInstall:'Pasang Aplikasi',dIos:'iPhone/iPad: ketuk Bagikan, lalu \u201cTambahkan ke Layar Utama\u201d.',cfmImport:'Ganti data saat ini dengan isi file ini?',tSaved:'File tersimpan',tBadFile:'File ini bukan cadangan Rolling Kelas yang valid',swapHint:'Ketuk meja lain yang terisi untuk menukar',tSwap:'{a} ⇄ {b} ditukar',undo:'Urungkan',tUndo:'{n} dikeluarkan dari meja',focusBtn:'Mode Fokus',unfocus:'Tampilkan Semua',cfgTitle:'Pengaturan',cfgBtn:'Pengaturan',tDur:'Saat memutar',tAft:'Setelah memutar',tApp:'Tampilan',sTick:'Suara putaran',oTick:'Detak',oWood:'Ketukan kayu',oSoft:'Detak lembut',oNone:'Tanpa suara',sVol:'Volume',sDur:'Durasi putaran (detik)',sIdle:'Roda berputar pelan saat diam',sFan:'Suara pemenang',oFan:'Fanfare',oChime:'Lonceng',oClap:'Tepuk tangan',sConf:'Tampilkan konfeti',sPop:'Tampilkan popup pemenang',sMsg:'Pesan popup',sAuto:'Tutup popup otomatis (detik, 0 = mati)',sPal:'Warna roda',oPalG:'Sesuai jenis kelamin',oPalR:'Pelangi',sPegs:'Tampilkan titik di tepi roda',sBg:'Latar gradien',cfgReset:'Kembalikan Default',cfgOk:'Selesai',copyList:'Salin sebagai Teks',dlImg:'Unduh Gambar',printPlan:'Cetak',tCopied:'Denah berhasil disalin',tCopyFail:'Gagal menyalin',tImg:'Gambar diunduh',faqTitle:'Pertanyaan yang Sering Diajukan',faqNav:'FAQ',fsLabel:'Layar Penuh',kbd:'Tips: tekan Spasi untuk memutar',wipe:'Hapus Semua Data Saya',cfmWipe:'Daftar nama, denah, dan riwayat di browser ini akan dihapus permanen. Lanjutkan?',polLink:'Kebijakan Privasi',polClose:'Tutup',polUpd:'Terakhir diperbarui: 6 November 2026',tabNames:'Nama',tabSpin:'Putar',tabSeats:'Denah',namesTitle:'Daftar Nama',
  namesHint:'Tempel seluruh daftar nama (nama laki-laki dan perempuan boleh tercampur). Sistem akan memisahkannya secara otomatis. Anda juga dapat menambahkan (L) atau (P) di belakang nama.',
  shuffle:'Acak Urutan',sortAZ:'Urutkan A–Z',loadDemo:'Gunakan Data Contoh',frontRow:'Pola Denah',rand:'Acak Penuh',alt:'Selang-seling',
  rndPat:'Acak Ulang Pola',tPat:'Pola denah diacak ulang',cfmPat:'Meja yang sudah terisi akan dikosongkan. Lanjutkan?',
@@ -460,9 +525,10 @@ function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.repl
 const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}];
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
-const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',theme:'green',pegs:true,bg:true};
+const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',theme:'green',themeMode:'system',pegs:true,bg:true,toasts:true};
 let cfg={...CFG0};
 let seats=[],people=[],ov={},startMode='A',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
+let undoS=[],redoS=[],restoring=false,actLog=[];
 let side=0,round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
 const $=id=>document.getElementById(id);
 const canvas=$('wheel'),ctx=canvas.getContext('2d');
@@ -588,7 +654,26 @@ nav.addEventListener('pointerup',e=>endDrag(e,false));
 nav.addEventListener('pointercancel',e=>endDrag(e,true));
 tabs.forEach(x=>x.onclick=e=>{if(e.detail===0)go(+x.dataset.i)});
 nav.style.setProperty('--i',1);
-function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2200)}
+/* ---------- toast notifications (reusable): toast(msg, 'success'|'error'|'warning'|'info', ms) ---------- */
+function toast(msg,type,ms){
+  type=['success','error','warning','info'].includes(type)?type:'info';
+  if(!cfg.toasts&&(type==='info'||type==='success'))return;
+  const box=$('toasts');if(!box)return;
+  let live=[...box.children].filter(x=>!x._k);while(live.length>=4)killToast(live.shift());
+  const el=document.createElement('div');el.className='toast '+type;
+  el.setAttribute('role',type==='error'||type==='warning'?'alert':'status');
+  const ic=mkIcon('t'+type);el.appendChild(ic);
+  const tx=document.createElement('div');tx.className='tx';tx.textContent=msg;el.appendChild(tx);
+  const cl=document.createElement('button');cl.type='button';cl.className='tcl';cl.setAttribute('aria-label',t('tClose'));cl.appendChild(mkIcon('close'));cl.onclick=()=>killToast(el);el.appendChild(cl);
+  const life=ms||({error:6500,warning:5000}[type]||3200);
+  const arm=d=>{clearTimeout(el._t);el._t=setTimeout(()=>killToast(el),d)};
+  el.onmouseenter=()=>clearTimeout(el._t);el.onmouseleave=()=>arm(1500);
+  box.appendChild(el);arm(life);
+  return el;
+}
+function killToast(el){
+  if(!el||el._k)return;el._k=1;clearTimeout(el._t);el.classList.add('out');setTimeout(()=>el.remove(),230);
+}
 
 /* ---------- data ---------- */
 const DEF_M=['Budi','Andi','Rizky','Fajar','Dimas','Bayu','Eko','Hadi','Iqbal','Joko','Kevin','Lutfi','Naufal','Oscar','Putra','Raka','Satria','Yoga','Zaki'];
@@ -663,7 +748,7 @@ function renderChips(){
     const wrap=document.createElement('div');wrap.className='chips';
     list.forEach(p=>{
       const b=document.createElement('button');b.className='nchip'+(p.u?' u':'');b.textContent=p.name;
-      b.onclick=()=>{ov[p.k]=p.g==='M'?'F':'M';parse();renderAll()};
+      b.onclick=()=>{cp('gender');ov[p.k]=p.g==='M'?'F':'M';parse();renderAll();log('gender',{n:p.name,g:ov[p.k]})};
       wrap.appendChild(b);
     });
     col.appendChild(wrap);box.appendChild(col);
@@ -689,9 +774,9 @@ function setSeg(){document.querySelectorAll('#start button').forEach(b=>b.classL
 document.querySelectorAll('#start button').forEach(b=>b.onclick=()=>{
   if(spinning)return;
   if(seats.some(x=>x.name)&&!confirm(t('cfmPat')))return;
-  startMode=b.dataset.v;setSeg();
+  cp('mode');startMode=b.dataset.v;setSeg();
   buildSeats(newPattern(patOf(seats)));lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();
-  toast(t('tMode',{m:t(startMode==='A'?'alt':'rand')}));
+  log('mode',{m:startMode});toast(t('tMode',{m:t(startMode==='A'?'alt':'rand')}));
 });
 $('names').oninput=()=>{parse();renderAll()};
 
@@ -767,9 +852,9 @@ function seatTap(i){
   if(swapSel===i){swapSel=-1;renderRoom();return}
   const j=swapSel;swapSel=-1;
   if(!seats[i].name){renderRoom();return}
-  const a=seats[j],b=seats[i];
+  cp('swap');const a=seats[j],b=seats[i];
   seats[j]={...a,name:b.name,pg:b.pg};seats[i]={...b,name:a.name,pg:a.pg};
-  lastPlaced=-1;renderAll();toast(t('tSwap',{a:a.name,b:b.name}));
+  lastPlaced=-1;renderAll();log('swap',{a:a.name,b:b.name});toast(t('tSwap',{a:a.name,b:b.name}),'success');
 }
 function renderHist(){
   $('rndPat').style.display=viewRound===null?'':'none';
@@ -792,12 +877,13 @@ function renderAll(){
   $('spin').lastElementChild.textContent=fin?t('nextR'):t('spin');
   $('spin').disabled=spinning||(!fin&&(ni<0||!list.length));
   $('shuffle').disabled=spinning||!people.length;
-  $('undo').disabled=spinning||viewRound!==null||!done;
+  updUR();
   drawWheel();renderRoom();renderHist();persist();
 }
 function applyLang(){
   document.documentElement.lang=lang==='en'?'en':'id';
   document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+  $('cLang').value=lang;
   $('langCode').textContent={en:'EN',id:'ID'}[lang];
   document.querySelectorAll('#langMenu button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
   renderChips();renderAll();renderFaq();renderPolicy();cfgText();
@@ -860,16 +946,17 @@ const hideFin=()=>$('fin').classList.remove('show');
 $('finLater').onclick=hideFin;$('fin').onclick=e=>{if(e.target.id==='fin')hideFin()};
 function nextRound(){
   if(spinning)return;
+  cp('next');
   history.push({n:round,seats:JSON.parse(JSON.stringify(seats))});history=history.slice(-9);
   const prev=patOf(seats);
   round++;buildSeats(newPattern(prev));doneNotified=false;lastPlaced=-1;viewRound=null;rot=0;
-  hideFin();renderAll();toast(t('tNext',{n:round}));go(1);
+  hideFin();renderAll();log('next',{r:round});toast(t('tNext',{n:round}),'success');go(1);
 }
 $('finNext').onclick=nextRound;
 $('rndPat').onclick=()=>{
   if(spinning)return;
   if(seats.some(x=>x.name)&&!confirm(t('cfmPat')))return;
-  buildSeats(newPattern(patOf(seats)));lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tPat'));
+  cp('pattern');buildSeats(newPattern(patOf(seats)));lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();log('pattern');toast(t('tPat'));
 };
 
 function place(name,g){
@@ -891,7 +978,7 @@ function doSpin(){
   const ta=Math.min(900,dur*.3),T2=dur-ta;
   const vp=(4*delta/T2-2*ta*v0/T2)/(1+2*ta/T2),A=ta*(v0+vp)/2,D=delta-A;
   let last=segAt(n);
-  spinning=true;$('spin').disabled=true;$('shuffle').disabled=true;
+  spinning=true;$('spin').disabled=true;$('shuffle').disabled=true;updUR();
   (function step(ts){
     const el=Math.min(dur,ts-t0),p=el/dur;
     rot=start+(el<ta?v0*el+(vp-v0)*ta*(Math.pow(el/ta,3)-Math.pow(el/ta,4)/2):A+D*(1-Math.pow(1-(el-ta)/T2,4)));
@@ -900,30 +987,145 @@ function doSpin(){
     if(p<1)requestAnimationFrame(step);
     else{
       spinning=false;rot=rot%(2*Math.PI);viewRound=null;
-      const where=place(winner,g);
+      cp('spin');const where=place(winner,g);log('spin',{n:winner,sec:seats[lastPlaced].sec,row:seats[lastPlaced].row,r:round});
       if(isDone()&&!doneNotified){doneNotified=true;pendingFin=true}
       renderAll();showWin(winner,g,where);fanfare();
     }
   })(t0);
 }
-$('undo').onclick=()=>{
-  if(spinning||viewRound!==null)return;
-  let i=-1;seats.forEach((x,k)=>{if(x.name)i=k});if(i<0)return;
-  const nm=seats[i].name;seats[i]={...seats[i],name:null,pg:null};
-  doneNotified=false;pendingFin=false;lastPlaced=-1;hideFin();renderAll();toast(t('tUndo',{n:nm}));
+/* ---------- activity history (persisted separately in localStorage) ---------- */
+const ACT_KEY='rolling-kelas-activity',ACT_MAX=200;
+function actLoad(){try{const a=JSON.parse(localStorage.getItem(ACT_KEY)||'[]');actLog=Array.isArray(a)?a.filter(x=>x&&typeof x.type==='string'&&x.ts>0).slice(-ACT_MAX):[]}catch(e){actLog=[]}}
+function actSave(){try{localStorage.setItem(ACT_KEY,JSON.stringify(actLog))}catch(e){}}
+function log(type,data){actLog.push({ts:Date.now(),type,data:data||{}});if(actLog.length>ACT_MAX)actLog=actLog.slice(-ACT_MAX);actSave();if($('act').classList.contains('show'))renderAct()}
+function actDesc(e){
+  const d=e.data||{};
+  if(e.type==='undo'||e.type==='redo')return t('d_'+e.type,{a:t('a_'+d.k)});
+  if(e.type==='spin')return t('d_spin',{n:d.n,w:t('sec'+d.sec)+' · '+t('row')+' '+(d.row+1),r:d.r});
+  if(e.type==='gender')return t('d_gender',{n:d.n,g:t(d.g==='M'?'boys':'girls')});
+  if(e.type==='mode')return t('d_mode',{m:t(d.m==='A'?'alt':'rand')});
+  if(e.type==='export')return t('d_export',{w:t(d.w==='seat'?'wSeat':'wAct'),f:String(d.f||'').toUpperCase()});
+  return t('d_'+e.type,d);
+}
+const actTitle=e=>t('a_'+e.type);
+const fmtTime=ts=>new Date(ts).toLocaleString(lang==='en'?'en-GB':'id-ID',{dateStyle:'medium',timeStyle:'short'});
+function renderAct(){
+  const list=$('actList');list.innerHTML='';
+  const has=actLog.length>0;$('actEmpty').hidden=has;list.hidden=!has;$('actClear').disabled=!has;
+  actLog.slice().reverse().forEach(e=>{
+    const it=document.createElement('div');it.className='actitem';
+    const dot=document.createElement('i');dot.className='ad';
+    const bx=document.createElement('div');
+    const b=document.createElement('b');b.textContent=actTitle(e);
+    const dd=document.createElement('span');dd.className='dd';dd.textContent=actDesc(e);
+    const tm=document.createElement('time');tm.dateTime=new Date(e.ts).toISOString();tm.textContent=fmtTime(e.ts);
+    bx.append(b,dd,tm);it.append(dot,bx);list.appendChild(it);
+  });
+}
+function openAct(){renderAct();askAct(false);$('act').classList.add('show')}
+const closeAct=()=>$('act').classList.remove('show');
+function askAct(on){$('actAsk').hidden=!on;$('actFoot').hidden=on;if(on)$('actAskT').textContent=t('actSure',{n:actLog.length})}
+$('actHd').onclick=$('actBtn').onclick=openAct;$('actOk').onclick=closeAct;
+$('act').onclick=e=>{if(e.target.id==='act')closeAct()};
+$('actClear').onclick=()=>{if(actLog.length)askAct(true)};
+$('actNo').onclick=()=>askAct(false);
+$('actYes').onclick=()=>{
+  actLog=[];actSave();try{if(localStorage.getItem(ACT_KEY)!=='[]')throw 0}catch(e){toast(t('tExErr'),'error');return}
+  renderAct();askAct(false);toast(t('actCleared'),'success');
 };
+
+/* ---------- undo / redo (snapshots of the app state; in memory, max 60 steps) ---------- */
+const snap=(nm)=>JSON.stringify({names:nm==null?$('names').value:nm,ov,s2:startMode,seats,round,hist:history,dn:doneNotified});
+function restoreSnap(str){
+  const d=JSON.parse(str);restoring=true;
+  try{
+    ov=d.ov||{};startMode=d.s2==='R'?'R':'A';$('names').value=d.names||'';seats=d.seats;round=d.round;history=d.hist||[];doneNotified=!!d.dn;
+    setSeg();parse();pendingFin=false;lastPlaced=-1;viewRound=null;swapSel=-1;rot=0;hideFin();renderAll();
+  }finally{restoring=false}
+}
+function cp(type,nm){if(restoring||spinning)return;undoS.push({type,s:snap(nm)});if(undoS.length>60)undoS.shift();redoS=[];updUR()}
+function updUR(){$('undo').disabled=spinning||!undoS.length;$('redo').disabled=spinning||!redoS.length}
+function doUndo(){
+  if(spinning)return;if(!undoS.length){toast(t('tNoUndo'),'warning');return}
+  const e=undoS.pop();redoS.push({type:e.type,s:snap()});
+  try{restoreSnap(e.s)}catch(x){toast(t('tExErr'),'error');return}
+  updUR();log('undo',{k:e.type});toast(t('tUndoA',{a:t('a_'+e.type)}),'info');
+}
+function doRedo(){
+  if(spinning)return;if(!redoS.length){toast(t('tNoRedo'),'warning');return}
+  const e=redoS.pop();undoS.push({type:e.type,s:snap()});
+  try{restoreSnap(e.s)}catch(x){toast(t('tExErr'),'error');return}
+  updUR();log('redo',{k:e.type});toast(t('tRedoA',{a:t('a_'+e.type)}),'info');
+}
+$('undo').onclick=doUndo;$('redo').onclick=doRedo;
+let namesCp=0;
+let namesBefore='',namesCp_t=0;
+$('names').addEventListener('focus',()=>{namesCp=0;namesBefore=$('names').value});
+$('names').addEventListener('input',()=>{
+  if(!namesCp){cp('names',namesBefore);log('names');namesCp=1}
+  clearTimeout(namesCp_t);namesCp_t=setTimeout(()=>{namesCp=0;namesBefore=$('names').value},1500);
+});
+
+/* ---------- export (JSON / CSV) ---------- */
+const pad2=n=>String(n).padStart(2,'0');
+function fileStamp(){const d=new Date();return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate())+'-'+pad2(d.getHours())+pad2(d.getMinutes())}
+const csvCell=v=>{let x=v==null?'':String(v);if(/^[=+\-@\t\r]/.test(x))x="'"+x;return /[",\n\r]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x};
+const csvText=(head,rows)=>'﻿'+[head,...rows].map(r=>r.map(csvCell).join(',')).join('\r\n')+'\r\n';
+const SEC_EN={L:'left',M:'middle',R:'right'},G_EN={M:'male',F:'female'};
+function seatingData(){
+  const when=new Date().toISOString(),rounds=[];
+  const addR=(n,arr,cur)=>{const rows=arr.filter(x=>x&&x.name).map(x=>({round:n,section:SEC_EN[x.sec]||x.sec,row:x.row+1,column:x.col+1,name:x.name,gender:G_EN[x.pg||x.g]||''}));if(rows.length)rounds.push({round:n,current:cur,seats:rows})};
+  history.forEach(h=>addR(h.n,h.seats,false));addR(round,seats,true);
+  const names=people.map(p=>({name:p.name,gender:G_EN[p.g]||''}));
+  if(!rounds.length&&!names.length)return null;
+  return {when,names,rounds};
+}
+function activityData(){
+  if(!actLog.length)return null;
+  return actLog.map(e=>({timestamp:new Date(e.ts).toISOString(),type:e.type,title:actTitle(e),description:actDesc(e)}));
+}
+function saveFile(name,mime,text){
+  const bl=new Blob([text],{type:mime+';charset=utf-8'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(bl);a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+}
+function doExport(what,fmt){
+  try{
+    const w=what==='seat'?t('wSeat'):t('wAct');let text,mime;
+    const base='rolling-kelas-'+(what==='seat'?'denah':'riwayat')+'-'+fileStamp();
+    if(what==='seat'){
+      const d=seatingData();if(!d){toast(t('exNone',{w}),'warning');return}
+      if(fmt==='json'){text=JSON.stringify({app:'Rolling Kelas',type:'seating',exportedAt:d.when,currentRound:round,names:d.names,rounds:d.rounds},null,2);JSON.parse(text);mime='application/json'}
+      else{
+        const rows=[];d.rounds.forEach(r=>r.seats.forEach(x=>rows.push([d.when,r.round,r.current?'current':'history',x.section,x.row,x.column,x.name,x.gender])));
+        if(!rows.length){toast(t('exNone',{w}),'warning');return}
+        text=csvText(['exported_at','round','status','section','row','column','name','gender'],rows);mime='text/csv';
+      }
+    }else{
+      const d=activityData();if(!d){toast(t('exNone',{w}),'warning');return}
+      if(fmt==='json'){text=JSON.stringify({app:'Rolling Kelas',type:'activity',exportedAt:new Date().toISOString(),count:d.length,entries:d},null,2);JSON.parse(text);mime='application/json'}
+      else{text=csvText(['timestamp','type','title','description'],d.map(x=>[x.timestamp,x.type,x.title,x.description]));mime='text/csv'}
+    }
+    const file=base+'.'+fmt;saveFile(file,mime,text);
+    log('export',{w:what,f:fmt});toast(t('tExOk',{f:fmt.toUpperCase(),file}),'success');
+  }catch(e){toast(t('tExErr'),'error')}
+}
+$('exSJ').onclick=()=>doExport('seat','json');$('exSC').onclick=()=>doExport('seat','csv');
+$('exAJ').onclick=()=>doExport('act','json');$('exAC').onclick=()=>doExport('act','csv');
 $('spin').onclick=doSpin;canvas.onclick=doSpin;
 
 document.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
   if(spinning)return;
+  cp(b.dataset.act==='az'?'sort':'shuf');
   if(b.dataset.act==='az')people.sort((x,y)=>x.name.localeCompare(y.name,'id'));
   else people=shuffled(people);
   $('names').value=people.map(p=>p.raw).join('\n');
-  parse();rot=0;renderAll();toast(t(b.dataset.act==='az'?'tAZ':'tShuf'));
+  parse();rot=0;renderAll();log(b.dataset.act==='az'?'sort':'shuf',{n:people.length});toast(t(b.dataset.act==='az'?'tAZ':'tShuf'),'success');
 });
 
 $('shuffle').onclick=()=>{
   if(spinning)return;
+  cp('shufSeats');
   buildSeats();viewRound=null;
   const m=shuffled(people.filter(p=>p.g==='M').map(p=>p.name)),f=shuffled(people.filter(p=>p.g==='F').map(p=>p.name));
   seats.forEach(s=>{
@@ -932,12 +1134,12 @@ $('shuffle').onclick=()=>{
   });
   lastPlaced=-1;doneNotified=false;
   const fin=isDone();if(fin)doneNotified=true;
-  renderAll();toast(t('tShufSeats'));go(2);
-  if(fin)setTimeout(showFin,700);
+  renderAll();log('shufSeats',{n:seats.filter(x=>x.name).length});toast(t('tShufSeats'),'success');go(2);
+  if(fin)setTimeout(()=>{if(isDone())showFin()},700);
 };
-$('reset').onclick=()=>{if(spinning)return;buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tReset'))};
-$('save').onclick=()=>{if(spinning)return;parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tSaved'));go(1)};
-$('demo').onclick=()=>{$('names').value=defaultNames();ov={};parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();toast(t('tDemo'))};
+$('reset').onclick=()=>{if(spinning)return;cp('reset');buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();log('reset');toast(t('tReset'),'warning')};
+$('save').onclick=()=>{if(spinning)return;cp('save');parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();log('save',{n:people.length});toast(t('tSaved'),'success');go(1)};
+$('demo').onclick=()=>{if(spinning)return;cp('demo');$('names').value=defaultNames();ov={};parse();buildSeats();lastPlaced=-1;doneNotified=false;viewRound=null;renderAll();log('demo');toast(t('tDemo'),'success')};
 
 
 /* ---------- icons ---------- */
@@ -957,6 +1159,12 @@ const ICONS={
  fullscreen:'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z',
  exitfs:'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
  help:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z',
+ redo:'M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z',
+ history:'M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z',
+ tsuccess:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+ terror:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z',
+ twarning:'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+ tinfo:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z',
  undo:'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z',
  upload:'M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z',
  more:'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
@@ -972,7 +1180,7 @@ const ICONS={
 };
 const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#demo','sample'],['#save','check'],['#shuffle','auto'],['#reset','reset'],
  ['#finNext','next'],['#finLater','close'],['#winok','next'],['#spin','spin'],['#expCopy','copy'],['#expImg','download'],['#expPrint','print'],
- ['#cfgHd','settings'],['#focusHd','hide'],['#dSave','download'],['#dOpen','upload'],['#dInstall','download'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
+ ['#cfgHd','settings'],['#focusHd','hide'],['#dSave','download'],['#dOpen','upload'],['#dInstall','download'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#redo','redo'],['#actHd','history'],['#actBtn','history'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
  ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
 function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
 function addIcon(el,name){
@@ -985,20 +1193,10 @@ function addIcon(el,name){
 function initIcons(){ICON_MAP.forEach(([sel,ic])=>document.querySelectorAll(sel).forEach(el=>addIcon(el,ic)))}
 
 /* ---------- settings ---------- */
-const THEMES={blue:215,purple:270,orange:28,pink:335};
-function applyTheme(){
-  let st=document.getElementById('themeCss');if(!st){st=document.createElement('style');st.id='themeCss';document.head.appendChild(st)}
-  const h=THEMES[cfg.theme];
-  if(h==null){st.textContent='';var tc='#386a20'}else{
-    const L=`--primary:hsl(${h} 45% 33%);--on-primary:#fff;--pc:hsl(${h} 80% 86%);--on-pc:hsl(${h} 90% 8%);--sc:hsl(${h} 30% 86%);--on-sc:hsl(${h} 40% 10%);--bg:hsl(${h} 30% 98%);--s1:hsl(${h} 25% 95%);--s2:hsl(${h} 22% 93%);--s3:hsl(${h} 20% 91%);--s4:hsl(${h} 18% 88%);--outline:hsl(${h} 8% 45%);--ov:hsl(${h} 12% 77%);--onv:hsl(${h} 10% 27%);--lg1:hsl(${h} 45% 50%);--lg2:hsl(${h} 60% 26%);--lgs:hsl(${h} 80% 86%)`;
-    const D=`--primary:hsl(${h} 50% 70%);--on-primary:hsl(${h} 90% 12%);--pc:hsl(${h} 70% 20%);--on-pc:hsl(${h} 80% 86%);--sc:hsl(${h} 18% 26%);--on-sc:hsl(${h} 30% 86%);--bg:hsl(${h} 15% 7%);--s1:hsl(${h} 14% 10%);--s2:hsl(${h} 13% 12%);--s3:hsl(${h} 12% 15%);--s4:hsl(${h} 11% 19%);--outline:hsl(${h} 8% 56%);--ov:hsl(${h} 10% 27%);--onv:hsl(${h} 12% 77%)`;
-    st.textContent=`:root{${L}}@media(prefers-color-scheme:dark){:root{${D}}}`;tc=`hsl(${h} 45% 33%)`;
-  }
-  const hh=h==null?null:h;document.querySelectorAll('meta[name=theme-color]').forEach(m=>{const dk=/dark/.test(m.media);m.content=hh==null?(dk?'#11140f':'#fdfdf5'):(dk?`hsl(${hh} 15% 7%)`:`hsl(${hh} 30% 98%)`)});
-}
-const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
+function applyTheme(){if(window.RKTheme)RKTheme(cfg)}
+const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cMode','themeMode'],['cToasts','toasts'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
 function applyCfg(){
-  applyTheme();
+  applyTheme();$('cLang').value=lang;
   document.body.classList.toggle('flat',!cfg.bg);
   CFG_BIND.forEach(([id,k,o,u])=>{const el=$(id);if(el.type==='checkbox')el.checked=!!cfg[k];else el.value=cfg[k];if(o)$(o).textContent=cfg[k]+(u||'')});
   if(typeof drawWheel==='function'&&pool)drawWheel();
@@ -1009,7 +1207,7 @@ CFG_BIND.forEach(([id,k,o,u])=>{
   el.addEventListener(ev,()=>{
     cfg[k]=el.type==='checkbox'?el.checked:(el.type==='range'?+el.value:el.value);
     if(o)$(o).textContent=cfg[k]+(u||'');
-    if(k==='theme')applyTheme();
+    if(k==='theme'||k==='themeMode')applyTheme();
     if(k==='bg')document.body.classList.toggle('flat',!cfg.bg);
     if(k==='pal'||k==='pegs')drawWheel();
     persist();
@@ -1019,7 +1217,11 @@ $('cPrevT').onclick=()=>{ac();tick(true)};
 $('cTick').addEventListener('change',()=>{ac();tick(true)});
 $('cPrevF').onclick=()=>{ac();fanfare(true)};
 $('cFan').addEventListener('change',()=>{ac();fanfare(true)});
-$('cReset').onclick=()=>{cfg={...CFG0};applyCfg();persist()};
+$('cLang').onchange=()=>{lang=$('cLang').value;applyLang();persist()};
+$('cReset').onclick=()=>{
+  if(!confirm(t('cfmCfgReset')))return;
+  cfg={...CFG0};lang='id';applyCfg();applyLang();persist();log('cfgReset');toast(t('tCfgReset'),'success');
+};
 document.querySelectorAll('#ctabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#ctabs button').forEach(x=>x.classList.toggle('on',x===b));
   document.querySelectorAll('.cp').forEach(x=>x.classList.toggle('on',x.dataset.p===b.dataset.p));
@@ -1049,15 +1251,15 @@ $('dSave').onclick=()=>{
   persist();let raw='{}';try{raw=localStorage.getItem(KEY)||'{}'}catch(e){}
   const blob=new Blob([JSON.stringify({app:'rolling-kelas',v:2,saved:new Date().toISOString(),data:JSON.parse(raw)},null,1)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rolling-kelas-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(t('tSaved'));
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);log('backup');toast(t('tSaved'),'success');
 };
 $('dOpen').onclick=()=>$('dFile').click();
 $('dFile').onchange=async e=>{
   const f=e.target.files[0];e.target.value='';if(!f)return;
   let clean=null;try{if(f.size<2e6){const j=JSON.parse(await f.text());if(j&&j.app==='rolling-kelas')clean=cleanData(j.data)}}catch(x){}
-  if(!clean){toast(t('tBadFile'));return}
+  if(!clean){toast(t('tBadFile'),'error');return}
   if(!confirm(t('cfmImport')))return;
-  try{localStorage.setItem(KEY,JSON.stringify(clean));location.reload()}catch(x){toast(t('tBadFile'))}
+  try{localStorage.setItem(KEY,JSON.stringify(clean));location.reload()}catch(x){toast(t('tBadFile'),'error')}
 };
 let instEv=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();instEv=e;$('dInstRow').style.display=''});
@@ -1147,8 +1349,8 @@ function seatText(){
 }
 $('expCopy').onclick=async()=>{
   const txt=seatText();
-  try{await navigator.clipboard.writeText(txt);toast(t('tCopied'))}
-  catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(t('tCopied'))}catch(_){toast(t('tCopyFail'))}ta.remove()}
+  try{await navigator.clipboard.writeText(txt);toast(t('tCopied'),'success')}
+  catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(t('tCopied'),'success')}catch(_){toast(t('tCopyFail'))}ta.remove()}
 };
 function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
 function seatCanvas(){
@@ -1193,8 +1395,11 @@ $('fs').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();els
 document.addEventListener('fullscreenchange',()=>{const pa=$('fs').querySelector('path');if(pa)pa.setAttribute('d',ICONS[document.fullscreenElement?'exitfs':'fullscreen'])});
 const deskMQ=matchMedia('(min-width:960px)');
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){if(!document.querySelector('.win.show')&&document.body.classList.contains('focus')){setFocus(false);return}closeCfg();closePolicy();hideFin();hideWin();return}
-  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!['TEXTAREA','INPUT'].includes(e.target.tagName)){e.preventDefault();$('undo').click();return}
+  if(e.key==='Escape'){if(!document.querySelector('.win.show')&&document.body.classList.contains('focus')){setFocus(false);return}closeCfg();closeAct();closePolicy();hideFin();hideWin();return}
+  const kk=(e.key||'').toLowerCase();
+  if((e.ctrlKey||e.metaKey)&&!e.altKey&&(kk==='z'||kk==='y')&&!['TEXTAREA','INPUT','SELECT'].includes(e.target.tagName)&&!e.target.isContentEditable){
+    e.preventDefault();if(document.querySelector('.win.show'))return;
+    if(kk==='y'||e.shiftKey)doRedo();else doUndo();return}
   if(e.code!=='Space'||e.repeat)return;
   if(['TEXTAREA','INPUT','BUTTON','SUMMARY','A','SELECT'].includes(e.target.tagName))return;
   if(document.querySelector('.win.show'))return;
@@ -1211,7 +1416,7 @@ let idle=!matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 initIcons();
 
-load();applyCfg();applyLang();
+actLoad();load();applyCfg();applyLang();
 /* deep links from the info pages: index.html#privacy opens the policy, #faq jumps to the FAQ */
 function hashNav(){const h=location.hash;if(h==='#privacy')openPolicy();else if(h==='#faq'){go(1);setTimeout(toFaq,350)}}
 hashNav();addEventListener('hashchange',hashNav);

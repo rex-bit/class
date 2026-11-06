@@ -1,5 +1,5 @@
 // Rolling Kelas service worker: lets the app open offline. Network-first so updates always win.
-const V='rk-v3';
+const V='rk-v4';
 const FILES=['./','index.html','manifest.webmanifest','sounds/applause.mp3','icons/icon-192.png','icons/icon-512.png',
  'terms.html','tag-names.html','assets/gender.js','assets/namedata.js','assets/tagnames.js','about.html','changelog.html','roadmap.html','report-bug.html',
  'assets/site.css','assets/init.js','assets/config.js','assets/site.js','assets/changelog.js','assets/roadmap.js','assets/report.js','data/changelog.js','data/roadmap.js'];

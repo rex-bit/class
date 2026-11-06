@@ -4,6 +4,18 @@
    NOTE: the project was built in a single stretch, so v1.0.0 to v1.5.0 were labelled retroactively from the commit history
    (dates are the real commit dates). From v1.6.0 on, versions are assigned when released. */
 window.CHANGELOG=[
+ {version:'v1.8.0',date:'2026-11-06',
+  title:{en:'History, undo/redo, export and notifications',id:'Riwayat, undo/redo, ekspor, dan notifikasi'},
+  added:[
+   {en:'Activity history: spins, new rounds, shuffles, swaps and more are recorded with a title, description and time, kept in your browser. Open it from the header (or the menu on phones); clearing asks for confirmation.',id:'Riwayat aktivitas: putaran, rolling baru, pengacakan, pertukaran kursi, dan lainnya dicatat lengkap dengan judul, deskripsi, dan waktu, disimpan di browser Anda. Buka dari header (atau menu di HP); menghapus meminta konfirmasi.'},
+   {en:'Undo and Redo for every change to the names and seats (Ctrl+Z, Ctrl+Shift+Z or Ctrl+Y, plus buttons that disable when nothing is available).',id:'Urungkan dan Ulangi untuk setiap perubahan nama dan denah (Ctrl+Z, Ctrl+Shift+Z atau Ctrl+Y, plus tombol yang nonaktif bila tidak ada tindakan).'},
+   {en:'Export seating and names, or the activity history, as JSON or CSV with timestamps (Settings > Data & App). Only real data is exported.',id:'Ekspor denah dan nama, atau riwayat aktivitas, sebagai JSON atau CSV lengkap dengan waktu (Pengaturan > Data & Aplikasi). Hanya data nyata yang diekspor.'},
+   {en:'Toast notifications in four types (success, error, warning, info) with a close button, stacking and screen-reader announcements.',id:'Notifikasi toast dalam empat jenis (sukses, error, peringatan, info) dengan tombol tutup, bertumpuk rapi, dan diumumkan ke pembaca layar.'},
+   {en:'Settings: language, light/dark/system mode and a switch for notifications. Everything saves automatically and also applies to the info pages.',id:'Pengaturan: bahasa, mode terang/gelap/sistem, dan sakelar notifikasi. Semua tersimpan otomatis dan juga berlaku di halaman info.'},
+  ],
+  fixed:[
+   {en:'The finish popup no longer appears after shuffling seats if the seats were changed in the meantime.',id:'Popup selesai tidak lagi muncul setelah mengacak denah jika denah sudah berubah.'},
+  ]},
  {version:'v1.7.0',date:'2026-11-06',
   title:{en:'Smarter gender detection',id:'Deteksi gender lebih pintar'},
   added:[
