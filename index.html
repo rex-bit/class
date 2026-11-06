@@ -307,6 +307,9 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 .actask span{flex:1 1 220px;text-align:left}
 .exrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}
 .exrow>span{flex:1 1 140px;font-size:14px;font-weight:600}
+.btn.ico{padding:0;width:38px;min-width:38px;height:38px;justify-content:center}
+.btn.ico span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn.ico svg{margin:0}
 .cp h4{margin:14px 0 2px;font-size:14px}
 </style>
 </head>
@@ -374,9 +377,9 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="row c">
         <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
         <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
-        <button class="btn tonal sm" id="undo" data-i18n="undo" title="Ctrl+Z"></button>
-        <button class="btn tonal sm" id="redo" data-i18n="redo" title="Ctrl+Shift+Z"></button>
         <button class="btn tonal sm" id="shuffle" data-i18n="shuffleSeats"></button>
+        <button class="btn tonal sm ico" id="undo" data-i18n="undo"></button>
+        <button class="btn tonal sm ico" id="redo" data-i18n="redo"></button>
         <button class="btn text sm" id="reset" data-i18n="reset"></button>
       </div>
     </div>
@@ -883,7 +886,7 @@ function renderAll(){
 function applyLang(){
   document.documentElement.lang=lang==='en'?'en':'id';
   document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
-  $('cLang').value=lang;
+  $('cLang').value=lang;$('undo').title=t('undo')+' (Ctrl+Z)';$('redo').title=t('redo')+' (Ctrl+Shift+Z)';
   $('langCode').textContent={en:'EN',id:'ID'}[lang];
   document.querySelectorAll('#langMenu button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
   renderChips();renderAll();renderFaq();renderPolicy();cfgText();
