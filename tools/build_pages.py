@@ -257,6 +257,35 @@ pages['report-bug.html'] = layout('report', 'report-bug.html',
     'Report a bug in Rolling Kelas: title, description, category, browser/device, steps to reproduce, expected and actual result.', body,
     '<script src="assets/report.js" defer></script>')
 
+
+# ---------------------------------------------------------------- TAG NAMES TOOL
+body = hero('Alat Bantu', 'Tool', 'Tambah penanda (L) / (P)', 'Add (L) / (P) tags',
+            'Tempel daftar nama, dan aplikasi menebak jenis kelaminnya lalu menambahkan (L) atau (P) di belakang tiap nama. Ketuk L/P untuk mengoreksi, lalu salin hasilnya.',
+            'Paste a list of names and the app guesses each one and adds (L) or (P) after it. Tap L/P to correct a guess, then copy the result.')
+body += f'''<div class="wrap"><div class="grid g2 tagtool">
+<div class="card"><h2>{S("Daftar nama", "Name list")}</h2>
+<label class="sr" for="src">{S("Satu nama per baris", "One name per line")}</label>
+<textarea id="src" class="big" rows="12" spellcheck="false" placeholder="Budi&#10;Siti&#10;Andi&#10;Dewi&#10;..."></textarea>
+<div class="row" style="margin:12px 0"><label class="opt">{S("Format", "Format")}
+<select id="fmt"><option value="par">Nama (L)</option><option value="br">Nama [L]</option><option value="dash">Nama - L</option></select></label>
+<label class="opt"><input type="checkbox" id="strip" checked> {S("Hapus nomor di depan nama", "Remove leading numbers")}</label></div>
+<div class="row"><button class="btn tonal sm" id="sample" type="button">{S("Pakai contoh", "Use sample")}</button><button class="btn text sm" id="clear" type="button">{S("Kosongkan", "Clear")}</button></div>
+<p class="hint-s">{S("Nama yang sudah punya penanda, misalnya \"Hana (L)\", tidak ditebak ulang. Penanda berupa L atau P, juga cowok/cewek, laki-laki/perempuan.", "Names that already have a tag, such as \"Hana (L)\", are not guessed again. Tags may be L or P, also cowok/cewek or laki-laki/perempuan.")}</p>
+</div>
+<div class="card"><h2>{S("Hasil", "Result")}</h2>
+<div class="stats4"><div><b id="c-total">0</b><span>{S("Nama", "Names")}</span></div><div><b id="c-m">0</b><span>L</span></div><div><b id="c-f">0</b><span>P</span></div><div><b id="c-u">0</b><span>{S("Belum pasti", "Uncertain")}</span></div></div>
+<div class="trows" id="rows" aria-live="polite"></div>
+<label class="sr" for="out">{S("Hasil teks", "Text result")}</label>
+<textarea id="out" class="big out" rows="6" readonly></textarea>
+<div class="row" style="margin-top:12px"><button class="btn fill" id="copy" type="button" disabled>{ic("M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z")}{S("Salin hasil", "Copy result")}</button><button class="btn tonal" id="dl" type="button" disabled>{ic(I["download"])}{S("Unduh .txt", "Download .txt")}</button></div>
+<p class="hint-s">{S("Tebakan tidak selalu benar. Nama dengan garis putus-putus dan tanda ? belum pasti: periksa dulu. Semua diproses di browser Anda, tidak ada yang dikirim.", "Guesses are not always right. Names with a dashed outline and a ? are uncertain: check them. Everything runs in your browser and nothing is sent.")}</p>
+</div></div></div>'''
+pages['tag-names.html'] = layout('tag', 'tag-names.html',
+    'Tambah Penanda (L)/(P) pada Daftar Nama · Rolling Kelas', 'Add (L)/(P) Tags to a Name List · Rolling Kelas',
+    'Alat gratis untuk menebak jenis kelamin dari daftar nama dan menambahkan (L) atau (P) di belakang tiap nama. Berjalan di browser Anda.',
+    'Free tool that guesses gender from a list of names and appends (L) or (P) after each name. Runs in your browser.', body,
+    '<script src="assets/gender.js"></script>\n<script src="assets/tagnames.js" defer></script>')
+
 for name, content in pages.items():
     open(os.path.join(ROOT, name), 'w', encoding='utf-8').write(content)
     print('wrote', name, len(content))

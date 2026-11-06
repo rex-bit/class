@@ -8,6 +8,7 @@ window.CHANGELOG=[
   title:{en:'Information pages',id:'Halaman informasi'},
   added:[
    {en:'Terms of Service, About, Changelog, Roadmap and Report a Bug pages, with navigation between them.',id:'Halaman Ketentuan Layanan, Tentang, Changelog, Roadmap, dan Lapor Bug, lengkap dengan navigasi antarhalaman.'},
+   {en:'Tag Names tool (tag-names.html): paste a name list and (L)/(P) is added after each name; correct guesses with a tap, then copy.',id:'Alat Tambah Penanda (tag-names.html): tempel daftar nama dan (L)/(P) ditambahkan di belakang tiap nama; koreksi tebakan dengan satu ketukan, lalu salin.'},
    {en:'Report a Bug sends reports to the developer through Formspree (third-party form service); the Privacy Policy now mentions it.',id:'Lapor Bug mengirim laporan ke pengembang lewat Formspree (layanan formulir pihak ketiga); Kebijakan Privasi kini menyebutkannya.'},
    {en:'Links to the new pages in the app footer; #faq and #privacy links open the FAQ and Privacy Policy directly.',id:'Tautan ke halaman baru di footer aplikasi; tautan #faq dan #privacy langsung membuka FAQ dan Kebijakan Privasi.'}
   ]},
