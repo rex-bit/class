@@ -46,7 +46,8 @@ def layout(key, fname, title_id, title_en, desc_id, desc_en, body, scripts=''):
 <title>{q(title_id)}</title>
 <meta name="description" content="{q(desc_id)}">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#386a20">
+<meta name="theme-color" content="#fdfdf5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11140f" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rolling Kelas">
 <meta property="og:title" content="{q(title_id)}">

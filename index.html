@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#386a20">
+<meta name="theme-color" content="#fdfdf5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11140f" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -993,7 +994,7 @@ function applyTheme(){
     const D=`--primary:hsl(${h} 50% 70%);--on-primary:hsl(${h} 90% 12%);--pc:hsl(${h} 70% 20%);--on-pc:hsl(${h} 80% 86%);--sc:hsl(${h} 18% 26%);--on-sc:hsl(${h} 30% 86%);--bg:hsl(${h} 15% 7%);--s1:hsl(${h} 14% 10%);--s2:hsl(${h} 13% 12%);--s3:hsl(${h} 12% 15%);--s4:hsl(${h} 11% 19%);--outline:hsl(${h} 8% 56%);--ov:hsl(${h} 10% 27%);--onv:hsl(${h} 12% 77%)`;
     st.textContent=`:root{${L}}@media(prefers-color-scheme:dark){:root{${D}}}`;tc=`hsl(${h} 45% 33%)`;
   }
-  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=tc;
+  const hh=h==null?null:h;document.querySelectorAll('meta[name=theme-color]').forEach(m=>{const dk=/dark/.test(m.media);m.content=hh==null?(dk?'#11140f':'#fdfdf5'):(dk?`hsl(${hh} 15% 7%)`:`hsl(${hh} 30% 98%)`)});
 }
 const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
 function applyCfg(){
