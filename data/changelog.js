@@ -6,6 +6,9 @@
 window.CHANGELOG=[
  {version:'v1.7.0',date:'2026-11-06',
   title:{en:'Smarter gender detection',id:'Deteksi gender lebih pintar'},
+  added:[
+   {en:'Color themes (green, blue, purple, orange, pink) in Settings > Appearance, for light and dark mode.',id:'Tema warna (hijau, biru, ungu, oranye, merah muda) di Pengaturan > Tampilan, untuk mode terang dan gelap.'},
+  ],
   improved:[
    {en:'Name detection now also uses ~1,800 known first names and name-ending patterns learned from open name lists (MIT). Names are recognised far more often, so manual (L)/(P) tags are rarely needed. Cross-validated: ~93% correct on ~96% of names; unsure names stay marked with a dashed outline.',id:'Deteksi nama kini juga memakai ~1.800 nama depan dan pola akhiran nama dari daftar nama terbuka (MIT). Nama jauh lebih sering dikenali, jadi tanda (L)/(P) manual jarang diperlukan. Hasil uji silang: ~93% benar pada ~96% nama; nama yang ragu tetap bergaris putus-putus.'},
   ]},
