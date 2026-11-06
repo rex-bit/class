@@ -4,6 +4,11 @@
    NOTE: the project was built in a single stretch, so v1.0.0 to v1.5.0 were labelled retroactively from the commit history
    (dates are the real commit dates). From v1.6.0 on, versions are assigned when released. */
 window.CHANGELOG=[
+ {version:'v1.7.0',date:'2026-11-06',
+  title:{en:'Smarter gender detection',id:'Deteksi gender lebih pintar'},
+  improved:[
+   {en:'Name detection now also uses ~1,800 known first names and name-ending patterns learned from open name lists (MIT). Names are recognised far more often, so manual (L)/(P) tags are rarely needed. Cross-validated: ~93% correct on ~96% of names; unsure names stay marked with a dashed outline.',id:'Deteksi nama kini juga memakai ~1.800 nama depan dan pola akhiran nama dari daftar nama terbuka (MIT). Nama jauh lebih sering dikenali, jadi tanda (L)/(P) manual jarang diperlukan. Hasil uji silang: ~93% benar pada ~96% nama; nama yang ragu tetap bergaris putus-putus.'},
+  ]},
  {version:'v1.6.0',date:'2026-11-06',
   title:{en:'Information pages',id:'Halaman informasi'},
   added:[

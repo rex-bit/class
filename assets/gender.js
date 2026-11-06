@@ -3,6 +3,12 @@ const FEM=new Set(('siti dewi ayu nadia putri rani salsa tika vina wulan yuni za
 const MAL=new Set(('budi andi rizky fajar dimas bayu eko hadi iqbal joko kevin lutfi naufal oscar putra raka satria yoga zaki ahmad muhammad muhamad mohamad moh mohammad agus adi aditya afif agung ali alif alvin arif arya azka bagas bagus bambang daffa danu david deni dika dani dodi edo fahri fadli farhan fauzan fikri galih gilang haikal hafiz hasan hendra hendri ikhsan ilham imam indra irfan ivan jaya kenzo krisna lukman malik mario maulana nugroho panji pratama rafi rafael rama reza rendi ridho rio riko rudi ryan saputra surya taufik teguh tomi wahyu wawan yusuf zidan abdul abdullah rizal rian rifki rifky farel fachri fathur bima bintang daniel dennis dhani dzaky evan fadil fariz gading hanif hilmi ibnu ichsan ihsan jordan kholid kurnia leo nizar candra cahyo dwi fauzi gunawan haris heru jefri kemal bryan christian dafa deva fajri hakim hafidz kiki lintang mahendra naufan okta rey rifai samuel satya sultan tegar vito wildan yanuar zulkifli').split(' '));
 const MARK=/\s*[\(\[,\-–\/|]\s*(laki-laki|laki|perempuan|cowok|cewek|cowo|cewe|female|male|girl|boy|lk|pr|l|p|m|f|b|g)\s*[\)\]]?\s*$/i;
 const MALE_TAGS=['l','lk','laki','laki-laki','cowok','cowo','m','male','boy','b'];
+function modelGuess(name){const R=window.RKN;if(!R)return null;
+  if(!R.M){R.M=new Set(R.m.split(' '));R.F=new Set(R.f.split(' '))}
+  let sc=0;name.toLowerCase().split(/[^a-z]+/).filter(Boolean).forEach((t,i)=>{const w=i?1:2;
+    if(R.M.has(t))sc+=3*w;else if(R.F.has(t))sc-=3*w;
+    else if(t.length>2)for(const L of[4,3,2])if(t.length>L&&R.s[t.slice(-L)]!=null){sc+=w*R.s[t.slice(-L)]*.6;break}});
+  return sc>0?'M':sc<0?'F':null}
 function guess(name){
   const toks=name.toLowerCase().split(/[^a-z]+/).filter(Boolean);
   let f=0,m=0;
@@ -13,7 +19,7 @@ function guess(name){
     else if(/(ullah|uddin|wan|syah|putra|pratama|anto|ianto|ndra|man)$/.test(tk))m+=1;
     else if(/(wati|ningsih|yanti|ningrum|sari|iah|ah|ati|ini|ina|ika|ita|ela)$/.test(tk))f+=1;
   });
-  return f>m?'F':m>f?'M':null;
+  return f>m?'F':m>f?'M':modelGuess(name);
 }
 window.RKG=(function(){
   function classify(line,stripNumber){

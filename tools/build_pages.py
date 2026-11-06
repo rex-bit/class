@@ -284,7 +284,7 @@ pages['tag-names.html'] = layout('tag', 'tag-names.html',
     'Tambah Penanda (L)/(P) pada Daftar Nama · Rolling Kelas', 'Add (L)/(P) Tags to a Name List · Rolling Kelas',
     'Alat gratis untuk menebak jenis kelamin dari daftar nama dan menambahkan (L) atau (P) di belakang tiap nama. Berjalan di browser Anda.',
     'Free tool that guesses gender from a list of names and appends (L) or (P) after each name. Runs in your browser.', body,
-    '<script src="assets/gender.js"></script>\n<script src="assets/tagnames.js" defer></script>')
+    '<script src="assets/namedata.js"></script>\n<script src="assets/gender.js"></script>\n<script src="assets/tagnames.js" defer></script>')
 
 for name, content in pages.items():
     open(os.path.join(ROOT, name), 'w', encoding='utf-8').write(content)

@@ -45,3 +45,5 @@ Tepuk tangan: "celebration-applause-small" dari [SFX Kit by Wyzowl](https://gith
 - Ubah riwayat rilis di `data/changelog.js` dan rencana di `data/roadmap.js` (tanpa build).
 - Teks Ketentuan/Tentang/Lapor Bug ada di `tools/build_pages.py`; jalankan `python3 tools/build_pages.py` setelah mengubahnya.
 - `assets/config.js`: isi `email`, `repo` (repo publik), atau `reportEndpoint` agar formulir bug benar-benar bisa mengirim. Selama kosong, formulir hanya menyiapkan laporan di perangkat dan tidak mengirim apa pun.
+
+Deteksi gender nama: `assets/namedata.js` dibuat oleh `tools/build_namedata.py` dari [indonesian-name-gender-dataset](https://github.com/physicsunivriaumlgroup/indonesian-name-gender-dataset) dan [Cipta-Nama](https://github.com/wafarifki/Cipta-Nama) (keduanya MIT; hanya fakta nama→gender yang diambil).
