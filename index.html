@@ -309,6 +309,15 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 .btn.ico{padding:0;width:38px;min-width:38px;height:38px;justify-content:center}
 .btn.ico span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .btn.ico svg{margin:0}
+.strow{display:grid;grid-template-columns:minmax(80px,1.2fr) 2fr auto;gap:10px;align-items:center;padding:6px 0;font-size:13px}
+.strow .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.strow .bar{height:8px;border-radius:8px;background:var(--s4);overflow:hidden}
+.strow .bar i{display:block;height:100%;border-radius:8px;background:var(--primary)}
+.strow .ct{font-variant-numeric:tabular-nums;color:var(--onv);min-width:34px;text-align:right}
+.stsub{margin:12px 0 4px;font-size:13px;font-weight:700}
+.stchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.stchips span{background:var(--pc);color:var(--on-pc);border-radius:100px;padding:5px 12px;font-size:13px;font-weight:600}
+.stnote{font-size:13px;color:var(--onv);margin:2px 0 8px}
 .cp h4{margin:14px 0 2px;font-size:14px}
 </style>
 </head>
@@ -317,7 +326,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <header>
   <svg class="logo" viewBox="0 0 48 48" aria-label="Rex-bit"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--lg1,#4caf6e)"/><stop offset="1" style="stop-color:var(--lg2,#1b6d3b)"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#lg)"/><path d="M24 24L24.00 9.00A15 15 0 0 1 36.99 16.50Z" fill="#ffffff" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L36.99 16.50A15 15 0 0 1 36.99 31.50Z" style="fill:var(--lgs,#b7f397)" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L36.99 31.50A15 15 0 0 1 24.00 39.00Z" fill="#ffc94d" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L24.00 39.00A15 15 0 0 1 11.01 31.50Z" fill="#ffffff" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L11.01 31.50A15 15 0 0 1 11.01 16.50Z" style="fill:var(--lgs,#b7f397)" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><path d="M24 24L11.01 16.50A15 15 0 0 1 24.00 9.00Z" fill="#ffc94d" style="stroke:var(--lg2,#1b6d3b)" stroke-width=".7"/><circle cx="24" cy="24" r="15.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="24" cy="24" r="4.2" fill="#1b6d3b" stroke="#fff" stroke-width="1.4"/><path d="M24 1.5 20 9.5h8z" fill="#ffc94d" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>
   <div class="brand"><small>Rex-bit</small><b>Rolling Kelas</b></div>
-  <div class="hactions"><button class="hbtn" id="focusHd"><span data-i18n="focusBtn"></span></button><button class="hbtn" id="actHd"><span data-i18n="actBtn"></span></button><button class="hbtn" id="cfgHd"><span data-i18n="cfgBtn"></span></button><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
+  <div class="hactions"><button class="hbtn" id="focusHd"><span data-i18n="focusBtn"></span></button><button class="hbtn" id="statHd"><span data-i18n="statBtn"></span></button><button class="hbtn" id="actHd"><span data-i18n="actBtn"></span></button><button class="hbtn" id="cfgHd"><span data-i18n="cfgBtn"></span></button><button class="hbtn" id="fs"><span data-i18n="fsLabel"></span></button><button class="hbtn" id="faqBtn"><span data-i18n="faqNav"></span></button></div>
   <div class="lang">
     <button class="langbtn" id="langBtn" aria-label="Language"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96A14.7 14.7 0 0 1 10.09 16h3.82A14.7 14.7 0 0 1 12 19.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.26 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"/></svg><span id="langCode">ID</span></button>
     <div class="menu" id="langMenu">
@@ -362,7 +371,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <section id="t1" class="on">
     <div class="card">
       <div class="more"><button class="icon" id="moreBtn" aria-label="Menu" aria-haspopup="true"></button>
-        <div class="mmenu" id="moreMenu"><button id="actBtn" data-i18n="actBtn"></button><button id="cfgBtn" data-i18n="cfgBtn"></button><button id="focusBtn" data-i18n="focusBtn"></button><button id="faqMore" data-i18n="faqNav"></button></div></div>
+        <div class="mmenu" id="moreMenu"><button id="statBtn" data-i18n="statBtn"></button><button id="actBtn" data-i18n="actBtn"></button><button id="cfgBtn" data-i18n="cfgBtn"></button><button id="focusBtn" data-i18n="focusBtn"></button><button id="faqMore" data-i18n="faqNav"></button></div></div>
       <button class="icon" id="snd" aria-label="Sound"></button>
       <div class="status"><span class="chip" id="status"></span></div>
       <div class="wheelbox">
@@ -403,6 +412,12 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <h3 id="polTitle"></h3><div class="upd" id="polUpd"></div><div id="polBody"></div>
   <div class="row"><button class="btn tonal sm" id="polWipe" data-i18n="wipe"></button><button class="btn fill sm" id="polClose" data-i18n="polClose"></button></div>
 </div></div>
+<div class="win" id="stat"><div class="wincard cfg" role="dialog" aria-modal="true" aria-labelledby="statTitle">
+  <h2 id="statTitle" data-i18n="statTitle"></h2>
+  <p class="hint" id="statHint"></p>
+  <div id="statBody"></div>
+  <div class="cfoot"><button class="btn fill sm" id="statOk" data-i18n="actClose"></button></div>
+</div></div>
 <div class="win" id="act"><div class="wincard cfg" role="dialog" aria-modal="true" aria-labelledby="actTitle">
   <h2 id="actTitle" data-i18n="actTitle"></h2>
   <p class="hint" data-i18n="actHint"></p>
@@ -435,6 +450,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
     <div class="crow"><label for="cPal" data-i18n="sPal"></label><div class="grow"><select id="cPal"><option value="gender" data-i18n="oPalG"></option><option value="rainbow" data-i18n="oPalR"></option></select></div></div>
     <div class="crow chk"><label for="cPegs" data-i18n="sPegs"></label><input type="checkbox" id="cPegs"></div>
     <div class="crow chk"><label for="cBg" data-i18n="sBg"></label><input type="checkbox" id="cBg"></div>
+    <div class="crow"><label for="cRemind" data-i18n="sRemind"></label><div class="grow"><select id="cRemind"><option value="0" data-i18n="r0"></option><option value="3" data-i18n="r3"></option><option value="7" data-i18n="r7"></option><option value="14" data-i18n="r14"></option><option value="30" data-i18n="r30"></option></select></div></div>
     <div class="crow chk"><label for="cToasts" data-i18n="sToasts"></label><input type="checkbox" id="cToasts"></div>
   </div>
   <div class="cp" data-p="3">
@@ -480,7 +496,8 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{actBtn:'History',actTitle:'Activity history',actHint:'Your recent actions in this browser, newest first.',actEmpty:'No activity yet',actEmptyD:'Actions like spinning, shuffling and swapping seats will show up here.',actClear:'Clear history',actSure:'Delete all {n} history entries? This cannot be undone.',actYes:'Yes, delete',actNo:'Cancel',actCleared:'History cleared',actClose:'Close',
+en:{statBtn:'Statistics',statTitle:'Seating fairness',statHint:'Front = first 2 rows. Based on {n} rolling round(s) saved in this browser.',statNever:'Never sat in front',statAll:'Times in front',statEmpty:'No seating data yet',statEmptyD:'Seat at least one student to see statistics.',statAllEq:'Everyone has sat in front at least once.',statDays:'Rolling #{r} has been running for {d} days.',statToday:'Rolling #{r} started today.',sRemind:'Rolling reminder',r0:'Off',r3:'After 3 days',r7:'After 7 days',r14:'After 14 days',r30:'After 30 days',tRemind:'It has been {d} days since Rolling #{r} started. Time for a new round?',
+actBtn:'History',actTitle:'Activity history',actHint:'Your recent actions in this browser, newest first.',actEmpty:'No activity yet',actEmptyD:'Actions like spinning, shuffling and swapping seats will show up here.',actClear:'Clear history',actSure:'Delete all {n} history entries? This cannot be undone.',actYes:'Yes, delete',actNo:'Cancel',actCleared:'History cleared',actClose:'Close',
 redo:'Redo',tUndoA:'Undone: {a}',tRedoA:'Redone: {a}',tNoUndo:'Nothing to undo',tNoRedo:'Nothing to redo',tClose:'Dismiss notification',
 a_spin:'Spin result',d_spin:'{n} \u2192 {w} (Rolling {r})',a_next:'New rolling round',d_next:'Started Rolling #{r}',a_pattern:'Pattern reshuffled',d_pattern:'A new desk pattern was generated.',a_mode:'Seat pattern changed',d_mode:'Mode: {m}',a_sort:'Names sorted A\u2013Z',d_sort:'{n} names.',a_shuf:'Names shuffled',d_shuf:'{n} names.',a_shufSeats:'Seats shuffled automatically',d_shufSeats:'{n} students seated.',a_reset:'Seats cleared',d_reset:'All seats were emptied.',a_save:'Name list saved',d_save:'{n} names, seats reset.',a_demo:'Sample data loaded',d_demo:'The name list was replaced with sample names.',a_swap:'Seats swapped',d_swap:'{a} \u2194 {b}',a_gender:'Gender changed',d_gender:'{n} is now in the {g} list.',a_names:'Name list edited',d_names:'The name list was edited.',a_undo:'Undo',d_undo:'Undone: {a}',a_redo:'Redo',d_redo:'Redone: {a}',a_export:'Data exported',d_export:'{w} as {f}',a_backup:'Backup saved',d_backup:'Backup file downloaded.',a_cfgReset:'Settings reset',d_cfgReset:'All settings were restored to default.',
 sLang:'Language',sMode:'Appearance',mSys:'System',mLight:'Light',mDark:'Dark',sToasts:'Show notifications',cfmCfgReset:'Reset all settings to default?',tCfgReset:'Settings reset to default',
@@ -500,7 +517,8 @@ sTheme:'Color theme',thG:'Green',thB:'Blue',thP:'Purple',thO:'Orange',thK:'Pink'
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{actBtn:'Riwayat',actTitle:'Riwayat aktivitas',actHint:'Aktivitas terbaru Anda di browser ini, terbaru di atas.',actEmpty:'Belum ada aktivitas',actEmptyD:'Tindakan seperti memutar, mengacak, dan menukar kursi akan muncul di sini.',actClear:'Hapus riwayat',actSure:'Hapus semua {n} entri riwayat? Tindakan ini tidak bisa dibatalkan.',actYes:'Ya, hapus',actNo:'Batal',actCleared:'Riwayat dihapus',actClose:'Tutup',
+id:{statBtn:'Statistik',statTitle:'Keadilan tempat duduk',statHint:'Depan = 2 baris pertama. Berdasarkan {n} rolling yang tersimpan di browser ini.',statNever:'Belum pernah di depan',statAll:'Jumlah duduk di depan',statEmpty:'Belum ada data denah',statEmptyD:'Tempatkan setidaknya satu siswa untuk melihat statistik.',statAllEq:'Semua sudah pernah duduk di depan.',statDays:'Rolling #{r} sudah berjalan {d} hari.',statToday:'Rolling #{r} dimulai hari ini.',sRemind:'Pengingat rolling',r0:'Mati',r3:'Setelah 3 hari',r7:'Setelah 7 hari',r14:'Setelah 14 hari',r30:'Setelah 30 hari',tRemind:'Sudah {d} hari sejak Rolling #{r} dimulai. Waktunya rolling baru?',
+actBtn:'Riwayat',actTitle:'Riwayat aktivitas',actHint:'Aktivitas terbaru Anda di browser ini, terbaru di atas.',actEmpty:'Belum ada aktivitas',actEmptyD:'Tindakan seperti memutar, mengacak, dan menukar kursi akan muncul di sini.',actClear:'Hapus riwayat',actSure:'Hapus semua {n} entri riwayat? Tindakan ini tidak bisa dibatalkan.',actYes:'Ya, hapus',actNo:'Batal',actCleared:'Riwayat dihapus',actClose:'Tutup',
 redo:'Ulangi',tUndoA:'Dibatalkan: {a}',tRedoA:'Diulang: {a}',tNoUndo:'Tidak ada yang bisa diurungkan',tNoRedo:'Tidak ada yang bisa diulang',tClose:'Tutup notifikasi',
 a_spin:'Hasil putaran',d_spin:'{n} \u2192 {w} (Rolling {r})',a_next:'Rolling baru',d_next:'Memulai Rolling #{r}',a_pattern:'Pola diacak ulang',d_pattern:'Pola meja baru dibuat.',a_mode:'Pola denah diganti',d_mode:'Mode: {m}',a_sort:'Nama diurutkan A\u2013Z',d_sort:'{n} nama.',a_shuf:'Nama diacak',d_shuf:'{n} nama.',a_shufSeats:'Denah diacak otomatis',d_shufSeats:'{n} siswa ditempatkan.',a_reset:'Meja dikosongkan',d_reset:'Semua meja dikosongkan.',a_save:'Daftar nama disimpan',d_save:'{n} nama, meja dikosongkan.',a_demo:'Data contoh dimuat',d_demo:'Daftar nama diganti dengan nama contoh.',a_swap:'Kursi ditukar',d_swap:'{a} \u2194 {b}',a_gender:'Gender diubah',d_gender:'{n} dipindah ke daftar {g}.',a_names:'Daftar nama diubah',d_names:'Daftar nama diedit.',a_undo:'Urungkan',d_undo:'Dibatalkan: {a}',a_redo:'Ulangi',d_redo:'Diulang: {a}',a_export:'Data diekspor',d_export:'{w} sebagai {f}',a_backup:'Cadangan disimpan',d_backup:'Berkas cadangan diunduh.',a_cfgReset:'Pengaturan direset',d_cfgReset:'Semua pengaturan dikembalikan ke bawaan.',
 sLang:'Bahasa',sMode:'Tampilan',mSys:'Sistem',mLight:'Terang',mDark:'Gelap',sToasts:'Tampilkan notifikasi',cfmCfgReset:'Kembalikan semua pengaturan ke bawaan?',tCfgReset:'Pengaturan dikembalikan ke bawaan',
@@ -527,10 +545,10 @@ function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.repl
 const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}];
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
-const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',theme:'green',themeMode:'system',pegs:true,bg:true,toasts:true};
+const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',theme:'green',themeMode:'system',pegs:true,bg:true,toasts:true,remind:'0'};
 let cfg={...CFG0};
 let seats=[],people=[],ov={},startMode='A',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
-let undoS=[],redoS=[],restoring=false,actLog=[];
+let undoS=[],redoS=[],restoring=false,actLog=[],roundAt=Date.now();
 let side=0,round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
 const $=id=>document.getElementById(id);
 const canvas=$('wheel'),ctx=canvas.getContext('2d');
@@ -759,13 +777,13 @@ function renderChips(){
   $('guess').textContent=u?t('guessSome',{u}):t('guessOk');
 }
 function persist(){
-  try{localStorage.setItem(KEY,JSON.stringify({names:$('names').value,ov,s2:startMode,seats,mute:muted,lang,round,hist:history,dn:doneNotified,cfg}))}catch(e){}
+  try{localStorage.setItem(KEY,JSON.stringify({names:$('names').value,ov,s2:startMode,seats,mute:muted,lang,round,hist:history,dn:doneNotified,ra:roundAt,cfg}))}catch(e){}
 }
 function load(){
   let d={};try{d=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
   ov=d.ov||{};startMode=d.s2==='R'?'R':'A';muted=!!d.mute;lang=I18N[d.lang]?d.lang:'id';if(!I18N[d.lang]){try{const l2=localStorage.getItem('rolling-kelas-lang');if(I18N[l2])lang=l2}catch(e){}}
   cfg={...CFG0};if(d.cfg&&typeof d.cfg==='object')for(const k in CFG0)if(typeof d.cfg[k]===typeof CFG0[k])cfg[k]=d.cfg[k];
-  round=d.round||1;history=Array.isArray(d.hist)?d.hist:[];doneNotified=!!d.dn;
+  round=d.round||1;history=Array.isArray(d.hist)?d.hist:[];doneNotified=!!d.dn;roundAt=d.ra>0&&d.ra<=Date.now()?d.ra:Date.now();
   $('names').value=d.names||'';
   if(!$('names').value.trim())$('names').value=defaultNames();
   setSeg();updSnd();parse();
@@ -951,7 +969,7 @@ function nextRound(){
   cp('next');
   history.push({n:round,seats:JSON.parse(JSON.stringify(seats))});history=history.slice(-9);
   const prev=patOf(seats);
-  round++;buildSeats(newPattern(prev));doneNotified=false;lastPlaced=-1;viewRound=null;rot=0;
+  round++;roundAt=Date.now();buildSeats(newPattern(prev));doneNotified=false;lastPlaced=-1;viewRound=null;rot=0;
   hideFin();renderAll();log('next',{r:round});toast(t('tNext',{n:round}),'success');go(1);
 }
 $('finNext').onclick=nextRound;
@@ -1037,11 +1055,11 @@ $('actYes').onclick=()=>{
 };
 
 /* ---------- undo / redo (snapshots of the app state; in memory, max 60 steps) ---------- */
-const snap=(nm)=>JSON.stringify({names:nm==null?$('names').value:nm,ov,s2:startMode,seats,round,hist:history,dn:doneNotified});
+const snap=(nm)=>JSON.stringify({names:nm==null?$('names').value:nm,ov,s2:startMode,seats,round,hist:history,dn:doneNotified,ra:roundAt});
 function restoreSnap(str){
   const d=JSON.parse(str);restoring=true;
   try{
-    ov=d.ov||{};startMode=d.s2==='R'?'R':'A';$('names').value=d.names||'';seats=d.seats;round=d.round;history=d.hist||[];doneNotified=!!d.dn;
+    ov=d.ov||{};startMode=d.s2==='R'?'R':'A';$('names').value=d.names||'';seats=d.seats;round=d.round;history=d.hist||[];doneNotified=!!d.dn;if(d.ra>0)roundAt=d.ra;
     setSeg();parse();pendingFin=false;lastPlaced=-1;viewRound=null;swapSel=-1;rot=0;hideFin();renderAll();
   }finally{restoring=false}
 }
@@ -1067,6 +1085,46 @@ $('names').addEventListener('input',()=>{
   if(!namesCp){cp('names',namesBefore);log('names');namesCp=1}
   clearTimeout(namesCp_t);namesCp_t=setTimeout(()=>{namesCp=0;namesBefore=$('names').value},1500);
 });
+
+/* ---------- fairness statistics + rolling reminder ---------- */
+const FRONT_ROWS=2;
+function statData(){
+  const rounds=history.map(h=>h.seats).concat([seats]).filter(a=>a.some(x=>x.name));
+  const m=new Map();people.forEach(p=>m.set(p.name,{name:p.name,front:0,total:0}));
+  rounds.forEach(a=>a.forEach(x=>{if(!x.name)return;const r=m.get(x.name);if(!r)return;r.total++;if(x.row<FRONT_ROWS)r.front++}));
+  return {n:rounds.length,rows:[...m.values()]};
+}
+const daysSince=()=>Math.floor((Date.now()-roundAt)/864e5);
+function renderStat(){
+  const d=statData(),body=$('statBody');body.innerHTML='';
+  const add=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;body.appendChild(e);return e};
+  const dd=daysSince();
+  $('statHint').textContent=d.n?t('statHint',{n:d.n}):'';
+  if(!d.n){add('div','actempty').innerHTML='';const b=body.lastChild;const sv=mkIcon('stats');b.appendChild(sv);const bb=document.createElement('b');bb.textContent=t('statEmpty');b.appendChild(bb);const sp=document.createElement('span');sp.textContent=t('statEmptyD');b.appendChild(sp);return}
+  add('p','stnote',dd>0?t('statDays',{r:round,d:dd}):t('statToday',{r:round}));
+  const never=d.rows.filter(r=>r.front===0);
+  add('div','stsub',t('statNever'));
+  if(never.length){const c=add('div','stchips');never.forEach(r=>{const sp=document.createElement('span');sp.textContent=r.name;c.appendChild(sp)})}
+  else add('p','stnote',t('statAllEq'));
+  add('div','stsub',t('statAll'));
+  d.rows.slice().sort((a,b)=>a.front-b.front||a.name.localeCompare(b.name,'id')).forEach(r=>{
+    const row=add('div','strow');
+    const nm=document.createElement('span');nm.className='nm';nm.textContent=r.name;nm.title=r.name;
+    const bar=document.createElement('span');bar.className='bar';const i=document.createElement('i');i.style.width=(d.n?r.front/d.n*100:0)+'%';bar.appendChild(i);
+    const ct=document.createElement('span');ct.className='ct';ct.textContent=r.front+'/'+d.n;
+    row.append(nm,bar,ct);
+  });
+}
+const openStat=()=>{renderStat();$('stat').classList.add('show')},closeStat=()=>$('stat').classList.remove('show');
+$('statHd').onclick=$('statBtn').onclick=openStat;$('statOk').onclick=closeStat;
+$('stat').onclick=e=>{if(e.target.id==='stat')closeStat()};
+let remindShown=0;
+function checkRemind(){
+  const n=+cfg.remind;if(!n||spinning||remindShown===roundAt)return;
+  const d=daysSince();if(d<n)return;
+  remindShown=roundAt;toast(t('tRemind',{d,r:round}),'warning',9000);
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkRemind()});
 
 /* ---------- export (JSON / CSV) ---------- */
 const pad2=n=>String(n).padStart(2,'0');
@@ -1161,6 +1219,7 @@ const ICONS={
  fullscreen:'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z',
  exitfs:'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
  help:'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z',
+ stats:'M7.5 21H2V9h5.5v12zm7.25-18h-5.5v18h5.5V3zM22 11h-5.5v10H22V11z',
  redo:'M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z',
  history:'M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z',
  tsuccess:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
@@ -1182,7 +1241,7 @@ const ICONS={
 };
 const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#demo','sample'],['#save','check'],['#shuffle','auto'],['#reset','reset'],
  ['#finNext','next'],['#finLater','close'],['#winok','next'],['#spin','spin'],['#expCopy','copy'],['#expImg','download'],['#expPrint','print'],
- ['#cfgHd','settings'],['#focusHd','hide'],['#dSave','download'],['#dOpen','upload'],['#dInstall','download'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#redo','redo'],['#actHd','history'],['#actBtn','history'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
+ ['#cfgHd','settings'],['#focusHd','hide'],['#dSave','download'],['#dOpen','upload'],['#dInstall','download'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#redo','redo'],['#actHd','history'],['#statHd','stats'],['#statBtn','stats'],['#actBtn','history'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
  ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
 function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
 function addIcon(el,name){
@@ -1196,7 +1255,7 @@ function initIcons(){ICON_MAP.forEach(([sel,ic])=>document.querySelectorAll(sel)
 
 /* ---------- settings ---------- */
 function applyTheme(){if(window.RKTheme)RKTheme(cfg)}
-const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cMode','themeMode'],['cToasts','toasts'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
+const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cMode','themeMode'],['cToasts','toasts'],['cRemind','remind'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
 function applyCfg(){
   applyTheme();$('cLang').value=lang;
   document.body.classList.toggle('flat',!cfg.bg);
@@ -1219,6 +1278,7 @@ $('cPrevT').onclick=()=>{ac();tick(true)};
 $('cTick').addEventListener('change',()=>{ac();tick(true)});
 $('cPrevF').onclick=()=>{ac();fanfare(true)};
 $('cFan').addEventListener('change',()=>{ac();fanfare(true)});
+$('cRemind').addEventListener('change',()=>{remindShown=0;checkRemind()});
 $('cLang').onchange=()=>{lang=$('cLang').value;applyLang();persist()};
 $('cReset').onclick=()=>{
   if(!confirm(t('cfmCfgReset')))return;
@@ -1247,7 +1307,7 @@ function cleanData(d){
   const seats=seatsOk(d.seats);if(!seats)return null;
   const hist=[];if(Array.isArray(d.hist))d.hist.slice(-9).forEach(h=>{const sx=h&&seatsOk(h.seats);if(sx)hist.push({n:Math.max(1,h.n|0),seats:sx})});
   const ov={};if(d.ov&&typeof d.ov==='object')Object.keys(d.ov).slice(0,3000).forEach(k=>{if(gs(d.ov[k]))ov[String(k).slice(0,80)]=d.ov[k]});
-  return {names:typeof d.names==='string'?d.names.slice(0,30000):'',ov,s2:d.s2==='R'?'R':'A',seats,mute:!!d.mute,lang:I18N[d.lang]?d.lang:'id',round:Math.max(1,d.round|0),hist,dn:!!d.dn,cfg:(d.cfg&&typeof d.cfg==='object')?d.cfg:{}};
+  return {names:typeof d.names==='string'?d.names.slice(0,30000):'',ov,s2:d.s2==='R'?'R':'A',seats,mute:!!d.mute,lang:I18N[d.lang]?d.lang:'id',round:Math.max(1,d.round|0),hist,dn:!!d.dn,ra:(d.ra>0&&d.ra<=Date.now())?d.ra:Date.now(),cfg:(d.cfg&&typeof d.cfg==='object')?d.cfg:{}};
 }
 $('dSave').onclick=()=>{
   persist();let raw='{}';try{raw=localStorage.getItem(KEY)||'{}'}catch(e){}
@@ -1397,7 +1457,7 @@ $('fs').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();els
 document.addEventListener('fullscreenchange',()=>{const pa=$('fs').querySelector('path');if(pa)pa.setAttribute('d',ICONS[document.fullscreenElement?'exitfs':'fullscreen'])});
 const deskMQ=matchMedia('(min-width:960px)');
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){if(!document.querySelector('.win.show')&&document.body.classList.contains('focus')){setFocus(false);return}closeCfg();closeAct();closePolicy();hideFin();hideWin();return}
+  if(e.key==='Escape'){if(!document.querySelector('.win.show')&&document.body.classList.contains('focus')){setFocus(false);return}closeCfg();closeAct();closeStat();closePolicy();hideFin();hideWin();return}
   const kk=(e.key||'').toLowerCase();
   if((e.ctrlKey||e.metaKey)&&!e.altKey&&(kk==='z'||kk==='y')&&!['TEXTAREA','INPUT','SELECT'].includes(e.target.tagName)&&!e.target.isContentEditable){
     e.preventDefault();if(document.querySelector('.win.show'))return;
@@ -1418,7 +1478,7 @@ let idle=!matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 initIcons();
 
-actLoad();load();applyCfg();applyLang();
+actLoad();load();applyCfg();applyLang();setTimeout(checkRemind,1200);
 /* deep links from the info pages: index.html#privacy opens the policy, #faq jumps to the FAQ */
 function hashNav(){const h=location.hash;if(h==='#privacy')openPolicy();else if(h==='#faq'){go(1);setTimeout(toFaq,350)}}
 hashNav();addEventListener('hashchange',hashNav);

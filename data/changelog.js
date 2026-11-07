@@ -4,6 +4,12 @@
    NOTE: the project was built in a single stretch, so v1.0.0 to v1.5.0 were labelled retroactively from the commit history
    (dates are the real commit dates). From v1.6.0 on, versions are assigned when released. */
 window.CHANGELOG=[
+ {version:'v1.9.0',date:'2026-11-08',
+  title:{en:'Fairness statistics and rolling reminder',id:'Statistik keadilan dan pengingat rolling'},
+  added:[
+   {en:'Statistics: see who has never sat in the front two rows and how often everyone has, based on the rolling rounds saved in this browser.',id:'Statistik: lihat siapa yang belum pernah duduk di dua baris depan dan seberapa sering tiap siswa, berdasarkan rolling yang tersimpan di browser ini.'},
+   {en:'Rolling reminder (Settings > Appearance): get a notice after 3, 7, 14 or 30 days without a new round.',id:'Pengingat rolling (Pengaturan > Tampilan): dapat pemberitahuan setelah 3, 7, 14, atau 30 hari tanpa rolling baru.'},
+  ]},
  {version:'v1.8.0',date:'2026-11-06',
   title:{en:'History, undo/redo, export and notifications',id:'Riwayat, undo/redo, ekspor, dan notifikasi'},
   added:[
