@@ -4,6 +4,15 @@
    NOTE: the project was built in a single stretch, so v1.0.0 to v1.5.0 were labelled retroactively from the commit history
    (dates are the real commit dates). From v1.6.0 on, versions are assigned when released. */
 window.CHANGELOG=[
+ {version:'v1.10.0',date:'2026-11-20',
+  title:{en:'Material 3 Expressive',id:'Material 3 Expressive'},
+  added:[
+   {en:'Shape morph: buttons squash from pill to rounded rectangle when pressed, selected toggles spring into a pill, seats grow from a circle into their shape, and the wheel hub morphs between cookie, circle, sunny and clover shapes on every spin.',id:'Shape morph: tombol berubah dari pil ke persegi membulat saat ditekan, toggle terpilih menjadi pil dengan efek pegas, kursi tumbuh dari lingkaran ke bentuknya, dan hub wheel berubah antara bentuk cookie, lingkaran, sunny, dan clover di setiap putaran.'},
+   {en:'Custom color theme: pick any color in Settings > Appearance and the whole palette is generated from it, on every page.',id:'Tema warna sendiri: pilih warna apa saja di Pengaturan > Tampilan dan seluruh palet dibuat darinya, di semua halaman.'},
+  ],
+  improved:[
+   {en:'Spring motion, hover and focus state layers, visible keyboard focus rings, larger rounded shapes and bolder titles across the app and info pages.',id:'Gerak pegas, lapisan status hover dan fokus, cincin fokus keyboard yang jelas, bentuk membulat lebih besar, dan judul lebih tebal di seluruh app dan halaman info.'},
+  ]},
  {version:'v1.9.0',date:'2026-11-08',
   title:{en:'Fairness statistics and rolling reminder',id:'Statistik keadilan dan pengingat rolling'},
   added:[

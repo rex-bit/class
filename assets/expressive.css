@@ -1,0 +1,50 @@
+/* Material 3 Expressive pass: shape scale, spring motion, shape morph on press/selection, state layers, focus ring.
+   Shared by the app and the info pages. Loaded after the page's own CSS. */
+:root{
+  --shape-xs:8px;--shape-sm:12px;--shape-md:16px;--shape-lg:20px;--shape-xl:28px;--shape-xxl:36px;
+  --spring:cubic-bezier(.34,1.56,.64,1);--spring-soft:cubic-bezier(.3,1.25,.5,1);--emph:cubic-bezier(.2,0,0,1);
+}
+/* motion: spatial properties use a spring, colour/opacity stay quick and non-bouncy */
+.btn,.hbtn,.icon,.langbtn,.nchip,.hchip,.seg button,.ptab,.chip,.mmenu button,.menu button,.flink,a.flink{
+  transition:border-radius .4s var(--spring),transform .4s var(--spring),background-color .2s var(--emph),color .2s var(--emph),box-shadow .25s var(--emph),opacity .2s;
+}
+/* shape morph: pressed controls squash from pill/circle to a rounded rectangle */
+.btn:active:not(:disabled){border-radius:var(--shape-md);transform:scale(.97)}
+.btn.sm:active:not(:disabled){border-radius:var(--shape-sm)}
+.icon:active,.langbtn:active,.hbtn:active{border-radius:var(--shape-sm);transform:scale(.94)}
+.nchip:active{border-radius:var(--shape-xs)}
+/* toggle morph: unselected = rounded rectangle, selected = fully round (springs between them) */
+.seg{border-radius:var(--shape-lg)}
+.seg button{border-radius:var(--shape-sm)}
+.seg button.on{border-radius:100px}
+.hchip{border-radius:var(--shape-sm)}
+.hchip.on{border-radius:100px}
+/* state layers (hover 8%, focus 10%) drawn with an inset shadow so no extra markup is needed */
+@media(hover:hover){
+  .btn.fill:hover:not(:disabled){box-shadow:inset 0 0 0 100px color-mix(in srgb,var(--on-primary) 8%,transparent),0 2px 8px color-mix(in srgb,var(--primary) 35%,transparent)}
+  .btn.tonal:hover:not(:disabled),.icon:hover,.langbtn:hover{box-shadow:inset 0 0 0 100px color-mix(in srgb,var(--on-sc) 8%,transparent)}
+  .btn.text:hover:not(:disabled){box-shadow:inset 0 0 0 100px color-mix(in srgb,var(--primary) 8%,transparent)}
+  .nchip:hover,.hchip:hover,.seg button:hover:not(.on){box-shadow:inset 0 0 0 100px color-mix(in srgb,var(--on-bg) 7%,transparent)}
+}
+:where(button,select,input,textarea,a,summary):focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 55%,transparent);outline-offset:2px}
+textarea:focus-visible{outline:0}
+/* larger, more emphasized shapes and type */
+.card{border-radius:var(--shape-xl)}
+.card h2{font-size:18px;font-weight:700;letter-spacing:-.005em}
+.btn{font-weight:650;letter-spacing:.005em}
+.btn.big{min-height:64px;padding:16px 52px;font-size:17px;font-weight:700;box-shadow:0 6px 18px color-mix(in srgb,var(--primary) 32%,transparent)}
+.btn.big:active:not(:disabled){border-radius:var(--shape-lg)}
+.wincard{border-radius:var(--shape-xxl)}
+.chip{font-weight:650}
+.brand b{letter-spacing:-.01em}
+/* seats morph from a circle into their rounded-rectangle shape when a student lands on them */
+@keyframes popm{0%{transform:scale(.3);border-radius:50%}55%{transform:scale(1.12);border-radius:34%}100%{transform:none;border-radius:12px}}
+.seat.pop{animation:popm .6s var(--spring)}
+.seat{transition:border-radius .35s var(--spring),background-color .25s,transform .35s var(--spring)}
+@media(hover:hover){.seat.fm:hover,.seat.ff:hover{border-radius:18px;transform:scale(1.04)}}
+/* page transitions */
+section{animation-timing-function:var(--emph)}
+@media(prefers-reduced-motion:reduce){
+  .btn,.hbtn,.icon,.langbtn,.nchip,.hchip,.seg button,.ptab,.chip,.seat{transition-duration:.01s!important}
+  .seat.pop{animation:none}
+}

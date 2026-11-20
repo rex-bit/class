@@ -320,6 +320,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 .stnote{font-size:13px;color:var(--onv);margin:2px 0 8px}
 .cp h4{margin:14px 0 2px;font-size:14px}
 </style>
+<link rel="stylesheet" href="assets/expressive.css">
 </head>
 <body>
 
@@ -446,7 +447,8 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
   <div class="cp" data-p="2">
     <div class="crow"><label for="cLang" data-i18n="sLang"></label><div class="grow"><select id="cLang"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select></div></div>
     <div class="crow"><label for="cMode" data-i18n="sMode"></label><div class="grow"><select id="cMode"><option value="system" data-i18n="mSys"></option><option value="light" data-i18n="mLight"></option><option value="dark" data-i18n="mDark"></option></select></div></div>
-    <div class="crow"><label for="cTheme" data-i18n="sTheme"></label><div class="grow"><select id="cTheme"><option value="green" data-i18n="thG"></option><option value="blue" data-i18n="thB"></option><option value="purple" data-i18n="thP"></option><option value="orange" data-i18n="thO"></option><option value="pink" data-i18n="thK"></option></select></div></div>
+    <div class="crow"><label for="cTheme" data-i18n="sTheme"></label><div class="grow"><select id="cTheme"><option value="green" data-i18n="thG"></option><option value="blue" data-i18n="thB"></option><option value="purple" data-i18n="thP"></option><option value="orange" data-i18n="thO"></option><option value="pink" data-i18n="thK"></option><option value="custom" data-i18n="thC"></option></select></div></div>
+    <div class="crow" id="cSeedRow" hidden><label for="cSeed" data-i18n="sSeed"></label><div class="grow"><input type="color" id="cSeed" style="width:56px;height:36px;border:0;padding:0;background:none;cursor:pointer"></div></div>
     <div class="crow"><label for="cPal" data-i18n="sPal"></label><div class="grow"><select id="cPal"><option value="gender" data-i18n="oPalG"></option><option value="rainbow" data-i18n="oPalR"></option></select></div></div>
     <div class="crow chk"><label for="cPegs" data-i18n="sPegs"></label><input type="checkbox" id="cPegs"></div>
     <div class="crow chk"><label for="cBg" data-i18n="sBg"></label><input type="checkbox" id="cBg"></div>
@@ -496,7 +498,7 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
 <script>
 /* ---------- i18n: English / Bahasa Indonesia ---------- */
 const I18N={
-en:{statBtn:'Statistics',statTitle:'Seating fairness',statHint:'Front = first 2 rows. Based on {n} rolling round(s) saved in this browser.',statNever:'Never sat in front',statAll:'Times in front',statEmpty:'No seating data yet',statEmptyD:'Seat at least one student to see statistics.',statAllEq:'Everyone has sat in front at least once.',statDays:'Rolling #{r} has been running for {d} days.',statToday:'Rolling #{r} started today.',sRemind:'Rolling reminder',r0:'Off',r3:'After 3 days',r7:'After 7 days',r14:'After 14 days',r30:'After 30 days',tRemind:'It has been {d} days since Rolling #{r} started. Time for a new round?',
+en:{thC:'Custom color',sSeed:'Your color',statBtn:'Statistics',statTitle:'Seating fairness',statHint:'Front = first 2 rows. Based on {n} rolling round(s) saved in this browser.',statNever:'Never sat in front',statAll:'Times in front',statEmpty:'No seating data yet',statEmptyD:'Seat at least one student to see statistics.',statAllEq:'Everyone has sat in front at least once.',statDays:'Rolling #{r} has been running for {d} days.',statToday:'Rolling #{r} started today.',sRemind:'Rolling reminder',r0:'Off',r3:'After 3 days',r7:'After 7 days',r14:'After 14 days',r30:'After 30 days',tRemind:'It has been {d} days since Rolling #{r} started. Time for a new round?',
 actBtn:'History',actTitle:'Activity history',actHint:'Your recent actions in this browser, newest first.',actEmpty:'No activity yet',actEmptyD:'Actions like spinning, shuffling and swapping seats will show up here.',actClear:'Clear history',actSure:'Delete all {n} history entries? This cannot be undone.',actYes:'Yes, delete',actNo:'Cancel',actCleared:'History cleared',actClose:'Close',
 redo:'Redo',tUndoA:'Undone: {a}',tRedoA:'Redone: {a}',tNoUndo:'Nothing to undo',tNoRedo:'Nothing to redo',tClose:'Dismiss notification',
 a_spin:'Spin result',d_spin:'{n} \u2192 {w} (Rolling {r})',a_next:'New rolling round',d_next:'Started Rolling #{r}',a_pattern:'Pattern reshuffled',d_pattern:'A new desk pattern was generated.',a_mode:'Seat pattern changed',d_mode:'Mode: {m}',a_sort:'Names sorted A\u2013Z',d_sort:'{n} names.',a_shuf:'Names shuffled',d_shuf:'{n} names.',a_shufSeats:'Seats shuffled automatically',d_shufSeats:'{n} students seated.',a_reset:'Seats cleared',d_reset:'All seats were emptied.',a_save:'Name list saved',d_save:'{n} names, seats reset.',a_demo:'Sample data loaded',d_demo:'The name list was replaced with sample names.',a_swap:'Seats swapped',d_swap:'{a} \u2194 {b}',a_gender:'Gender changed',d_gender:'{n} is now in the {g} list.',a_names:'Name list edited',d_names:'The name list was edited.',a_undo:'Undo',d_undo:'Undone: {a}',a_redo:'Redo',d_redo:'Redone: {a}',a_export:'Data exported',d_export:'{w} as {f}',a_backup:'Backup saved',d_backup:'Backup file downloaded.',a_cfgReset:'Settings reset',d_cfgReset:'All settings were restored to default.',
@@ -517,7 +519,7 @@ sTheme:'Color theme',thG:'Green',thB:'Blue',thP:'Purple',thO:'Orange',thK:'Pink'
  secL:'Left',secM:'Middle',secR:'Right',row:'row',wheelSpin:'SPIN',
  finLabel:'Rolling #{n} complete',finTitle:'All students are seated',finDesc:'Start the next rolling? A new randomized seating plan will be created, and this one is kept in the history.',finLater:'Close',
  wheelDone:'Completed',wheelNone:'No names left',histNow:'current',histView:'Viewing Rolling {n} (read only)'},
-id:{statBtn:'Statistik',statTitle:'Keadilan tempat duduk',statHint:'Depan = 2 baris pertama. Berdasarkan {n} rolling yang tersimpan di browser ini.',statNever:'Belum pernah di depan',statAll:'Jumlah duduk di depan',statEmpty:'Belum ada data denah',statEmptyD:'Tempatkan setidaknya satu siswa untuk melihat statistik.',statAllEq:'Semua sudah pernah duduk di depan.',statDays:'Rolling #{r} sudah berjalan {d} hari.',statToday:'Rolling #{r} dimulai hari ini.',sRemind:'Pengingat rolling',r0:'Mati',r3:'Setelah 3 hari',r7:'Setelah 7 hari',r14:'Setelah 14 hari',r30:'Setelah 30 hari',tRemind:'Sudah {d} hari sejak Rolling #{r} dimulai. Waktunya rolling baru?',
+id:{thC:'Warna sendiri',sSeed:'Warna Anda',statBtn:'Statistik',statTitle:'Keadilan tempat duduk',statHint:'Depan = 2 baris pertama. Berdasarkan {n} rolling yang tersimpan di browser ini.',statNever:'Belum pernah di depan',statAll:'Jumlah duduk di depan',statEmpty:'Belum ada data denah',statEmptyD:'Tempatkan setidaknya satu siswa untuk melihat statistik.',statAllEq:'Semua sudah pernah duduk di depan.',statDays:'Rolling #{r} sudah berjalan {d} hari.',statToday:'Rolling #{r} dimulai hari ini.',sRemind:'Pengingat rolling',r0:'Mati',r3:'Setelah 3 hari',r7:'Setelah 7 hari',r14:'Setelah 14 hari',r30:'Setelah 30 hari',tRemind:'Sudah {d} hari sejak Rolling #{r} dimulai. Waktunya rolling baru?',
 actBtn:'Riwayat',actTitle:'Riwayat aktivitas',actHint:'Aktivitas terbaru Anda di browser ini, terbaru di atas.',actEmpty:'Belum ada aktivitas',actEmptyD:'Tindakan seperti memutar, mengacak, dan menukar kursi akan muncul di sini.',actClear:'Hapus riwayat',actSure:'Hapus semua {n} entri riwayat? Tindakan ini tidak bisa dibatalkan.',actYes:'Ya, hapus',actNo:'Batal',actCleared:'Riwayat dihapus',actClose:'Tutup',
 redo:'Ulangi',tUndoA:'Dibatalkan: {a}',tRedoA:'Diulang: {a}',tNoUndo:'Tidak ada yang bisa diurungkan',tNoRedo:'Tidak ada yang bisa diulang',tClose:'Tutup notifikasi',
 a_spin:'Hasil putaran',d_spin:'{n} \u2192 {w} (Rolling {r})',a_next:'Rolling baru',d_next:'Memulai Rolling #{r}',a_pattern:'Pola diacak ulang',d_pattern:'Pola meja baru dibuat.',a_mode:'Pola denah diganti',d_mode:'Mode: {m}',a_sort:'Nama diurutkan A\u2013Z',d_sort:'{n} nama.',a_shuf:'Nama diacak',d_shuf:'{n} nama.',a_shufSeats:'Denah diacak otomatis',d_shufSeats:'{n} siswa ditempatkan.',a_reset:'Meja dikosongkan',d_reset:'Semua meja dikosongkan.',a_save:'Daftar nama disimpan',d_save:'{n} nama, meja dikosongkan.',a_demo:'Data contoh dimuat',d_demo:'Daftar nama diganti dengan nama contoh.',a_swap:'Kursi ditukar',d_swap:'{a} \u2194 {b}',a_gender:'Gender diubah',d_gender:'{n} dipindah ke daftar {g}.',a_names:'Daftar nama diubah',d_names:'Daftar nama diedit.',a_undo:'Urungkan',d_undo:'Dibatalkan: {a}',a_redo:'Ulangi',d_redo:'Diulang: {a}',a_export:'Data diekspor',d_export:'{w} sebagai {f}',a_backup:'Cadangan disimpan',d_backup:'Berkas cadangan diunduh.',a_cfgReset:'Pengaturan direset',d_cfgReset:'Semua pengaturan dikembalikan ke bawaan.',
@@ -545,7 +547,7 @@ function t(k,p){let s=(I18N[lang]&&I18N[lang][k])||I18N.id[k]||k;return p?s.repl
 const SECS=[{id:'L',cols:2,rows:5},{id:'M',cols:3,rows:6},{id:'R',cols:2,rows:5}];
 const TOTAL=SECS.reduce((a,s)=>a+s.cols*s.rows,0);
 const KEY='rolling-kelas-v2';
-const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',theme:'green',themeMode:'system',pegs:true,bg:true,toasts:true,remind:'0'};
+const CFG0={tick:'tick',tv:70,dur:5,idle:true,fan:'clap',fv:60,conf:true,pop:true,msg:'',auto:3,pal:'gender',theme:'green',seed:'#386a20',themeMode:'system',pegs:true,bg:true,toasts:true,remind:'0'};
 let cfg={...CFG0};
 let seats=[],people=[],ov={},startMode='A',spinning=false,rot=0,pool=[],tab=1,lastPlaced=-1,muted=false;
 let undoS=[],redoS=[],restoring=false,actLog=[],roundAt=Date.now();
@@ -783,6 +785,7 @@ function load(){
   let d={};try{d=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
   ov=d.ov||{};startMode=d.s2==='R'?'R':'A';muted=!!d.mute;lang=I18N[d.lang]?d.lang:'id';if(!I18N[d.lang]){try{const l2=localStorage.getItem('rolling-kelas-lang');if(I18N[l2])lang=l2}catch(e){}}
   cfg={...CFG0};if(d.cfg&&typeof d.cfg==='object')for(const k in CFG0)if(typeof d.cfg[k]===typeof CFG0[k])cfg[k]=d.cfg[k];
+  if(!/^#[0-9a-f]{6}$/i.test(cfg.seed))cfg.seed=CFG0.seed;
   round=d.round||1;history=Array.isArray(d.hist)?d.hist:[];doneNotified=!!d.dn;roundAt=d.ra>0&&d.ra<=Date.now()?d.ra:Date.now();
   $('names').value=d.names||'';
   if(!$('names').value.trim())$('names').value=defaultNames();
@@ -815,6 +818,19 @@ function currentPool(){
 const WR=['#e5534b','#f08c3a','#f2c33d','#4caf6e','#2fa7b8','#4a7fd6','#8f5bd1','#d9669b'];
 const WP={M:['#2f6fb8','#4a90d9','#1d8fa8','#5b7fd6'],F:['#b0356f','#d9669b','#c2418a','#e3799f']};
 function segAt(n){const a=2*Math.PI/n;return Math.floor((((-rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI)/a)%n}
+/* centre hub: a polar shape that morphs (spring) between cookie / circle / sunny / clover shapes on every spin */
+const CSHAPES=[[9,.085],[0,0],[6,.1],[4,.1],[12,.06],[5,.115]],RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cS={i:0,j:0,t0:-1e9};
+function ctrNext(){cS={i:cS.j,j:(cS.j+1)%CSHAPES.length,t0:performance.now()}}
+function ctrPath(cx,cy,r0){
+  const now=performance.now(),k=RM?1:Math.min(1,(now-cS.t0)/800),e=k>=1?1:1-Math.exp(-6*k)*Math.cos(10*k),ph=RM?0:now/5000;
+  const A=CSHAPES[cS.i],B=CSHAPES[cS.j];ctx.beginPath();
+  for(let q=0;q<=96;q++){
+    const th=q/96*Math.PI*2,fa=1+A[1]*Math.cos(A[0]*(th+ph)),fb=1+B[1]*Math.cos(B[0]*(th+ph)),r=r0*(fa+(fb-fa)*e)/1.04;
+    q?ctx.lineTo(cx+r*Math.cos(th),cy+r*Math.sin(th)):ctx.moveTo(cx+r*Math.cos(th),cy+r*Math.sin(th));
+  }
+  ctx.closePath();
+}
 function drawWheel(){
   const W=680,R=W/2;ctx.setTransform(canvas.width/W,0,0,canvas.width/W,0,0);ctx.clearRect(0,0,W,W);
   const{g,list}=currentPool();pool=list;
@@ -839,7 +855,7 @@ function drawWheel(){
   ctx.beginPath();ctx.arc(R,R,R-6,0,7);ctx.lineWidth=9;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.stroke();
   if(cfg.pegs)for(let i=0;i<n;i++){const an=rot+i*a;ctx.beginPath();ctx.arc(R+(R-6)*Math.cos(an),R+(R-6)*Math.sin(an),4.5,0,7);ctx.fillStyle=pal[0];ctx.fill()}
   ctx.shadowColor='rgba(0,0,0,.3)';ctx.shadowBlur=10;
-  ctx.beginPath();ctx.arc(R,R,54,0,7);ctx.fillStyle='#fff';ctx.fill();ctx.shadowBlur=0;
+  ctrPath(R,R,50);ctx.fillStyle='#fff';ctx.fill();ctx.shadowBlur=0;
   ctx.fillStyle=pal[0];ctx.font='700 22px sans-serif';ctx.textAlign='center';ctx.fillText(t('wheelSpin'),R,R+8);
 }
 
@@ -998,7 +1014,7 @@ function doSpin(){
   const ta=Math.min(900,dur*.3),T2=dur-ta;
   const vp=(4*delta/T2-2*ta*v0/T2)/(1+2*ta/T2),A=ta*(v0+vp)/2,D=delta-A;
   let last=segAt(n);
-  spinning=true;$('spin').disabled=true;$('shuffle').disabled=true;updUR();
+  spinning=true;$('spin').disabled=true;$('shuffle').disabled=true;updUR();ctrNext();
   (function step(ts){
     const el=Math.min(dur,ts-t0),p=el/dur;
     rot=start+(el<ta?v0*el+(vp-v0)*ta*(Math.pow(el/ta,3)-Math.pow(el/ta,4)/2):A+D*(1-Math.pow(1-(el-ta)/T2,4)));
@@ -1255,20 +1271,20 @@ function initIcons(){ICON_MAP.forEach(([sel,ic])=>document.querySelectorAll(sel)
 
 /* ---------- settings ---------- */
 function applyTheme(){if(window.RKTheme)RKTheme(cfg)}
-const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cMode','themeMode'],['cToasts','toasts'],['cRemind','remind'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
+const CFG_BIND=[['cTick','tick'],['cTv','tv','oTv','%'],['cDur','dur','oDur',' s'],['cIdle','idle'],['cFan','fan'],['cFv','fv','oFv','%'],['cConf','conf'],['cPop','pop'],['cMsg','msg'],['cAuto','auto','oAuto',' s'],['cTheme','theme'],['cSeed','seed'],['cMode','themeMode'],['cToasts','toasts'],['cRemind','remind'],['cPal','pal'],['cPegs','pegs'],['cBg','bg']];
 function applyCfg(){
-  applyTheme();$('cLang').value=lang;
+  applyTheme();$('cSeedRow').hidden=cfg.theme!=='custom';$('cLang').value=lang;
   document.body.classList.toggle('flat',!cfg.bg);
   CFG_BIND.forEach(([id,k,o,u])=>{const el=$(id);if(el.type==='checkbox')el.checked=!!cfg[k];else el.value=cfg[k];if(o)$(o).textContent=cfg[k]+(u||'')});
   if(typeof drawWheel==='function'&&pool)drawWheel();
 }
 function cfgText(){$('cMsg').placeholder=t('winLabel')}
 CFG_BIND.forEach(([id,k,o,u])=>{
-  const el=$(id),ev=(el.type==='range'||el.type==='text')?'input':'change';
+  const el=$(id),ev=(el.type==='range'||el.type==='text'||el.type==='color')?'input':'change';
   el.addEventListener(ev,()=>{
     cfg[k]=el.type==='checkbox'?el.checked:(el.type==='range'?+el.value:el.value);
     if(o)$(o).textContent=cfg[k]+(u||'');
-    if(k==='theme'||k==='themeMode')applyTheme();
+    if(k==='theme'||k==='themeMode'||k==='seed'){applyTheme();$('cSeedRow').hidden=cfg.theme!=='custom'}
     if(k==='bg')document.body.classList.toggle('flat',!cfg.bg);
     if(k==='pal'||k==='pegs')drawWheel();
     persist();

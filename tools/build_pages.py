@@ -57,6 +57,7 @@ def layout(key, fname, title_id, title_en, desc_id, desc_en, body, scripts=''):
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/expressive.css">
 <script src="assets/init.js"></script>
 <script src="assets/config.js"></script>
 <script src="assets/site.js" defer></script>
