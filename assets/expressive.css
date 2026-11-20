@@ -72,10 +72,7 @@ h2:hover .shp::before{transform:rotate(40deg) scale(1.06)}
 /* wavy progress indicator (M3E signature) */
 .progress{height:16px;background:none;border-radius:0;position:relative;overflow:visible;margin:10px 22px 6px}
 .progress::before{content:'';position:absolute;left:var(--pw,0%);right:0;transition:left .6s var(--spring-soft);top:50%;height:4px;margin-top:-2px;border-radius:4px;background:color-mix(in srgb,var(--primary) 22%,transparent)}
-.progress i{position:absolute;left:0;top:0;height:16px;border-radius:0;background:var(--primary);
-  -webkit-mask:var(--wave) 0 center/24px 16px repeat-x;mask:var(--wave) 0 center/24px 16px repeat-x;animation:wave 1.2s linear infinite;transition:width .6s var(--spring-soft)}
-@keyframes wave{to{-webkit-mask-position:24px center;mask-position:24px center}}
-@media(prefers-reduced-motion:reduce){.progress i{animation:none}}
+@media(prefers-reduced-motion:reduce){.progress i svg{animation:none!important}}
 /* connected button groups: inner corners small, outer corners round; pressed = fully round */
 .grp{display:inline-flex;gap:2px}
 .grp .btn{border-radius:8px}
@@ -93,3 +90,8 @@ h2:hover .shp::before{transform:rotate(40deg) scale(1.06)}
 
 .progress::after{content:'';position:absolute;top:50%;left:calc(var(--pw,0%) - 3px);width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--primary);transition:left .6s var(--spring-soft)}
 .progress.z::after{display:none}
+
+.progress i{position:absolute;left:0;top:0;height:16px;border-radius:0;background:none;overflow:hidden;transition:width .6s var(--spring-soft)}
+.progress i svg{position:absolute;left:0;top:0;width:1440px;height:16px;animation:wv 1.2s linear infinite}
+.progress i path{fill:none;stroke:var(--primary);stroke-width:4;stroke-linecap:round}
+@keyframes wv{to{transform:translateX(-24px)}}

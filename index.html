@@ -554,6 +554,9 @@ let undoS=[],redoS=[],restoring=false,actLog=[],roundAt=Date.now();
 let side=0,round=1,history=[],viewRound=null,doneNotified=false,pendingFin=false;
 const $=id=>document.getElementById(id);
 const canvas=$('wheel'),ctx=canvas.getContext('2d');
+(function(){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg'),pa=document.createElementNS(NS,'path');
+  let d='M0 8 Q6 1.5 12 8';for(let x=24;x<=1440;x+=12)d+=' T'+x+' 8';
+  v.setAttribute('viewBox','0 0 1440 16');v.setAttribute('aria-hidden','true');pa.setAttribute('d',d);v.appendChild(pa);$('bar').appendChild(v)})();
 
 /* ---------- gender detection ---------- */
 const FEM=new Set(('siti dewi ayu nadia putri rani salsa tika vina wulan yuni zahra citra bella fitri gita hana intan alya sri ani ana anisa aisyah aisha amelia anindya annisa aulia azzahra bunga cantika clara dina dinda elsa endang erna fani fara farah fatimah feby gina hani hesti indah indri irma jasmine juwita kartika keisha kirana laila lia lina lisa lestari maya melati mega mawar mira nabila nadya naila nia nina nurul novi nova olivia permata puspita rahma rara regina rina rosa safira sari sekar shinta sinta sofia sophia syifa tiara ulfa umi vera widya winda yanti yulia zalfa alika aurel ayunda balqis callista dhea echa ega fira hanifah kayla keysha khansa laras marsya nabilah nayla rahayu raisa safitri sabrina talitha thalia tuti titin wati lilis ratna rahmawati khadijah mutiara natasya amanda angel angelina anggun ariani cahya cindy devi diah desi eva evi fina febi friska hesty jessica jihan karina kezia lusi mei michelle monica selvi shafa tasya vanya vivi yasmin zara zulfa nabilla salma salwa alifa aqila bilqis chelsea dara fadia gladys hafsah ilma kamila lutfiah maharani nafisa qonita rafifah syakira tania vania wafa zulaikha').split(' '));
