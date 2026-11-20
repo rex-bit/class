@@ -75,8 +75,6 @@ h2:hover .shp::before{transform:rotate(40deg) scale(1.06)}
 .progress i{position:absolute;left:0;top:0;height:16px;border-radius:0;background:var(--primary);
   -webkit-mask:var(--wave) 0 center/24px 16px repeat-x;mask:var(--wave) 0 center/24px 16px repeat-x;animation:wave 1.2s linear infinite;transition:width .6s var(--spring-soft)}
 @keyframes wave{to{-webkit-mask-position:24px center;mask-position:24px center}}
-.progress i::after{content:'';position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--primary)}
-.progress i[style*="width: 0%"]::after,.progress i[style*="width:0%"]::after{display:none}
 @media(prefers-reduced-motion:reduce){.progress i{animation:none}}
 /* connected button groups: inner corners small, outer corners round; pressed = fully round */
 .grp{display:inline-flex;gap:2px}
@@ -91,4 +89,7 @@ h2:hover .shp::before{transform:rotate(40deg) scale(1.06)}
 .btn.big svg{width:24px;height:24px}
 .btn.fill{box-shadow:0 1px 3px color-mix(in srgb,var(--primary) 30%,transparent)}
 .logo{border-radius:14px}
-:root{--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16' width='24' height='16'%3E%3Cpath d='M0 8 Q6 1 12 8 T24 8' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E")}
+:root{--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16' width='24' height='16'%3E%3Cpath d='M0 8 Q6 1.5 12 8 T24 8' fill='none' stroke='black' stroke-width='4' stroke-linecap='butt'/%3E%3C/svg%3E")}
+
+.progress::after{content:'';position:absolute;top:50%;left:calc(var(--pw,0%) - 3px);width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--primary);transition:left .6s var(--spring-soft)}
+.progress.z::after{display:none}

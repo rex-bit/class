@@ -907,7 +907,7 @@ function renderAll(){
   if(!people.length){st.className='chip';st.textContent=t('stEmpty')}
   else if(fin){st.className='chip ok';st.textContent=t('stDone')}
   else{st.className='chip '+(g==='M'?'m':'f');st.textContent=t('mode',{g:t(g==='M'?'boys':'girls'),n:list.length})}
-  $('bar').style.width=(done/TOTAL*100)+'%';
+  $('bar').style.width=(done/TOTAL*100)+'%';$('bar').parentNode.style.setProperty('--pw',(done/TOTAL*100)+'%');$('bar').parentNode.classList.toggle('z',!done);
   $('prog').textContent=t('prog',{r:round,d:done,t:TOTAL});
   const b=$('badge');b.textContent=done;b.classList.toggle('show',done>0);$('pbadge').textContent=done;
   $('spin').lastElementChild.textContent=fin?t('nextR'):t('spin');
