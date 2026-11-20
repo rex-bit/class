@@ -11,6 +11,7 @@ window.CHANGELOG=[
    {en:'Custom color theme: pick any color in Settings > Appearance and the whole palette is generated from it, on every page.',id:'Tema warna sendiri: pilih warna apa saja di Pengaturan > Tampilan dan seluruh palet dibuat darinya, di semua halaman.'},
   ],
   improved:[
+   {en:'Expressive look: wavy progress indicator, cookie / sunny / flower / clover shaped icon containers, connected button groups, bolder oversized titles and a colour-block main card.',id:'Tampilan Expressive: indikator progres bergelombang, wadah ikon berbentuk cookie / sunny / flower / clover, grup tombol tersambung, judul lebih tebal dan besar, serta kartu utama berblok warna.'},
    {en:'Spring motion, hover and focus state layers, visible keyboard focus rings, larger rounded shapes and bolder titles across the app and info pages.',id:'Gerak pegas, lapisan status hover dan fokus, cincin fokus keyboard yang jelas, bentuk membulat lebih besar, dan judul lebih tebal di seluruh app dan halaman info.'},
   ]},
  {version:'v1.9.0',date:'2026-11-08',

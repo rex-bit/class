@@ -347,8 +347,8 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <p class="hint" style="margin-top:-4px"><a href="tag-names.html" data-i18n="tagLink"></a></p>
       <div class="field"><textarea id="names" placeholder="Budi&#10;Siti&#10;Andi (L)&#10;Dewi (P)&#10;..."></textarea></div>
       <div class="row" style="margin-bottom:14px">
-        <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
-        <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
+        <div class="grp"><button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
+        <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button></div>
         <button class="btn text sm" id="demo" data-i18n="loadDemo"></button>
       </div>
       <div class="field"><label data-i18n="frontRow"></label>
@@ -384,11 +384,11 @@ footer{text-align:center;font-size:12px;color:var(--onv);padding:20px 0}footer .
       <div class="row c" style="margin-bottom:10px"><button class="btn fill big" id="spin" data-i18n="spin"></button></div>
       <p class="hint kbd" style="text-align:center;margin:-2px 0 14px" data-i18n="kbd"></p>
       <div class="row c">
-        <button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
-        <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button>
+        <div class="grp"><button class="btn tonal sm" data-act="shuf" data-i18n="shuffle"></button>
+        <button class="btn tonal sm" data-act="az" data-i18n="sortAZ"></button></div>
         <button class="btn tonal sm" id="shuffle" data-i18n="shuffleSeats"></button>
-        <button class="btn tonal sm ico" id="undo" data-i18n="undo"></button>
-        <button class="btn tonal sm ico" id="redo" data-i18n="redo"></button>
+        <div class="grp"><button class="btn tonal sm ico" id="undo" data-i18n="undo"></button>
+        <button class="btn tonal sm ico" id="redo" data-i18n="redo"></button></div>
         <button class="btn text sm" id="reset" data-i18n="reset"></button>
       </div>
     </div>
@@ -1260,9 +1260,10 @@ const ICON_MAP=[['[data-act="shuf"]','shuffle'],['[data-act="az"]','sort'],['#de
  ['#cfgHd','settings'],['#focusHd','hide'],['#dSave','download'],['#dOpen','upload'],['#dInstall','download'],['#cfgBtn','settings'],['#focusBtn','hide'],['#faqMore','help'],['#undo','undo'],['#redo','redo'],['#actHd','history'],['#statHd','stats'],['#statBtn','stats'],['#actBtn','history'],['#unfocus','show'],['#cPrevT','play'],['#cPrevF','play'],['#cOk','check'],['#cReset','reset'],['#fs','fullscreen'],['#faqBtn','help'],['#polClose','close'],['#polWipe','delete'],
  ['h2[data-i18n="namesTitle"]','people'],['h2[data-i18n="splitTitle"]','wc'],['h2[data-i18n="rulesTitle"]','rules'],['h2[data-i18n="faqTitle"]','help']];
 function mkIcon(name){const NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 24 24');v.setAttribute('aria-hidden','true');const pa=document.createElementNS(NS,'path');pa.setAttribute('d',ICONS[name]);v.appendChild(pa);return v}
+let shpN=0;
 function addIcon(el,name){
   if(el.querySelector('svg'))return;
-  const v=mkIcon(name);if(el.tagName==='H2')v.setAttribute('class','hi');
+  let v=mkIcon(name);if(el.tagName==='H2'){v.setAttribute('class','hi');const w=document.createElement('span');w.className='shp s'+(shpN++%4);w.appendChild(v);v=w}
   const key=el.dataset.i18n;
   if(key){el.removeAttribute('data-i18n');el.textContent='';el.appendChild(v);const sp=document.createElement('span');sp.dataset.i18n=key;el.appendChild(sp)}
   else el.insertBefore(v,el.firstChild);
